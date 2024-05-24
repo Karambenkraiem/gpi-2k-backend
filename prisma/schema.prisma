@@ -1,0 +1,138 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Societe {
+  idSociete       Int        @id @default(autoincrement())
+  raisonSociale   String
+  adresse         String
+  responsable     String
+  email           String
+  numtel          String
+  secteurActivite String
+  typeSociete     String
+  Materiel        Materiel[]
+}
+
+enum Categorie {
+  Ordinateur
+  Ecran
+  PcPortable
+  Imprimante
+  Scanner
+  Onduleur
+  VideoProjecteur
+  Serveur
+}
+
+model Materiel {
+  numeroSerie                   String        @id
+  // idOrdinateur      Int?
+  // idEcran           Int?
+  // idPcPortable      Int?
+  // idImprimante      Int?
+  // idScanner         Int?
+  // idOnduleur        Int?
+  // idVideoProjecteur Int?
+  categorie                     Categorie
+  marque                        String
+  modele                        String
+  prix                          Float
+  garantie                      String
+  etat                          String
+  processeurPC                  String?
+  memoireCache                  String?
+  ram                           String?
+  disque                        String?
+  carteGraphique                String?
+  nombreDisque                  String?
+  tailleEcran                   Float?
+  EtatBatteriePcPortable        String?
+  vitesseImpression             String?
+  connexionWLU                  String?
+  technologieImpression         String?
+  fonctionSupplementaireScanImp String?
+  vitesseScan                   String?
+  typeScan                      String?
+  resolutionScanImpVideoP       String?
+  formatImpScan                 String?
+  poidsOnduleur                 String?
+  autonomieOnduleur             String?
+  technologieOnduleur           String?
+  capaciteChargeOnduleur        String?
+  entreeHDMI                    Boolean?
+  entreeVGA                     Boolean?
+  entreeUSB                     Boolean?
+  entreeLAN                     Boolean?
+  societe                       Societe       @relation(fields: [idSociete], references: [idSociete])
+  idSociete                     Int
+  Affectation                   Affectation[]
+  Emprunt                       Emprunt[]
+}
+
+model Departement {
+  idDepartement String       @id
+  nom           String
+  Specialite    Specialite[]
+}
+
+model Specialite {
+  idSpecialite             String        @id
+  nom                      String
+  Utilisateur              Utilisateur[]
+  Departement              Departement?  @relation(fields: [departementIdDepartement], references: [idDepartement])
+  departementIdDepartement String?
+}
+
+model Utilisateur {
+  idUtilisateur          Int           @id
+  password               String
+  fullName               String
+  email                  String
+  createdAt              DateTime      @default(now())
+  lastLogin              DateTime?
+  role                   String
+  etat                   String
+  telFix                 String?
+  telMobile              String?
+  Affectation            Affectation[]
+  Emprunt                Emprunt[]
+  Specialite             Specialite?   @relation(fields: [specialiteIdSpecialite], references: [idSpecialite])
+  specialiteIdSpecialite String?
+}
+
+model Affectation {
+  idUtilisateur   Int
+  numeroSerie     String
+  dateAttribution DateTime
+  dateRetour      DateTime?
+  motifRetour     String?
+  utilisateur     Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur])
+  materiel        Materiel    @relation(fields: [numeroSerie], references: [numeroSerie])
+
+  @@id([idUtilisateur, numeroSerie])
+}
+
+model Emprunt {
+  idUtilisateur      Int
+  numeroSerie        String
+  dateEmprunt        DateTime
+  dateRestitution    DateTime?
+  refProjet          String
+  etatMatRestitution String
+  utilisateur        Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur])
+  materiel           Materiel    @relation(fields: [numeroSerie], references: [numeroSerie])
+
+  @@id([idUtilisateur, numeroSerie])
+}

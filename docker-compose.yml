@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  gpi-nest-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gpi-nest-api
+    restart: always
+    ports:
+      - '3000:3000'
+    depends_on:
+      - gpi-nest-mysql
+    env_file:
+      - .env
+
+  gpi-nest-mysql:
+    image: mysql:8
+    container_name: gpi-nest-mysql
+    restart: always
+    ports:
+      - '3307:3306'
+    env_file:
+      - .env
+    volumes:
+      - gpi-nest-mysql:/var/lib/mysql
+
+volumes:
+  gpi-nest-mysql:
+    name: gpi-nest-mysql-db
