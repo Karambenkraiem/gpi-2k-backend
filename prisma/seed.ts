@@ -14,5 +14,19 @@ async function seed() {
             typeSociete: "string",
         }
     })
+    await prisma.utilisateur.create({
+        data: {
+            idUtilisateur: 123,
+            password: "string",
+            fullName: "string",
+            email: "string",
+            createdAt: new Date(),
+            lastLogin: new Date(),
+            role: "string",
+            etat: "string",
+            telFix: "string",
+            telMobile: "string",
+        }
+    })
 }
 seed()

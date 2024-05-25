@@ -10,4 +10,5 @@ export class CreateSocieteDto implements Prisma.SocieteCreateInput {
     typeSociete: string;
     Materiel?: Prisma.MaterielCreateNestedManyWithoutSocieteInput;
    
+   
 }

@@ -12,30 +12,28 @@ export class SocieteService {
     });
   }
 
-
-
-
-
-
   // findAll(adresse:string,numtel:string) {
-    // let where= { OR: [] } 
-    // if (adresse) {
-    //   where.OR.push({
-    //     adresse : adresse
-    //   })
-    // }
-    // if(numtel){
-    //   where.OR.push({
-    //     numtel:numtel
-    //   })
-    // }
-    
-    // return this.prisma.societe.findMany({
-    //   where:{
-    //     OR: [{adresse},{numtel}]
-    //   }
-    // });
-    findAll() {
+  //   let where= { OR: [] } 
+  //   if (adresse) {
+  //     where.OR.push({
+  //       adresse : adresse
+  //     })
+  //   }
+  //   if(numtel){
+  //     where.OR.push({
+  //       numtel:numtel
+  //     })
+  //   }    
+  //   return this.prisma.societe.findMany({
+  //     where:{
+  //       OR: [{adresse},{numtel}]
+  //     }
+  //   });    
+  // }
+
+
+
+  findAll() {
     return this.prisma.societe.findMany()
   }
 

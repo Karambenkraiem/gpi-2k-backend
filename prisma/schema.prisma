@@ -39,15 +39,39 @@ enum Categorie {
   Switch
 }
 
+enum ConnexionWLU {
+  WIFI
+  LAN
+  USB
+}
+
+enum EtatMateriel {
+  fonctionnel
+  enPanne
+  rebut
+}
+
+enum TypeScanner {
+  Aplat
+  ChargeAutomatique
+}
+
+enum TechnologieImpression {
+  inkTank
+  ecoTank
+  Laser
+  JetEncre
+}
+
 //ok
 model Materiel {
-  numeroSerie                   String        @id
+  numeroSerie                   String                 @id
   categorie                     Categorie
   marque                        String
   modele                        String
   prix                          Float
   garantie                      String
-  etat                          String
+  etatMateriel                  EtatMateriel
   processeurPC                  String?
   memoireCache                  String?
   ram                           String?
@@ -55,14 +79,15 @@ model Materiel {
   carteGraphique                String?
   nombreDisque                  String?
   tailleEcran                   Float?
-  EtatBatteriePcPortable        String?
+  etatBatteriePcPortable        String?
   vitesseImpression             String?
-  connexionWLU                  String?
-  technologie                   String?
+  connexionWLU                  ConnexionWLU?
+  technologieOnduleur           String?
   fonctionSupplementaireScanImp String?
-  vitesseScan                   String?
-  typeScan                      String?
+  vitesseScanner                String?
+  typeScanner                   TypeScanner?
   resolutionScanImpVideoP       String?
+  technologieImpression         TechnologieImpression?
   formatImpScan                 String?
   poidsOnduleur                 String?
   autonomieOnduleur             String?
@@ -71,7 +96,7 @@ model Materiel {
   entreeVGA                     Boolean?
   entreeUSB                     Boolean?
   entreeLAN                     Boolean?
-  societe                       Societe       @relation(fields: [idSociete], references: [idSociete])
+  societe                       Societe                @relation(fields: [idSociete], references: [idSociete])
   idSociete                     Int
   Affectation                   Affectation[]
   Emprunt                       Emprunt[]
@@ -84,28 +109,41 @@ model Departement {
 }
 
 model Specialite {
-  idSpecialite             String        @id
-  nom                      String
-  Utilisateur              Utilisateur[]
-  Departement              Departement?  @relation(fields: [departementId], references: [idDepartement])
+  idSpecialite  String        @id
+  nom           String
+  Utilisateur   Utilisateur[]
+  Departement   Departement?  @relation(fields: [departementId], references: [idDepartement])
   departementId String?
 }
 
+enum EtatUtilisateur {
+  actif
+  desactif
+}
+
+enum RoleUtilisateur {
+  employe
+  Technicien
+  Administrateur
+  Directeur
+  RMQ
+}
+
 model Utilisateur {
-  idUtilisateur          Int           @id
-  password               String
-  fullName               String
-  email                  String
-  createdAt              DateTime      @default(now())
-  lastLogin              DateTime?
-  role                   String
-  etat                   String
-  telFix                 String?
-  telMobile              String?
-  Affectation            Affectation[]
-  Emprunt                Emprunt[]
-  Specialite             Specialite?   @relation(fields: [specialiteId], references: [idSpecialite])
-  specialiteId String?
+  idUtilisateur   Int             @id
+  password        String
+  fullName        String
+  email           String
+  createdAt       DateTime        @default(now())
+  lastLogin       DateTime?
+  roleUtilisateur RoleUtilisateur @default(employe) 
+  etatUtilisateur EtatUtilisateur @default(desactif)
+  telFix          String?
+  telMobile       String?
+  Affectation     Affectation[]
+  Emprunt         Emprunt[]
+  Specialite      Specialite?     @relation(fields: [specialiteId], references: [idSpecialite])
+  specialiteId    String?
 }
 
 model Affectation {
@@ -120,12 +158,19 @@ model Affectation {
   @@id([idUtilisateur, numeroSerie])
 }
 
+enum RefProjet {
+  TERA
+  TERG
+  TERX
+  TERY
+}
+
 model Emprunt {
   idUtilisateur      Int
   numeroSerie        String
   dateEmprunt        DateTime
   dateRestitution    DateTime?
-  refProjet          String
+  refProjet          RefProjet
   etatMatRestitution String
   utilisateur        Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur])
   materiel           Materiel    @relation(fields: [numeroSerie], references: [numeroSerie])

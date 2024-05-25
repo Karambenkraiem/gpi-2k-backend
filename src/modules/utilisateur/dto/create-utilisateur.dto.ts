@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 
-export class CreateUtilisateurDto implements Prisma.UtilisateurCreateInput {
+export class CreateUtilisateurDto implements Prisma.UtilisateurCreateInput{
     idUtilisateur: number;
     password: string;
     fullName: string;
@@ -14,4 +14,5 @@ export class CreateUtilisateurDto implements Prisma.UtilisateurCreateInput {
     Affectation?: Prisma.AffectationCreateNestedManyWithoutUtilisateurInput;
     Emprunt?: Prisma.EmpruntCreateNestedManyWithoutUtilisateurInput;
     Specialite?: Prisma.SpecialiteCreateNestedOneWithoutUtilisateurInput;
+    
 }
