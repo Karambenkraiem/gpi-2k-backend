@@ -169,6 +169,10 @@ enum RefProjet {
   TERG
   TERX
   TERY
+  TEPA
+  TEPG
+  TEPX
+  TEPY
 }
 
 model Emprunt {
