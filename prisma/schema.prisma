@@ -63,6 +63,12 @@ enum TechnologieImpression {
   JetEncre
 }
 
+enum TechnologieOnduleur {
+  off_line
+  on_line
+  in_line
+}
+
 //ok
 model Materiel {
   numeroSerie                   String                 @id
@@ -82,7 +88,7 @@ model Materiel {
   etatBatteriePcPortable        String?
   vitesseImpression             String?
   connexionWLU                  ConnexionWLU?
-  technologieOnduleur           String?
+  technologieOnduleur           TechnologieOnduleur?
   fonctionSupplementaireScanImp String?
   vitesseScanner                String?
   typeScanner                   TypeScanner?
@@ -136,8 +142,8 @@ model Utilisateur {
   email           String
   createdAt       DateTime        @default(now())
   lastLogin       DateTime?
-  roleUtilisateur RoleUtilisateur @default(employe) 
-  etatUtilisateur EtatUtilisateur @default(desactif)
+  roleUtilisateur RoleUtilisateur @default(employe)
+  etatUtilisateur EtatUtilisateur @default(actif)
   telFix          String?
   telMobile       String?
   Affectation     Affectation[]
