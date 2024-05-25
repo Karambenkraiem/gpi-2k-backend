@@ -13,6 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//ok
 model Societe {
   idSociete       Int        @id @default(autoincrement())
   raisonSociale   String
@@ -25,6 +26,7 @@ model Societe {
   Materiel        Materiel[]
 }
 
+//ok
 enum Categorie {
   Ordinateur
   Ecran
@@ -34,17 +36,12 @@ enum Categorie {
   Onduleur
   VideoProjecteur
   Serveur
+  Switch
 }
 
+//ok
 model Materiel {
   numeroSerie                   String        @id
-  // idOrdinateur      Int?
-  // idEcran           Int?
-  // idPcPortable      Int?
-  // idImprimante      Int?
-  // idScanner         Int?
-  // idOnduleur        Int?
-  // idVideoProjecteur Int?
   categorie                     Categorie
   marque                        String
   modele                        String
@@ -61,7 +58,7 @@ model Materiel {
   EtatBatteriePcPortable        String?
   vitesseImpression             String?
   connexionWLU                  String?
-  technologieImpression         String?
+  technologie                   String?
   fonctionSupplementaireScanImp String?
   vitesseScan                   String?
   typeScan                      String?
@@ -69,7 +66,6 @@ model Materiel {
   formatImpScan                 String?
   poidsOnduleur                 String?
   autonomieOnduleur             String?
-  technologieOnduleur           String?
   capaciteChargeOnduleur        String?
   entreeHDMI                    Boolean?
   entreeVGA                     Boolean?
@@ -91,8 +87,8 @@ model Specialite {
   idSpecialite             String        @id
   nom                      String
   Utilisateur              Utilisateur[]
-  Departement              Departement?  @relation(fields: [departementIdDepartement], references: [idDepartement])
-  departementIdDepartement String?
+  Departement              Departement?  @relation(fields: [departementId], references: [idDepartement])
+  departementId String?
 }
 
 model Utilisateur {
@@ -108,8 +104,8 @@ model Utilisateur {
   telMobile              String?
   Affectation            Affectation[]
   Emprunt                Emprunt[]
-  Specialite             Specialite?   @relation(fields: [specialiteIdSpecialite], references: [idSpecialite])
-  specialiteIdSpecialite String?
+  Specialite             Specialite?   @relation(fields: [specialiteId], references: [idSpecialite])
+  specialiteId String?
 }
 
 model Affectation {
