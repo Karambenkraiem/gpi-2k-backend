@@ -13,14 +13,80 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//ok
-enum TypeSociete {
-  fournisseur
-  prestataireService
+//------------------- Model ------------------------
+
+model Affectation {
+  idUtilisateur   Int
+  numeroSerie     String
+  dateAttribution DateTime    @default(now())
+  dateRetour      DateTime?
+  motifRetour     String?
+  utilisateur     Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur])
+  materiel        Materiel    @relation(fields: [numeroSerie], references: [numeroSerie])
+
+  @@id([idUtilisateur, numeroSerie])
+}
+
+model Departement {
+  idDepartement String       @id
+  nom           String
+  Specialite    Specialite[]
+}
+
+model Emprunt {
+  idUtilisateur      Int
+  numeroSerie        String
+  dateEmprunt        DateTime    @default(now())
+  dateRestitution    DateTime?
+  refProjet          RefProjet   @default(TERG)
+  etatMatRestitution String
+  utilisateur        Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur])
+  materiel           Materiel    @relation(fields: [numeroSerie], references: [numeroSerie])
+
+  @@id([idUtilisateur, numeroSerie])
+}
+
+model Materiel {
+  numeroSerie                   String                 @id
+  categorie                     Categorie              @default(UniteCentrale)
+  marque                        String
+  modele                        String
+  prix                          Float
+  garantie                      String
+  etatMateriel                  EtatMateriel           @default(nouveau)
+  dateAcquisition               DateTime               @default(now())
+  processeurPC                  String?
+  memoireCache                  String?
+  ram                           String?
+  disque                        String?
+  carteGraphique                String?
+  nombreDisque                  String?
+  tailleEcran                   Float?
+  etatBatteriePcPortable        String?
+  vitesseImpression             String?
+  connexionWLU                  ConnexionWLU?
+  technologieOnduleur           TechnologieOnduleur?
+  fonctionSupplementaireScanImp String?
+  vitesseScanner                String?
+  typeScanner                   TypeScanner?
+  resolutionScanImpVideoP       String?
+  technologieImpression         TechnologieImpression?
+  formatScanImp                 String?
+  poidsOnduleur                 String?
+  autonomieOnduleur             String?
+  capaciteChargeOnduleur        String?
+  entreeHDMI_VideoProjecteur    Boolean?
+  entreeVGA_VideoProjecteur     Boolean?
+  entreeUSB_VideoProjecteur     Boolean?
+  entreeLAN_VideoProjecteur     Boolean?
+  societe                       Societe                @relation(fields: [idSociete], references: [idSociete])
+  idSociete                     Int
+  Affectation                   Affectation[]
+  Emprunt                       Emprunt[]
 }
 
 model Societe {
-  idSociete       Int        @id @default(autoincrement())
+  idSociete       Int         @id @default(autoincrement())
   raisonSociale   String
   adresse         String
   responsable     String
@@ -31,7 +97,41 @@ model Societe {
   Materiel        Materiel[]
 }
 
-//ok
+model Specialite {
+  idSpecialite  String        @id
+  nom           String
+  Utilisateur   Utilisateur[]
+  Departement   Departement?  @relation(fields: [idDepartement], references: [idDepartement])
+  idDepartement String?
+}
+
+model Utilisateur {
+  idUtilisateur   Int             @id
+  password        String
+  fullName        String
+  email           String
+  createdAt       DateTime        @default(now())
+  lastLogin       DateTime?
+  roleUtilisateur RoleUtilisateur @default(EMPLOYE)
+  etatUtilisateur EtatUtilisateur @default(actif)
+  telFix          String?
+  telMobile       String?
+  Affectation     Affectation[]
+  Emprunt         Emprunt[]
+  Specialite      Specialite?     @relation(fields: [idSpecialite], references: [idSpecialite])
+  idSpecialite    String?
+}
+
+
+
+
+//------ ENUM--------
+
+enum TypeSociete {
+  fournisseur
+  prestataireService
+}
+
 enum Categorie {
   UniteCentrale
   Ecran
@@ -75,99 +175,17 @@ enum TechnologieOnduleur {
   in_line
 }
 
-//ok
-model Materiel {
-  numeroSerie                   String                 @id
-  categorie                     Categorie              @default(UniteCentrale)
-  marque                        String
-  modele                        String
-  prix                          Float
-  garantie                      String
-  etatMateriel                  EtatMateriel           @default(nouveau)
-  processeurPC                  String?
-  memoireCache                  String?
-  ram                           String?
-  disque                        String?
-  carteGraphique                String?
-  nombreDisque                  String?
-  tailleEcran                   Float?
-  etatBatteriePcPortable        String?
-  vitesseImpression             String?
-  connexionWLU                  ConnexionWLU?
-  technologieOnduleur           TechnologieOnduleur?
-  fonctionSupplementaireScanImp String?
-  vitesseScanner                String?
-  typeScanner                   TypeScanner?
-  resolutionScanImpVideoP       String?
-  technologieImpression         TechnologieImpression?
-  formatImpScan                 String?
-  poidsOnduleur                 String?
-  autonomieOnduleur             String?
-  capaciteChargeOnduleur        String?
-  entreeHDMI                    Boolean?
-  entreeVGA                     Boolean?
-  entreeUSB                     Boolean?
-  entreeLAN                     Boolean?
-  societe                       Societe                @relation(fields: [idSociete], references: [idSociete])
-  idSociete                     Int
-  Affectation                   Affectation[]
-  Emprunt                       Emprunt[]
-}
-
-model Departement {
-  idDepartement String       @id
-  nom           String
-  Specialite    Specialite[]
-}
-
-model Specialite {
-  idSpecialite  String        @id
-  nom           String
-  Utilisateur   Utilisateur[]
-  Departement   Departement?  @relation(fields: [departementId], references: [idDepartement])
-  departementId String?
-}
-
 enum EtatUtilisateur {
   actif
   desactif
 }
 
 enum RoleUtilisateur {
-  employe
-  Technicien
-  Administrateur
-  Directeur
+  DIRECTEUR
+  ADMINISTRATOR
+  TECHNICIEN
+  EMPLOYE
   RMQ
-}
-
-model Utilisateur {
-  idUtilisateur   Int             @id
-  password        String
-  fullName        String
-  email           String
-  createdAt       DateTime        @default(now())
-  lastLogin       DateTime?
-  roleUtilisateur RoleUtilisateur @default(employe)
-  etatUtilisateur EtatUtilisateur @default(actif)
-  telFix          String?
-  telMobile       String?
-  Affectation     Affectation[]
-  Emprunt         Emprunt[]
-  Specialite      Specialite?     @relation(fields: [specialiteId], references: [idSpecialite])
-  specialiteId    String?
-}
-
-model Affectation {
-  idUtilisateur   Int
-  numeroSerie     String
-  dateAttribution DateTime    @default(now())
-  dateRetour      DateTime?
-  motifRetour     String?
-  utilisateur     Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur])
-  materiel        Materiel    @relation(fields: [numeroSerie], references: [numeroSerie])
-
-  @@id([idUtilisateur, numeroSerie])
 }
 
 enum RefProjet {
@@ -179,17 +197,4 @@ enum RefProjet {
   TEPG
   TEPX
   TEPY
-}
-
-model Emprunt {
-  idUtilisateur      Int
-  numeroSerie        String
-  dateEmprunt        DateTime    @default(now())
-  dateRestitution    DateTime?
-  refProjet          RefProjet   @default(TERG)
-  etatMatRestitution String
-  utilisateur        Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur])
-  materiel           Materiel    @relation(fields: [numeroSerie], references: [numeroSerie])
-
-  @@id([idUtilisateur, numeroSerie])
 }
