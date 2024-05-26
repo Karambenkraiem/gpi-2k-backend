@@ -14,6 +14,11 @@ datasource db {
 }
 
 //ok
+enum TypeSociete {
+  fournisseur
+  prestataireService
+}
+
 model Societe {
   idSociete       Int        @id @default(autoincrement())
   raisonSociale   String
@@ -22,13 +27,13 @@ model Societe {
   email           String
   numtel          String
   secteurActivite String
-  typeSociete     String
+  typeSociete     TypeSociete @default(fournisseur)
   Materiel        Materiel[]
 }
 
 //ok
 enum Categorie {
-  Ordinateur
+  UniteCentrale
   Ecran
   PcPortable
   Imprimante
@@ -46,6 +51,7 @@ enum ConnexionWLU {
 }
 
 enum EtatMateriel {
+  nouveau
   fonctionnel
   enPanne
   rebut
@@ -72,12 +78,12 @@ enum TechnologieOnduleur {
 //ok
 model Materiel {
   numeroSerie                   String                 @id
-  categorie                     Categorie
+  categorie                     Categorie              @default(UniteCentrale)
   marque                        String
   modele                        String
   prix                          Float
   garantie                      String
-  etatMateriel                  EtatMateriel
+  etatMateriel                  EtatMateriel           @default(nouveau)
   processeurPC                  String?
   memoireCache                  String?
   ram                           String?
@@ -155,7 +161,7 @@ model Utilisateur {
 model Affectation {
   idUtilisateur   Int
   numeroSerie     String
-  dateAttribution DateTime
+  dateAttribution DateTime    @default(now())
   dateRetour      DateTime?
   motifRetour     String?
   utilisateur     Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur])
@@ -178,9 +184,9 @@ enum RefProjet {
 model Emprunt {
   idUtilisateur      Int
   numeroSerie        String
-  dateEmprunt        DateTime
+  dateEmprunt        DateTime    @default(now())
   dateRestitution    DateTime?
-  refProjet          RefProjet
+  refProjet          RefProjet   @default(TERG)
   etatMatRestitution String
   utilisateur        Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur])
   materiel           Materiel    @relation(fields: [numeroSerie], references: [numeroSerie])

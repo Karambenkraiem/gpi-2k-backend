@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateSocieteDto } from './create-societe.dto';
-import { Prisma } from '@prisma/client';
+import { $Enums, Prisma } from '@prisma/client';
 
 export class UpdateSocieteDto extends PartialType(CreateSocieteDto) {
     raisonSociale: string;
@@ -9,6 +9,6 @@ export class UpdateSocieteDto extends PartialType(CreateSocieteDto) {
     email: string;
     numtel: string;
     secteurActivite: string;
-    typeSociete: string;
+    typeSociete: $Enums.TypeSociete ;
     Materiel?: Prisma.MaterielCreateNestedManyWithoutSocieteInput;
 }

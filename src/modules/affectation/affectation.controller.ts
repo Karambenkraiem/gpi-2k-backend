@@ -2,11 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { AffectationService } from './affectation.service';
 import { CreateAffectationDto } from './dto/create-affectation.dto';
 import { UpdateAffectationDto } from './dto/update-affectation.dto';
-import { Filter } from './entities/affectation.entity';
 
 @Controller('affectation')
 export class AffectationController {
-  constructor(private readonly affectationService: AffectationService) {}
+  constructor(private readonly affectationService: AffectationService) { }
 
   @Post()
   create(@Body() createAffectationDto: CreateAffectationDto) {
@@ -18,31 +17,32 @@ export class AffectationController {
     return this.affectationService.findAll();
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.affectationService.findOne(id);
-  // }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAffectationDto: UpdateAffectationDto) {
-    return this.affectationService.update(id, updateAffectationDto);
+  @Get(':idUtilisateur/:numeroSerie')
+  async findOne(
+    @Param('idUtilisateur') idUtilisateur: string,
+    @Param('numeroSerie') numeroSerie: string,
+  ) {
+    return this.affectationService.findOne(+(idUtilisateur), numeroSerie);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.affectationService.remove(id);
+
+  @Patch(':idUtilisateur/:numeroSerie')
+  update(
+    @Param('idUtilisateur') idUtilisateur: string,
+    @Param('numeroSerie') numeroSerie: string,
+    @Body() updateAffectationDto: UpdateAffectationDto) {
+    return this.affectationService.update(+(idUtilisateur), numeroSerie, updateAffectationDto);
   }
 
-  // @Get(':idUtilisateur/:numeroSerie')
-  // async findOne(
-  //   @Param('idUtilisateur') idUtilisateur: number,
-  //   @Param('numeroSerie') numeroSerie: string,
-  // ){
-  //   return this.affectationService.findOne(idUtilisateur, numeroSerie);
-  // }
-
-  @Get()
-  findOne(@Query() filter:Filter) {  
-    return this.affectationService.findAll(filter.idUtilisateur, filter.numeroSerie);
+  @Delete(':idUtilisateur/:numeroSerie')
+  remove(
+    @Param('idUtilisateur') idUtilisateur: string,
+    @Param('numeroSerie') numeroSerie: string) {
+    return this.affectationService.remove(+(idUtilisateur), numeroSerie);
   }
+
+
+
+
 }

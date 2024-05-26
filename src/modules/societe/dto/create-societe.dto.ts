@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { $Enums, Prisma } from "@prisma/client";
 
 export class CreateSocieteDto implements Prisma.SocieteCreateInput {
     raisonSociale: string;
@@ -7,7 +7,7 @@ export class CreateSocieteDto implements Prisma.SocieteCreateInput {
     email: string;
     numtel: string;
     secteurActivite: string;
-    typeSociete: string;
+    typeSociete: $Enums.TypeSociete;
     Materiel?: Prisma.MaterielCreateNestedManyWithoutSocieteInput;
    
    

@@ -7,9 +7,10 @@ import { MaterielModule } from './modules/materiel/materiel.module';
 import { DepartementModule } from './modules/departement/departement.module';
 import { SpecialiteModule } from './modules/specialite/specialite.module';
 import { AffectationModule } from './modules/affectation/affectation.module';
+import { EmpruntModule } from './modules/emprunt/emprunt.module';
 
 @Module({
-  imports: [SocieteModule, UtilisateurModule, MaterielModule, DepartementModule, SpecialiteModule, AffectationModule],
+  imports: [SocieteModule, UtilisateurModule, MaterielModule, DepartementModule, SpecialiteModule, AffectationModule, EmpruntModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -5,18 +5,18 @@ const prisma = new PrismaClient
 async function seed() {
     await prisma.societe.create({
         data: {
-            raisonSociale: "123",
+            raisonSociale: "5",
             adresse: "string",
             responsable: "string",
             email: "string",
             numtel: "string",
             secteurActivite: "string",
-            typeSociete: "string",
+            typeSociete: "fournisseur",
         }
     })
     await prisma.utilisateur.create({
         data: {
-            idUtilisateur: 12,
+            idUtilisateur: 5,
             password: "string",
             fullName: "string",
             email: "string",
@@ -30,7 +30,7 @@ async function seed() {
     })
     await prisma.materiel.create({
         data: {
-            numeroSerie: "string1",
+            numeroSerie: "5",
             categorie: "Ecran",
             marque: "string",
             modele: "string",
@@ -68,14 +68,39 @@ async function seed() {
 
     await prisma.departement.create({
         data: {
-            idDepartement: "string",
+            idDepartement: "depdep",
             nom: "string",
         }
     })
+    await prisma.affectation.create({
+        data: {
+          idUtilisateur: 5,
+          numeroSerie: '5',
+          dateAttribution: new Date(),
+          dateRetour: new Date(),
+          motifRetour: 'stringMotif',
+        },
+      });
+      await prisma.emprunt.create({
+        data: {
+          idUtilisateur: 5,
+          numeroSerie: '5',
+          dateEmprunt: new Date(),
+          dateRestitution: new Date(),
+          refProjet: 'TEPA',
+          etatMatRestitution:"Bon etat",         
 
+        },
+      });
 
+      await prisma.specialite.create({
+        data: {
+          idSpecialite:  "5",
+          nom:"5",
+          departementId:"depdep"      
 
-
+        },
+      });
 
 }
 seed()
