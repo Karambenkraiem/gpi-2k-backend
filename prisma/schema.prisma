@@ -55,6 +55,9 @@ model Materiel {
   garantie                      String
   etatMateriel                  EtatMateriel           @default(nouveau)
   dateAcquisition               DateTime               @default(now())
+  nombrePortSwitch              Int?
+  debitSwitch                   Int?
+  technologieSwith              String?
   processeurPC                  String?
   memoireCache                  String?
   ram                           String?
@@ -122,16 +125,7 @@ model Utilisateur {
   idSpecialite    String?
 }
 
-
-
-
 //------ ENUM--------
-
-enum TypeSociete {
-  fournisseur
-  prestataireService
-}
-
 enum Categorie {
   UniteCentrale
   Ecran
@@ -142,6 +136,11 @@ enum Categorie {
   VideoProjecteur
   Serveur
   Switch
+}
+
+enum TypeSociete {
+  fournisseur
+  prestataireService
 }
 
 enum ConnexionWLU {
