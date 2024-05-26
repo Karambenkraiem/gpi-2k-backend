@@ -181,7 +181,7 @@ enum EtatUtilisateur {
 
 enum RoleUtilisateur {
   DIRECTEUR
-  ADMINISTRATOR
+  ADMINISTRATEUR
   TECHNICIEN
   EMPLOYE
   RMQ
