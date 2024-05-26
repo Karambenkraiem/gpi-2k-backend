@@ -15,6 +15,7 @@ export class AffectationService {
   findAll() {
     return this.prisma.affectation.findMany();
   }
+
   findOne(idUtilisateur: number, numeroSerie: string) {
     return this.prisma.affectation.findMany({
       where: {

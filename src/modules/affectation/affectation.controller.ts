@@ -17,7 +17,6 @@ export class AffectationController {
     return this.affectationService.findAll();
   }
 
-
   @Get(':idUtilisateur/:numeroSerie')
   async findOne(
     @Param('idUtilisateur') idUtilisateur: string,
@@ -25,7 +24,6 @@ export class AffectationController {
   ) {
     return this.affectationService.findOne(+(idUtilisateur), numeroSerie);
   }
-
 
   @Patch(':idUtilisateur/:numeroSerie')
   update(

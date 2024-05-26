@@ -22,7 +22,7 @@ async function seed() {
             email: "string",
             createdAt: new Date(),
             lastLogin: new Date(),
-            roleUtilisateur: "Administrateur",
+            roleUtilisateur: "ADMINISTRATOR",
             etatUtilisateur: "actif",
             telFix: "string",
             telMobile: "string",
@@ -53,14 +53,14 @@ async function seed() {
             typeScanner: "Aplat",
             resolutionScanImpVideoP: "string",
             technologieImpression: "JetEncre",
-            formatImpScan: "string",
+            formatScanImp: "string",
             poidsOnduleur: "string",
             autonomieOnduleur: "string",
             capaciteChargeOnduleur: "string",
-            entreeHDMI: true,
-            entreeVGA: true,
-            entreeUSB: true,
-            entreeLAN: true,
+            entreeHDMI_VideoProjecteur: true,
+            entreeVGA_VideoProjecteur: true,
+            entreeUSB_VideoProjecteur: true,
+            entreeLAN_VideoProjecteur: true,
             idSociete: 1,
 
         }
@@ -97,7 +97,7 @@ async function seed() {
         data: {
           idSpecialite:  "5",
           nom:"5",
-          departementId:"depdep"      
+          idDepartement:"depdep"      
 
         },
       });
