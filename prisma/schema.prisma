@@ -21,7 +21,7 @@ model Affectation {
   dateAttribution DateTime    @default(now())
   dateRetour      DateTime?
   motifRetour     String?
-  utilisateur     Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur])
+  utilisateur     Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur],onDelete: Cascade)
   materiel        Materiel    @relation(fields: [numeroSerie], references: [numeroSerie])
 
   @@id([idUtilisateur, numeroSerie])
@@ -40,7 +40,7 @@ model Emprunt {
   dateRestitution    DateTime?
   refProjet          RefProjet   @default(TERG)
   etatMatRestitution String
-  utilisateur        Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur])
+  utilisateur        Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur],onDelete: Cascade)
   materiel           Materiel    @relation(fields: [numeroSerie], references: [numeroSerie])
 
   @@id([idUtilisateur, numeroSerie])
@@ -55,6 +55,7 @@ model Materiel {
   garantie                      String
   etatMateriel                  EtatMateriel           @default(nouveau)
   dateAcquisition               DateTime               @default(now())
+  idSociete                     Int
   nombrePortSwitch              Int?
   debitSwitch                   Int?
   technologieSwith              String?
@@ -83,7 +84,6 @@ model Materiel {
   entreeUSB_VideoProjecteur     Boolean?
   entreeLAN_VideoProjecteur     Boolean?
   societe                       Societe                @relation(fields: [idSociete], references: [idSociete])
-  idSociete                     Int
   Affectation                   Affectation[]
   Emprunt                       Emprunt[]
 }
@@ -113,7 +113,7 @@ model Utilisateur {
   password        String
   fullName        String
   email           String
-  createdAt       DateTime        @default(now())
+  createdAt       DateTime?        @default(now())
   lastLogin       DateTime?
   roleUtilisateur RoleUtilisateur @default(EMPLOYE)
   etatUtilisateur EtatUtilisateur @default(actif)
@@ -121,7 +121,7 @@ model Utilisateur {
   telMobile       String?
   Affectation     Affectation[]
   Emprunt         Emprunt[]
-  Specialite      Specialite?     @relation(fields: [idSpecialite], references: [idSpecialite])
+  Specialite      Specialite?     @relation(fields: [idSpecialite], references: [idSpecialite], onDelete: Cascade)
   idSpecialite    String?
 }
 

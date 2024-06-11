@@ -14,12 +14,16 @@ export class UtilisateurService {
   }
 
   findAll() {
-    return this.prisma.utilisateur.findMany();
+    return this.prisma.utilisateur.findMany({
+      include:{Specialite:{include:{Departement:true}}}
+
+    });
   }
 
   findOne(idUtilisateur: number) {
     return this.prisma.utilisateur.findUnique({
-      where: { idUtilisateur }
+      where: { idUtilisateur },
+      include:{Specialite:{include:{Departement:true}}}
     });
   }
 
