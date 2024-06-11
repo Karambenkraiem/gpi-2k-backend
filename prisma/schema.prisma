@@ -176,7 +176,8 @@ enum TechnologieOnduleur {
 
 enum EtatUtilisateur {
   actif
-  desactif
+  inactif
+  suspendu
 }
 
 enum RoleUtilisateur {
