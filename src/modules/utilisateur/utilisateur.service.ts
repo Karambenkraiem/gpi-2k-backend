@@ -27,11 +27,42 @@ export class UtilisateurService {
     });
   }
 
+  // update(idUtilisateur: number, updateUtilisateurDto: UpdateUtilisateurDto) {
+  //   return this.prisma.utilisateur.update({
+  //     where: { idUtilisateur },
+  //     data: {
+
+  //       password: updateUtilisateurDto.password,
+  //       fullName: updateUtilisateurDto.fullName,
+  //       email: updateUtilisateurDto.email,
+  //       createdAt: updateUtilisateurDto.createdAt,
+  //       lastLogin: updateUtilisateurDto.lastLogin,
+  //       roleUtilisateur: updateUtilisateurDto.roleUtilisateur,
+  //       etatUtilisateur: updateUtilisateurDto.etatUtilisateur,
+  //       telFix: updateUtilisateurDto.telFix,
+  //       telMobile: updateUtilisateurDto.telMobile,
+  //       Specialite: {
+  //         update: {
+  //           idSpecialite: updateUtilisateurDto.idSpecialite,
+  //           nom: updateUtilisateurDto.nom,
+  //           Departement: {
+  //             update: {
+  //               idDepartement: updateUtilisateurDto.idDepartement,
+  //               nom: updateUtilisateurDto.nom,
+  //             },
+  //           },
+  //         },
+  //       },
+  //       Affectation: updateUtilisateurDto.Affectation,
+  //       Emprunt: updateUtilisateurDto.Emprunt,
+  //     },
+  //   });
+  // }
+
   update(idUtilisateur: number, updateUtilisateurDto: UpdateUtilisateurDto) {
     return this.prisma.utilisateur.update({
       where: { idUtilisateur },
       data: {
-        
         password: updateUtilisateurDto.password,
         fullName: updateUtilisateurDto.fullName,
         email: updateUtilisateurDto.email,
@@ -41,23 +72,14 @@ export class UtilisateurService {
         etatUtilisateur: updateUtilisateurDto.etatUtilisateur,
         telFix: updateUtilisateurDto.telFix,
         telMobile: updateUtilisateurDto.telMobile,
-        Specialite: {
-          update: {
-            idSpecialite: updateUtilisateurDto.idSpecialite,
-            nom: updateUtilisateurDto.nom,
-            Departement: {
-              update: {
-                idDepartement: updateUtilisateurDto.idDepartement,
-                nom: updateUtilisateurDto.nom,
-              },
-            },
-          },
-        },
+        idSpecialite: updateUtilisateurDto.idSpecialite,
         Affectation: updateUtilisateurDto.Affectation,
         Emprunt: updateUtilisateurDto.Emprunt,
       },
     });
   }
+  
+  
 
   remove(idUtilisateur: number) {
     return this.prisma.utilisateur.delete({
