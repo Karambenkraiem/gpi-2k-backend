@@ -58,7 +58,7 @@ model Materiel {
   idSociete                     Int
   nombrePortSwitch              Int?
   debitSwitch                   Int?
-  technologieSwith              String?
+  technologieSwitch             String?
   processeurPC                  String?
   memoireCache                  String?
   ram                           String?

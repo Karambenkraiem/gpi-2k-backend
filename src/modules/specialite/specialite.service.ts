@@ -13,12 +13,16 @@ export class SpecialiteService {
   }
 
   findAll() {
-    return this.prisma.specialite.findMany();
+    return this.prisma.specialite.findMany({
+      include:{Departement:true}
+    });
+    
   }
 
   findOne(idSpecialite:string) {
     return this.prisma.specialite.findUnique({
-      where:{idSpecialite}
+      where:{idSpecialite},
+      include:{Departement:true}
     });
   }
 

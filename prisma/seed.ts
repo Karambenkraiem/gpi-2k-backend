@@ -1,113 +1,270 @@
-import { $Enums, Categorie, Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient
+const prisma = new PrismaClient();
 
 async function seed() {
-  await prisma.societe.create({
-    data: {
-      raisonSociale: "5",
-      adresse: "string",
-      responsable: "string",
-      email: "string",
-      numtel: "string",
-      secteurActivite: "string",
-      typeSociete: "fournisseur",
-    }
-  })
+  await prisma.societe.createMany({
+    data: [
+      {
+        raisonSociale: "NetUse",
+        adresse: "Centre Urbain Nord",
+        responsable: "AbdelAziz KRAIDI",
+        email: "contact@netuse.com.tn",
+        numtel: "71948225",
+        secteurActivite: "Prestataire de service",
+        typeSociete: "prestataireService",
+      },
+      {
+        raisonSociale: "Intelo",
+        adresse: "Alain SAVARI",
+        responsable: "Koussay",
+        email: "contact@intelo.com.tn",
+        numtel: "71850600",
+        secteurActivite: "Vente Matériels informatique",
+        typeSociete: "fournisseur",
+      }
+    ]
+  });
+
   await prisma.departement.create({
     data: {
-      idDepartement: "depdep",
-      nom: "string",
+      idDepartement: "DASI",
+      nom: "Département Achat et Système d'informations",
     }
-  })
+  });
+
   await prisma.specialite.create({
     data: {
-      idSpecialite: "5",
-      nom: "string",
-      idDepartement: "depdep"
-
-    },
+      idSpecialite: "IT_ADMIN",
+      nom: "Administrateur Système",
+      idDepartement: "DASI"
+    }
   });
+
   await prisma.utilisateur.create({
     data: {
-      idUtilisateur: 5,
-      password: "string",
-      fullName: "string",
-      email: "string",
+      idUtilisateur: 616,
+      password: "123",
+      fullName: "Kheireddine MHAMDI",
+      email: "kh.mhamdi@teci.com.tn",
       createdAt: new Date(),
       lastLogin: new Date(),
       roleUtilisateur: "ADMINISTRATEUR",
       etatUtilisateur: "actif",
-      telFix: "string",
-      telMobile: "string",
-      idSpecialite: "5"
+      telFix: "924",
+      telMobile: "53722910",
+      idSpecialite: "IT_ADMIN"
     }
-  })
-  await prisma.materiel.create({
-    data: {
-      numeroSerie: "5",
-      categorie: "Ecran",
-      marque: "string",
-      modele: "string",
-      prix: 200,
-      garantie: "string",
-      etatMateriel: "fonctionnel",
-      dateAcquisition: new Date(),
-      nombrePortSwitch: 2,
-      debitSwitch: 100,
-      technologieSwith: "string",
-      processeurPC: "string",
-      memoireCache: "string",
-      ram: "string",
-      disque: "string",
-      carteGraphique: "string",
-      nombreDisque: "string",
-      tailleEcran: 300,
-      etatBatteriePcPortable: "string",
-      vitesseImpression: "string",
-      connexionWLU: "WIFI",
-      technologieOnduleur: "in_line",
-      fonctionSupplementaireScanImp: "string",
-      vitesseScanner: "string",
-      typeScanner: "Aplat",
-      resolutionScanImpVideoP: "string",
-      technologieImpression: "JetEncre",
-      formatScanImp: "string",
-      poidsOnduleur: "string",
-      autonomieOnduleur: "string",
-      capaciteChargeOnduleur: "string",
-      entreeHDMI_VideoProjecteur: true,
-      entreeVGA_VideoProjecteur: true,
-      entreeUSB_VideoProjecteur: true,
-      entreeLAN_VideoProjecteur: true,
-      idSociete: 1
-
-    }
-  })
-
-
-  await prisma.affectation.create({
-    data: {
-      idUtilisateur: 5,
-      numeroSerie: "5",
-      dateAttribution: new Date(),
-      dateRetour: new Date(),
-      motifRetour: 'stringMotif',
-    },
   });
+
+  await prisma.materiel.createMany({
+    data: [
+      {
+        numeroSerie: "CZC7367N7F",
+        categorie: "UniteCentrale",
+        marque: "HP",
+        modele: "ProDesk 400 G4 MT",
+        prix: 2000,
+        garantie: "1",
+        etatMateriel: "fonctionnel",
+        dateAcquisition: new Date('2018-12-28'),
+        nombrePortSwitch: null,
+        debitSwitch: null,
+        technologieSwitch: null,
+        processeurPC: "3.6 Ghz",
+        memoireCache: "8 Mo",
+        ram: "8 Go",
+        disque: "1*SSD 256 Go + 1*HDD 1To",
+        carteGraphique: "2 Go",
+        nombreDisque: "2",
+        tailleEcran: null,
+        etatBatteriePcPortable: null,
+        vitesseImpression: null,
+        connexionWLU: null,
+        technologieOnduleur: null,
+        fonctionSupplementaireScanImp: null,
+        vitesseScanner: null,
+        typeScanner: null,
+        resolutionScanImpVideoP: null,
+        technologieImpression: null,
+        formatScanImp: null,
+        poidsOnduleur: null,
+        autonomieOnduleur: null,
+        capaciteChargeOnduleur: null,
+        entreeHDMI_VideoProjecteur: false,
+        entreeVGA_VideoProjecteur: false,
+        entreeUSB_VideoProjecteur: false,
+        entreeLAN_VideoProjecteur: false,
+        idSociete: 2
+      },
+      {
+        numeroSerie: "124Q08KU",
+        categorie: "Ecran",
+        marque: "DELL",
+        modele: "P2412Hb",
+        prix: 800,
+        garantie: "1",
+        etatMateriel: "fonctionnel",
+        dateAcquisition: new Date('2012-03-24'),
+        nombrePortSwitch: null,
+        debitSwitch: null,
+        technologieSwitch: null,
+        processeurPC: null,
+        memoireCache: null,
+        ram: null,
+        disque: null,
+        carteGraphique: null,
+        nombreDisque: null,
+        tailleEcran: 24,
+        etatBatteriePcPortable: null,
+        vitesseImpression: null,
+        connexionWLU: null,
+        technologieOnduleur: null,
+        fonctionSupplementaireScanImp: null,
+        vitesseScanner: null,
+        typeScanner: null,
+        resolutionScanImpVideoP: null,
+        technologieImpression: null,
+        formatScanImp: null,
+        poidsOnduleur: null,
+        autonomieOnduleur: null,
+        capaciteChargeOnduleur: null,
+        entreeHDMI_VideoProjecteur: false,
+        entreeVGA_VideoProjecteur: false,
+        entreeUSB_VideoProjecteur: false,
+        entreeLAN_VideoProjecteur: false,
+        idSociete: 2
+      },
+      {
+        numeroSerie: "124Q07PU",
+        categorie: "Ecran",
+        marque: "DELL",
+        modele: "P2412Hb",
+        prix: 800,
+        garantie: "1",
+        etatMateriel: "fonctionnel",
+        dateAcquisition: new Date('2012-03-24'),
+        nombrePortSwitch: null,
+        debitSwitch: null,
+        technologieSwitch: null,
+        processeurPC: null,
+        memoireCache: null,
+        ram: null,
+        disque: null,
+        carteGraphique: null,
+        nombreDisque: null,
+        tailleEcran: 24,
+        etatBatteriePcPortable: null,
+        vitesseImpression: null,
+        connexionWLU: null,
+        technologieOnduleur: null,
+        fonctionSupplementaireScanImp: null,
+        vitesseScanner: null,
+        typeScanner: null,
+        resolutionScanImpVideoP: null,
+        technologieImpression: null,
+        formatScanImp: null,
+        poidsOnduleur: null,
+        autonomieOnduleur: null,
+        capaciteChargeOnduleur: null,
+        entreeHDMI_VideoProjecteur: false,
+        entreeVGA_VideoProjecteur: false,
+        entreeUSB_VideoProjecteur: false,
+        entreeLAN_VideoProjecteur: false,
+        idSociete: 2
+      },
+      {
+        numeroSerie: "5CD5502STZ",
+        categorie: "PcPortable",
+        marque: "HP",
+        modele: "PAVILION Gaming 15-AK000NK",
+        prix: 1790,
+        garantie: "1",
+        etatMateriel: "fonctionnel",
+        dateAcquisition: new Date('2017-02-22'),
+        nombrePortSwitch: null,
+        debitSwitch: null,
+        technologieSwitch: null,
+        processeurPC: "2.6 Ghz",
+        memoireCache: "8 Mo",
+        ram: "16 Go",
+        disque: '1*SSD 2.5" 480 Go + 1*SSD M2 480 Go',
+        carteGraphique: "4 Go",
+        nombreDisque: "2",
+        tailleEcran: 15.6,
+        etatBatteriePcPortable: "morte",
+        vitesseImpression: null,
+        connexionWLU: null,
+        technologieOnduleur: null,
+        fonctionSupplementaireScanImp: null,
+        vitesseScanner: null,
+        typeScanner: null,
+        resolutionScanImpVideoP: null,
+        technologieImpression: null,
+        formatScanImp: null,
+        poidsOnduleur: null,
+        autonomieOnduleur: null,
+        capaciteChargeOnduleur: null,
+        entreeHDMI_VideoProjecteur: false,
+        entreeVGA_VideoProjecteur: false,
+        entreeUSB_VideoProjecteur: false,
+        entreeLAN_VideoProjecteur: false,
+        idSociete: 2
+      }
+    ]
+  });
+
+  await prisma.affectation.createMany({
+    data: [
+      {
+        idUtilisateur: 616,
+        numeroSerie: "CZC7367N7F",
+        dateAttribution: new Date('2018-12-28'),
+        dateRetour: new Date(),
+        motifRetour: null,
+      },
+      {
+        idUtilisateur: 616,
+        numeroSerie: "124Q08KU",
+        dateAttribution: new Date('2018-12-28'),
+        dateRetour: new Date(),
+        motifRetour: null,
+      },
+      {
+        idUtilisateur: 616,
+        numeroSerie: "124Q07PU",
+        dateAttribution: new Date('2020-05-26'),
+        dateRetour: new Date(),
+        motifRetour: null,
+      },
+      {
+        idUtilisateur: 616,
+        numeroSerie: "5CD5502STZ",
+        dateAttribution: new Date('2020-07-13'),
+        dateRetour: new Date(),
+        motifRetour: null,
+      }
+    ]
+  });
+
   await prisma.emprunt.create({
     data: {
-      idUtilisateur: 5,
-      numeroSerie: "5",
+      idUtilisateur: 616,
+      numeroSerie: "5CD5502STZ",
       dateEmprunt: new Date(),
       dateRestitution: new Date(),
-      refProjet: 'TEPA',
+      refProjet: 'TERG',
       etatMatRestitution: "Bon etat",
-
-    },
+    }
   });
-
-
-
 }
+
 seed()
+  .then(async () => {
+    await prisma.$disconnect();
+  })
+  .catch(async (e) => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });
