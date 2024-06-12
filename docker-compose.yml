@@ -15,7 +15,7 @@ services:
 
   gpi-pfe:
     image: mysql:8
-    container_name: gpi-pfe
+    container_name: gpidb
     restart: always
     ports:
       - '3306:3306'
