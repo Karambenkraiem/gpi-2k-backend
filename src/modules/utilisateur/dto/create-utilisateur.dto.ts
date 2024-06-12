@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { $Enums, Prisma } from "@prisma/client";
 
 export class CreateUtilisateurDto implements Prisma.UtilisateurCreateInput{
     idUtilisateur: number;
@@ -7,8 +7,8 @@ export class CreateUtilisateurDto implements Prisma.UtilisateurCreateInput{
     email: string;
     createdAt?: string | Date;
     lastLogin?: string | Date;
-    role: string;
-    etat: string;
+    roleUtilisateur?: $Enums.RoleUtilisateur;
+    etatUtilisateur?: $Enums.EtatUtilisateur;
     telFix?: string;
     telMobile?: string;
     Affectation?: Prisma.AffectationCreateNestedManyWithoutUtilisateurInput;

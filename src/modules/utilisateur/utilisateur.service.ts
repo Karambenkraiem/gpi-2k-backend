@@ -30,7 +30,32 @@ export class UtilisateurService {
   update(idUtilisateur: number, updateUtilisateurDto: UpdateUtilisateurDto) {
     return this.prisma.utilisateur.update({
       where: { idUtilisateur },
-      data: updateUtilisateurDto
+      data: {
+        
+        password: updateUtilisateurDto.password,
+        fullName: updateUtilisateurDto.fullName,
+        email: updateUtilisateurDto.email,
+        createdAt: updateUtilisateurDto.createdAt,
+        lastLogin: updateUtilisateurDto.lastLogin,
+        roleUtilisateur: updateUtilisateurDto.roleUtilisateur,
+        etatUtilisateur: updateUtilisateurDto.etatUtilisateur,
+        telFix: updateUtilisateurDto.telFix,
+        telMobile: updateUtilisateurDto.telMobile,
+        Specialite: {
+          update: {
+            idSpecialite: updateUtilisateurDto.idSpecialite,
+            nom: updateUtilisateurDto.nom,
+            Departement: {
+              update: {
+                idDepartement: updateUtilisateurDto.idDepartement,
+                nom: updateUtilisateurDto.nom,
+              },
+            },
+          },
+        },
+        Affectation: updateUtilisateurDto.Affectation,
+        Emprunt: updateUtilisateurDto.Emprunt,
+      },
     });
   }
 
