@@ -29,7 +29,6 @@ export class SpecialiteService {
     return this.prisma.specialite.update({
       where: { idSpecialite },
       data: {
-        // Only include the fields that are present in updateSpecialiteDto
         idSpecialite: updateSpecialiteDto.idSpecialite,
         nom: updateSpecialiteDto.nom,
         idDepartement: updateSpecialiteDto.idDepartement,
