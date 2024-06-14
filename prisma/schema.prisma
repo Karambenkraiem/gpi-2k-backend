@@ -83,7 +83,7 @@ model Materiel {
   entreeVGA_VideoProjecteur     Boolean?
   entreeUSB_VideoProjecteur     Boolean?
   entreeLAN_VideoProjecteur     Boolean?
-  societe                       Societe                @relation(fields: [idSociete], references: [idSociete])
+  Societe                       Societe                @relation(fields: [idSociete], references: [idSociete])
   Affectation                   Affectation[]
   Emprunt                       Emprunt[]
 }
