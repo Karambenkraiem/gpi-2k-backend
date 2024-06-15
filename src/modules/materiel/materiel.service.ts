@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMaterielDto } from './dto/create-materiel.dto';
 import { UpdateMaterielDto } from './dto/update-materiel.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -11,9 +11,9 @@ export class MaterielService {
     return this.prisma.materiel.create({
       data: {
         categorie: 'UniteCentrale',
-        numeroSerie: '',
-        modele: '',
-        prix: parseFloat(createMaterielDto.prix), // Ensure prix is a number
+        numeroSerie: 'a',
+        modele: 'm',
+        prix: parseFloat(CreateMaterielDto.prix), // Ensure prix is a number
         garantie: '',
         etatMateriel: 'nouveau',
         dateAcquisition: new Date(createMaterielDto.dateAcquisition), // Ensure date is in Date format
@@ -30,7 +30,7 @@ export class MaterielService {
 
   findAll() {
     return this.prisma.materiel.findMany({
-      include: {societe:true}
+      
     });
   }
 
@@ -47,7 +47,17 @@ export class MaterielService {
     });
   }
 
-  remove(numeroSerie: string) {
+  async remove(numeroSerie: string) {
+    await this.prisma.affectation.deleteMany({
+      where: { numeroSerie },
+    });
+
+    // Delete related records in the Emprunt table
+    await this.prisma.emprunt.deleteMany({
+      where: { numeroSerie },
+    });
+
+    // Proceed with the delete operation for the Materiel record
     return this.prisma.materiel.delete({
       where: { numeroSerie },
     });

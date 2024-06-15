@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { $Enums, Prisma } from "@prisma/client";
 
 export class CreateUtilisateurDto implements Prisma.UtilisateurCreateInput{
