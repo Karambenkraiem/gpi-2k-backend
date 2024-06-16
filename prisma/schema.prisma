@@ -68,7 +68,7 @@ model Materiel {
   tailleEcran                   Float?
   etatBatteriePcPortable        String?
   vitesseImpression             String?
-  connexionWLU                  ConnexionWLU?
+  connexionWLU                  ConnexionWLU? 
   technologieOnduleur           TechnologieOnduleur?
   fonctionSupplementaireScanImp String?
   vitesseScanner                String?
@@ -169,6 +169,7 @@ enum TechnologieImpression {
 }
 
 enum TechnologieOnduleur {
+  
   off_line
   on_line
   in_line

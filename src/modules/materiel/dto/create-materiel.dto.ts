@@ -2,7 +2,6 @@
 import { $Enums, Prisma } from "@prisma/client";
 
 export class CreateMaterielDto implements Prisma.MaterielCreateInput {
-    societe: Prisma.SocieteCreateNestedOneWithoutMaterielInput;
     numeroSerie: string;
     categorie?: $Enums.Categorie;
     marque: string;
@@ -38,8 +37,8 @@ export class CreateMaterielDto implements Prisma.MaterielCreateInput {
     entreeVGA_VideoProjecteur?: boolean;
     entreeUSB_VideoProjecteur?: boolean;
     entreeLAN_VideoProjecteur?: boolean;
-    Societe: Prisma.SocieteCreateNestedOneWithoutMaterielInput;
     Affectation?: Prisma.AffectationCreateNestedManyWithoutMaterielInput;
     Emprunt?: Prisma.EmpruntCreateNestedManyWithoutMaterielInput;
-
+    Societe?: Prisma.SocieteCreateNestedOneWithoutMaterielInput;
+    
 }
