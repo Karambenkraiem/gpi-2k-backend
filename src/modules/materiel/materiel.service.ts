@@ -8,9 +8,13 @@ export class MaterielService {
   constructor(private prisma: PrismaService) { }
 
 
-  create(createMaterielDto: CreateMaterielDto) {
+  create(createMaterielDto: CreateMaterielDto) {3
+    const {dateAcquisition,...rest}= createMaterielDto;
     return this.prisma.materiel.create({
-      data:createMaterielDto
+      data:{
+        ...rest,
+        dateAcquisition:dateAcquisition? new Date(dateAcquisition).toISOString(): undefined
+      }
     });
   }
 
