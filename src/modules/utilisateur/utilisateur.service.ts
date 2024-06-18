@@ -10,7 +10,10 @@ export class UtilisateurService {
 
   create(createUtilisateurDto: CreateUtilisateurDto) {
     return this.prisma.utilisateur.create({
-      data: createUtilisateurDto
+      data: {
+        ...createUtilisateurDto,
+        idSpecialite: createUtilisateurDto.idSpecialite || undefined,
+      },
     });
   }
 
