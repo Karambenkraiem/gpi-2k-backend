@@ -16,13 +16,13 @@ datasource db {
 //------------------- Model ------------------------
 
 model Affectation {
-  idUtilisateur   Int
-  numeroSerie     String
+  idUtilisateur   Int 
+  numeroSerie     String 
   dateAttribution DateTime    @default(now())
   dateRetour      DateTime?
   motifRetour     String?
-  utilisateur     Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur],onDelete: Cascade)
-  materiel        Materiel    @relation(fields: [numeroSerie], references: [numeroSerie])
+  utilisateur     Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur], onDelete: Cascade)
+  materiel        Materiel    @relation(fields: [numeroSerie], references: [numeroSerie], onDelete: Cascade)
 
   @@id([idUtilisateur, numeroSerie])
 }
@@ -34,14 +34,14 @@ model Departement {
 }
 
 model Emprunt {
-  idUtilisateur      Int
+  idUtilisateur      Int 
   numeroSerie        String
   dateEmprunt        DateTime    @default(now())
   dateRestitution    DateTime?
   refProjet          RefProjet   @default(TERG)
   etatMatRestitution String
-  utilisateur        Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur],onDelete: Cascade)
-  materiel           Materiel    @relation(fields: [numeroSerie], references: [numeroSerie])
+  utilisateur        Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur], onDelete: Cascade)
+  materiel           Materiel    @relation(fields: [numeroSerie], references: [numeroSerie],onDelete: Cascade)
 
   @@id([idUtilisateur, numeroSerie])
 }
@@ -68,7 +68,7 @@ model Materiel {
   tailleEcran                   Float?
   etatBatteriePcPortable        String?
   vitesseImpression             String?
-  connexionWLU                  ConnexionWLU?
+  connexionWLU                  ConnexionWLU? 
   technologieOnduleur           TechnologieOnduleur?
   fonctionSupplementaireScanImp String?
   vitesseScanner                String?
@@ -83,9 +83,9 @@ model Materiel {
   entreeVGA_VideoProjecteur     Boolean?
   entreeUSB_VideoProjecteur     Boolean?
   entreeLAN_VideoProjecteur     Boolean?
-  Societe                       Societe                @relation(fields: [idSociete], references: [idSociete])
-  Affectation                   Affectation[]
-  Emprunt                       Emprunt[]
+  Affectation                   Affectation[] 
+  Emprunt                       Emprunt[] 
+  Societe                       Societe?               @relation(fields: [idSociete], references: [idSociete], onDelete: Cascade)
 }
 
 model Societe {
@@ -104,7 +104,7 @@ model Specialite {
   idSpecialite  String        @id
   nom           String
   Utilisateur   Utilisateur[]
-  Departement   Departement?  @relation(fields: [idDepartement], references: [idDepartement])
+  Departement   Departement?  @relation(fields: [idDepartement], references: [idDepartement], onDelete: Cascade)
   idDepartement String?
 }
 
@@ -113,7 +113,7 @@ model Utilisateur {
   password        String
   fullName        String
   email           String
-  createdAt       DateTime?        @default(now())
+  createdAt       DateTime?       @default(now())
   lastLogin       DateTime?
   roleUtilisateur RoleUtilisateur @default(EMPLOYE)
   etatUtilisateur EtatUtilisateur @default(actif)
@@ -169,6 +169,7 @@ enum TechnologieImpression {
 }
 
 enum TechnologieOnduleur {
+  
   off_line
   on_line
   in_line
