@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAffectationDto } from './dto/create-affectation.dto';
 import { UpdateAffectationDto } from './dto/update-affectation.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Utilisateur } from '../utilisateur/entities/utilisateur.entity';
 
 @Injectable()
 export class AffectationService {
@@ -13,8 +14,16 @@ export class AffectationService {
   }
 
   findAll() {
-    return this.prisma.affectation.findMany();
+    return this.prisma.affectation.findMany({
+      include: {
+        utilisateur: {
+          select: { fullName: true } // Sélectionnez uniquement le nom complet de l'utilisateur
+        },
+        materiel:true        
+      }
+    });
   }
+
 
   findOne(idUtilisateur: number, numeroSerie: string) {
     return this.prisma.affectation.findMany({

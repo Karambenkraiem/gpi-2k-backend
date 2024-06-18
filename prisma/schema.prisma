@@ -26,13 +26,6 @@ model Affectation {
 
   @@id([idUtilisateur, numeroSerie])
 }
-
-model Departement {
-  idDepartement String       @id
-  nom           String
-  Specialite    Specialite[]
-}
-
 model Emprunt {
   idUtilisateur      Int 
   numeroSerie        String
@@ -44,6 +37,11 @@ model Emprunt {
   materiel           Materiel    @relation(fields: [numeroSerie], references: [numeroSerie],onDelete: Cascade)
 
   @@id([idUtilisateur, numeroSerie])
+}
+model Departement {
+  idDepartement String       @id
+  nom           String
+  Specialite    Specialite[]
 }
 
 model Materiel {
