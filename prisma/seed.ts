@@ -236,14 +236,8 @@ async function seed() {
         dateAttribution: new Date('2020-05-26'),
         dateRetour: new Date(),
         motifRetour: null,
-      },
-      {
-        idUtilisateur: 616,
-        numeroSerie: "5CD5502STZ",
-        dateAttribution: new Date('2020-07-13'),
-        dateRetour: new Date(),
-        motifRetour: null,
       }
+      
     ]
   });
 
