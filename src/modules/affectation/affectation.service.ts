@@ -34,6 +34,20 @@ export class AffectationService {
     });
   }
 
+  findMaterialAffectations(numeroSerie: string) {
+    return this.prisma.affectation.findMany({
+      where: {
+        numeroSerie,
+      },
+      include: {
+        utilisateur: {
+          select: { fullName: true } // Sélectionnez uniquement le nom complet de l'utilisateur
+        },
+        materiel:true        
+      }
+    });
+  }
+
   update(idUtilisateur: number, numeroSerie: string, updateAffectationDto: UpdateAffectationDto) {
     return this.prisma.affectation.update(
       {

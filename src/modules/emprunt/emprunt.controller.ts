@@ -17,18 +17,39 @@ export class EmpruntController {
     return this.empruntService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.empruntService.findOne(+id);
+  @Get('/:numeroSerie')
+  findMaterialEmprunts(@Param('numeroSerie') numeroSerie: string,){
+    return this.empruntService.findMaterialEmprunts(numeroSerie);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEmpruntDto: UpdateEmpruntDto) {
-    return this.empruntService.update(+id, updateEmpruntDto);
+  @Get(':idUtilisateur/:numeroSerie')
+  async findOne(
+    @Param('idUtilisateur') idUtilisateur: string,
+    @Param('numeroSerie') numeroSerie: string,
+  ) {
+    return this.empruntService.findOne(+idUtilisateur, numeroSerie);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.empruntService.remove(+id);
+
+  @Patch(':idUtilisateur/:numeroSerie')
+  update(
+    @Param('idUtilisateur') idUtilisateur: string,
+    @Param('numeroSerie') numeroSerie: string,
+    @Body() updateEmpruntDto: UpdateEmpruntDto,
+  ) {
+    return this.empruntService.update(
+      +idUtilisateur,
+      numeroSerie,
+      updateEmpruntDto,
+    );
+  }
+
+
+  @Delete(':idUtilisateur/:numeroSerie')
+  remove(
+    @Param('idUtilisateur') idUtilisateur: string,
+    @Param('numeroSerie') numeroSerie: string,
+  ) {
+    return this.empruntService.remove(+idUtilisateur, numeroSerie);
   }
 }

@@ -15,6 +15,7 @@ export class EmpruntService {
   findAll() {
     return this.prisma.emprunt.findMany();
   }
+
   findOne(idUtilisateur: number, numeroSerie: string) {
     return this.prisma.emprunt.findMany({
       where: {
@@ -24,7 +25,19 @@ export class EmpruntService {
     });
   }
 
-  
+  findMaterialEmprunts(numeroSerie: string) {
+    return this.prisma.affectation.findMany({
+      where: {
+        numeroSerie,
+      },
+      include: {
+        utilisateur: {
+          select: { fullName: true } // Sélectionnez uniquement le nom complet de l'utilisateur
+        },
+        materiel:true        
+      }
+    });
+  }
   
   update(idUtilisateur: number, numeroSerie: string, updateEmpruntDto: UpdateEmpruntDto) {
     return this.prisma.emprunt.update(
