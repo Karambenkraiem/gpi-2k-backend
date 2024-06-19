@@ -9,7 +9,9 @@ export class AffectationService {
   constructor(private prisma: PrismaService) { }
   create(createAffectationDto: CreateAffectationDto) {
     return this.prisma.affectation.create({
-      data: createAffectationDto
+      data: {...createAffectationDto,
+        dateAttribution:new Date(createAffectationDto.dateAttribution).toISOString()
+      }
     });
   }
 

@@ -13,39 +13,39 @@ export class MaterielService {
     return this.prisma.materiel.create({
       data: {
         ...rest,
-        dateAcquisition: dateAcquisition ? new Date().toISOString(): undefined
+        dateAcquisition: dateAcquisition ? new Date().toISOString() : undefined
       },
     });
   }
 
-  
-  
+
+
   findAll() {
     return this.prisma.materiel.findMany({
-        include: {
-            Affectation: true,
-            Emprunt: true
-        }
+      include: {
+        Affectation: true,
+        Emprunt: true
+      }
     }).then((materiels) => {
-        return materiels.map((materiel) => {
-            let statut = '';
-            if (materiel.Affectation.length == 0  && materiel.Emprunt.length == 0) {
-              statut = 'Disponible';
-            }else if (materiel.Affectation.length > 0) {
-                statut = 'Affecté';
-            } else if (materiel.Emprunt.length > 0) {
-                statut = 'Emprunté';
-            }
-            return {
-                ...materiel,
-                statut: statut
-            };
-        });
+      return materiels.map((materiel) => {
+        let statut = '';
+        if (materiel.Affectation.length == 0 && materiel.Emprunt.length == 0) {
+          statut = 'Disponible';
+        } else if (materiel.Affectation.length > 0) {
+          statut = 'Affecté';
+        } else if (materiel.Emprunt.length > 0) {
+          statut = 'Emprunté';
+        }
+        return {
+          ...materiel,
+          statut: statut
+        };
+      });
     });
-}
+  }
 
 
-  
+
 
   findOne(numeroSerie: string) {
     return this.prisma.materiel.findUnique({
@@ -54,15 +54,36 @@ export class MaterielService {
   }
 
   update(numeroSerie: string, updateMaterielDto: UpdateMaterielDto) {
-    const { dateAcquisition, ...rest } = updateMaterielDto;    
+    const { dateAcquisition, ...rest } = updateMaterielDto;
+
     return this.prisma.materiel.update({
       where: { numeroSerie },
       data: {
         ...rest,
         dateAcquisition: dateAcquisition ? new Date(dateAcquisition).toISOString() : undefined,
       },
+      include: {
+        Affectation: true,
+        Emprunt: true
+      }
+    }).then((materiel) => {
+
+      let statut = '';
+      if (materiel.Affectation.length == 0 && materiel.Emprunt.length == 0) {
+        statut = 'Disponible';
+      } else if (materiel.Affectation.length > 0) {
+        statut = 'Affecté';
+      } else if (materiel.Emprunt.length > 0) {
+        statut = 'Emprunté';
+      }
+      return {
+        ...materiel,
+        statut: statut
+      };
     });
   }
+
+
 
   async remove(numeroSerie: string) {
     await this.prisma.affectation.deleteMany({
