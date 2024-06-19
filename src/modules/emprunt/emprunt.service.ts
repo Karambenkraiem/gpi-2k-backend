@@ -35,7 +35,7 @@ export class EmpruntService {
   }
 
   findMaterialEmprunts(numeroSerie: string) {
-    return this.prisma.affectation.findMany({
+    return this.prisma.emprunt.findMany({
       where: {
         numeroSerie,
       },

@@ -18,7 +18,7 @@ export class EmpruntController {
   }
 
   @Get('/:numeroSerie')
-  findMaterialEmprunts(@Param('numeroSerie') numeroSerie: string,){
+  findEmprunts(@Param('numeroSerie') numeroSerie: string,){
     return this.empruntService.findMaterialEmprunts(numeroSerie);
   }
 
