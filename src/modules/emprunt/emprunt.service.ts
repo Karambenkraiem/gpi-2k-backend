@@ -13,8 +13,17 @@ export class EmpruntService {
   }
 
   findAll() {
-    return this.prisma.emprunt.findMany();
+    return this.prisma.emprunt.findMany({
+      include:{
+        utilisateur:{
+          select:{fullName:true}
+        },
+        materiel:true
+      }
+    });
   }
+
+
 
   findOne(idUtilisateur: number, numeroSerie: string) {
     return this.prisma.emprunt.findMany({

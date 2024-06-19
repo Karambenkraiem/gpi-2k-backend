@@ -18,11 +18,34 @@ export class MaterielService {
     });
   }
 
+  
+  
   findAll() {
     return this.prisma.materiel.findMany({
-
+        include: {
+            Affectation: true,
+            Emprunt: true
+        }
+    }).then((materiels) => {
+        return materiels.map((materiel) => {
+            let statut = '';
+            if (materiel.Affectation.length == 0  && materiel.Emprunt.length == 0) {
+              statut = 'Disponible';
+            }else if (materiel.Affectation.length > 0) {
+                statut = 'Affecté';
+            } else if (materiel.Emprunt.length > 0) {
+                statut = 'Emprunté';
+            }
+            return {
+                ...materiel,
+                statut: statut
+            };
+        });
     });
-  }
+}
+
+
+  
 
   findOne(numeroSerie: string) {
     return this.prisma.materiel.findUnique({
