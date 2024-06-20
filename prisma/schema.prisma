@@ -16,28 +16,32 @@ datasource db {
 //------------------- Model ------------------------
 
 model Affectation {
-  idUtilisateur   Int 
-  numeroSerie     String 
+  idUtilisateur   Int
+  numeroSerie     String
   dateAttribution DateTime    @default(now())
   dateRetour      DateTime?
   motifRetour     String?
+  etatAffectation String?
   utilisateur     Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur], onDelete: Cascade)
   materiel        Materiel    @relation(fields: [numeroSerie], references: [numeroSerie], onDelete: Cascade)
 
   @@id([idUtilisateur, numeroSerie])
 }
+
 model Emprunt {
-  idUtilisateur      Int 
+  idUtilisateur      Int
   numeroSerie        String
   dateEmprunt        DateTime    @default(now())
   dateRestitution    DateTime?
-  refProjet          RefProjet   @default(TERG)
-  etatMatRestitution String
+  refProjet          RefProjet?  @default(TERG)
+  etatMatRestitution String?
+  etatEmprunt        String?
   utilisateur        Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur], onDelete: Cascade)
-  materiel           Materiel    @relation(fields: [numeroSerie], references: [numeroSerie],onDelete: Cascade)
+  materiel           Materiel    @relation(fields: [numeroSerie], references: [numeroSerie], onDelete: Cascade)
 
   @@id([idUtilisateur, numeroSerie])
 }
+
 model Departement {
   idDepartement String       @id
   nom           String
@@ -66,7 +70,7 @@ model Materiel {
   tailleEcran                   Float?
   etatBatteriePcPortable        String?
   vitesseImpression             String?
-  connexionWLU                  ConnexionWLU? 
+  connexionWLU                  ConnexionWLU?
   technologieOnduleur           TechnologieOnduleur?
   fonctionSupplementaireScanImp String?
   vitesseScanner                String?
@@ -81,8 +85,8 @@ model Materiel {
   entreeVGA_VideoProjecteur     Boolean?
   entreeUSB_VideoProjecteur     Boolean?
   entreeLAN_VideoProjecteur     Boolean?
-  Affectation                   Affectation[] 
-  Emprunt                       Emprunt[] 
+  Affectation                   Affectation[]
+  Emprunt                       Emprunt[]
   Societe                       Societe?               @relation(fields: [idSociete], references: [idSociete], onDelete: Cascade)
 }
 
@@ -167,7 +171,6 @@ enum TechnologieImpression {
 }
 
 enum TechnologieOnduleur {
-  
   off_line
   on_line
   in_line

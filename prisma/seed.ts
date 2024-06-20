@@ -222,6 +222,7 @@ async function seed() {
         dateAttribution: new Date('2018-12-28'),
         dateRetour: new Date(),
         motifRetour: null,
+        etatAffectation:"Affecté"
       },
       {
         idUtilisateur: 616,
@@ -229,13 +230,15 @@ async function seed() {
         dateAttribution: new Date('2018-12-28'),
         dateRetour: new Date(),
         motifRetour: null,
+        etatAffectation:"Affecté"
       },
       {
         idUtilisateur: 616,
         numeroSerie: "124Q07PU",
         dateAttribution: new Date('2020-05-26'),
-        dateRetour: new Date(),
+        dateRetour: null,
         motifRetour: null,
+        etatAffectation:"Affecté"
       }
       
     ]
@@ -246,9 +249,10 @@ async function seed() {
       idUtilisateur: 616,
       numeroSerie: "5CD5502STZ",
       dateEmprunt: new Date(),
-      dateRestitution: new Date(),
+      dateRestitution: null,
       refProjet: 'TERG',
       etatMatRestitution: "Bon etat",
+      etatEmprunt:"emprunté"
     }
   });
 }

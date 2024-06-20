@@ -19,30 +19,31 @@ export class MaterielService {
   }
 
 
-
   findAll() {
     return this.prisma.materiel.findMany({
       include: {
-        Affectation: true,
-        Emprunt: true
-      }
-    }).then((materiels) => {
-      return materiels.map((materiel) => {
-        let statut = '';
-        if (materiel.Affectation.length == 0 && materiel.Emprunt.length == 0) {
-          statut = 'Disponible';
-        } else if (materiel.Affectation.length > 0) {
-          statut = 'Affecté';
-        } else if (materiel.Emprunt.length > 0) {
-          statut = 'Emprunté';
-        }
-        return {
-          ...materiel,
-          statut: statut
-        };
-      });
+        Affectation: {
+          select: {
+            etatAffectation: true,
+          },
+        },
+        Emprunt: {
+          select: {
+            etatEmprunt: true,
+          },
+        },
+      },
     });
   }
+  
+  // findAll() {
+  //   return this.prisma.materiel.findMany({
+  //     include: {
+  //       Affectation: true,
+  //       Emprunt: true
+  //     }
+  //   })
+  // }
 
 
 
@@ -66,24 +67,8 @@ export class MaterielService {
         Affectation: true,
         Emprunt: true
       }
-    }).then((materiel) => {
-
-      let statut = '';
-      if (materiel.Affectation.length == 0 && materiel.Emprunt.length == 0) {
-        statut = 'Disponible';
-      } else if (materiel.Affectation.length > 0) {
-        statut = 'Affecté';
-      } else if (materiel.Emprunt.length > 0) {
-        statut = 'Emprunté';
-      }
-      return {
-        ...materiel,
-        statut: statut
-      };
-    });
+    })
   }
-
-
 
   async remove(numeroSerie: string) {
     await this.prisma.affectation.deleteMany({
