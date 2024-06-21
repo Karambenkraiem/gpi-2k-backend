@@ -26,15 +26,28 @@ export class AffectationService {
     });
   }
 
-
   findOne(idUtilisateur: number, numeroSerie: string) {
     return this.prisma.affectation.findMany({
       where: {
         idUtilisateur,
         numeroSerie,
+        OR: [
+          { dateRetour: null },
+          { dateRetour: '' },
+        ],
       },
     });
   }
+  
+
+  // findOne(idUtilisateur: number, numeroSerie: string) {
+  //   return this.prisma.affectation.findMany({
+  //     where: {
+  //       idUtilisateur,
+  //       numeroSerie,
+  //     },
+  //   });
+  // }
 
   findMaterialAffectations(numeroSerie: string) {
     return this.prisma.affectation.findMany({
@@ -51,18 +64,43 @@ export class AffectationService {
   }
 
   update(idUtilisateur: number, numeroSerie: string, updateAffectationDto: UpdateAffectationDto) {
-    return this.prisma.affectation.update(
-      {
-        where: {
-          idUtilisateur_numeroSerie: {
-            idUtilisateur,
-            numeroSerie
-          }
-        },
-        data: updateAffectationDto
+    const { dateAttribution, dateRetour, motifRetour, etatAffectation } = updateAffectationDto;
+  
+    return this.prisma.affectation.update({
+      where: {
+        idUtilisateur_numeroSerie: {
+          idUtilisateur,
+          numeroSerie
+        }
+      },
+      data: {
+        dateAttribution: new Date(dateAttribution),
+        dateRetour: new Date(dateRetour),
+        motifRetour,
+        etatAffectation
       }
-    )
+    });
   }
+  
+
+  // update(idUtilisateur: number, numeroSerie: string, updateAffectationDto: UpdateAffectationDto) {
+  //   return this.prisma.affectation.update(
+  //     {
+  //       where: {
+  //         idUtilisateur_numeroSerie: {
+  //           idUtilisateur,
+  //           numeroSerie
+  //         }
+  //       },
+  //       data: {
+  //         dateAttribution: updateAffectationDto.dateAttribution,
+  //         dateRetour: updateAffectationDto.dateRetour,
+  //         motifRetour: updateAffectationDto.motifRetour,
+  //         etatAffectation: updateAffectationDto.etatAffectation,
+  //       }
+  //     }
+  //   )
+  // }
 
   remove(idUtilisateur: number, numeroSerie: string) {
     return this.prisma.affectation.delete({

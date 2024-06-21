@@ -32,12 +32,20 @@ export class AffectationController {
   }
 
   @Get(':idUtilisateur/:numeroSerie')
-  async findOne(
-    @Param('idUtilisateur') idUtilisateur: string,
-    @Param('numeroSerie') numeroSerie: string,
+  findOne(
+    @Query('idUtilisateur') idUtilisateur: number,
+    @Query('numeroSerie') numeroSerie: string,
   ) {
-    return this.affectationService.findOne(+idUtilisateur, numeroSerie);
+    return this.affectationService.findOne(idUtilisateur, numeroSerie);
   }
+
+  // @Get(':idUtilisateur/:numeroSerie')
+  // async findOne(
+  //   @Param('idUtilisateur') idUtilisateur: string,
+  //   @Param('numeroSerie') numeroSerie: string,
+  // ) {
+  //   return this.affectationService.findOne(+idUtilisateur, numeroSerie);
+  // }
 
   @Patch(':idUtilisateur/:numeroSerie')
   update(
