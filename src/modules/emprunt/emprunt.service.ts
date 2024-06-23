@@ -3,14 +3,36 @@ import { CreateEmpruntDto } from './dto/create-emprunt.dto';
 import { UpdateEmpruntDto } from './dto/update-emprunt.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
+// @Injectable()
+// export class EmpruntService {
+//   constructor(private prisma: PrismaService) { }
+//   create(createEmpruntDto: CreateEmpruntDto) {
+//     return this.prisma.emprunt.create({
+//       data: {...createEmpruntDto,
+//         dateEmprunt: new Date(createEmpruntDto.dateEmprunt).toISOString(),
+//       }
+//     });
+//   }
 @Injectable()
 export class EmpruntService {
-  constructor(private prisma: PrismaService) { }
-  create(createEmpruntDto: CreateEmpruntDto) {
+  constructor(private prisma: PrismaService) {}
+
+  async create(createEmpruntDto: CreateEmpruntDto) {
+    const { dateEmprunt, dateRestitution, ...rest } = createEmpruntDto;
+
+    // Convert dates to ISO string format
+    const isoDateEmprunt = new Date(dateEmprunt).toISOString();
+    const isoDateRestitution = dateRestitution ? new Date(dateRestitution).toISOString() : null;
+
     return this.prisma.emprunt.create({
-      data: createEmpruntDto
+      data: {
+        ...rest, // Spread remaining fields from createEmpruntDto
+        dateEmprunt: isoDateEmprunt,
+        dateRestitution: isoDateRestitution,
+      },
     });
   }
+
 
   findAll() {
     return this.prisma.emprunt.findMany({
@@ -49,6 +71,8 @@ export class EmpruntService {
   }
   
   update(idUtilisateur: number, numeroSerie: string, updateEmpruntDto: UpdateEmpruntDto) {
+    const {dateEmprunt, dateRestitution, refProjet, etatMatRestitution, etatEmprunt} = updateEmpruntDto;
+    const isoDateRestitution = dateRestitution ? new Date(dateRestitution).toISOString() : null;
     return this.prisma.emprunt.update(
       {
         where: {
@@ -57,7 +81,13 @@ export class EmpruntService {
             numeroSerie
           }
         },
-        data: updateEmpruntDto
+        data: {
+          dateEmprunt: new Date(dateEmprunt),
+          dateRestitution: isoDateRestitution,
+          refProjet,
+          etatMatRestitution,
+          etatEmprunt
+        }
       }
     )
   }

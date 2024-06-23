@@ -33,7 +33,7 @@ model Emprunt {
   numeroSerie        String
   dateEmprunt        DateTime    @default(now())
   dateRestitution    DateTime?
-  refProjet          String?
+  refProjet          String
   etatMatRestitution String?
   etatEmprunt        String?
   utilisateur        Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur], onDelete: Cascade)
