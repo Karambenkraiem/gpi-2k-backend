@@ -17,10 +17,10 @@ export class AlimentationService {
   findAll() {
     return this.prisma.alimentation.findMany({
       include: {
-        societe: {
+        Societe: {
           select: { raisonSociale: true } // Sélectionnez uniquement le nom complet de la societe
         },
-        stocks:true        
+        Stocks:true        
       }
     });
   }
@@ -41,10 +41,10 @@ export class AlimentationService {
         refArt,
       },
       include: {
-        societe: {
+        Societe: {
           select: { raisonSociale: true } // Sélectionnez uniquement le nom complet de l'utilisateur
         },
-        stocks:true        
+        Stocks:true        
       }
     });
   }

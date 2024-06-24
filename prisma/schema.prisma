@@ -15,17 +15,6 @@ datasource db {
 
 //------------------- Model ------------------------
 
-model Alimentation {
-  idSociete        Int
-  refArt           String
-  dateAlimentation DateTime @default(now())
-  quantiteAlimente Int
-  Societe          Societe  @relation(fields: [idSociete], references: [idSociete])
-  Stocks           Stocks   @relation(fields: [refArt], references: [refArt])
-
-  @@id([idSociete, refArt])
-}
-
 model Stocks {
   refArt                     String         @id
   marque                     String
@@ -50,6 +39,20 @@ model Stocks {
   vitesseHDD                 Int?
   tailleHDD                  TailleDisque?
   TypeHDD                    TypeHDD?
+  autre                      String?
+}
+
+enum CategorieAccessoire {
+  Toner
+  DisqueStoquage
+  Clavier
+  Souris
+  FlashDisque
+  CarteGraphique
+  Ram
+  DisqueDur
+  CartoucheEncre
+  Autres
 }
 
 enum InterfaceHDD {
@@ -103,33 +106,86 @@ model Societe {
   typeSociete     TypeSociete    @default(fournisseur)
   Materiel        Materiel[]
   Alimentation    Alimentation[]
+  Logiciel        Logiciel[]
+}
+
+model Licence {
+  idLicence      Int            @id @default(autoincrement())
+  dateActivation DateTime       @default(now())
+  dateExpiration DateTime       @default(now())
+  prixLicence    Float
+  Installation   Installation[]
+  Logiciel       Logiciel?      @relation(fields: [idLogiciel], references: [idLogiciel])
+  idLogiciel     Int?
+}
+
+model Logiciel {
+  idLogiciel      Int          @id @default(autoincrement())
+  libele          String
+  version         String
+  editeur         String
+  dateAcquisition DateTime     @default(now())
+  typeLogiciel    TypeLogiciel
+  Societe         Societe?     @relation(fields: [idSociete], references: [idSociete])
+  idSociete       Int?
+  Licence         Licence[]
+}
+
+enum TypeLogiciel {
+  Bureautique
+  Technique
+}
+
+model Installation {
+  idInstallation   Int       @id @default(autoincrement())
+  numeroSerie      String?
+  idLicence        Int?
+  dateInstallation DateTime  @default(now())
+  Materiel         Materiel? @relation(fields: [numeroSerie], references: [numeroSerie])
+  Licence          Licence?  @relation(fields: [idLicence], references: [idLicence])
+}
+
+model Alimentation {
+  idAlimentation   Int      @id @default(autoincrement())
+  idSociete        Int
+  refArt           String
+  dateAlimentation DateTime @default(now())
+  quantiteAlimente Int
+  Societe          Societe  @relation(fields: [idSociete], references: [idSociete])
+  Stocks           Stocks   @relation(fields: [refArt], references: [refArt])
+
+  // @@unique([idSociete, refArt])
 }
 
 model Affectation {
-  idUtilisateur   Int
-  numeroSerie     String
-  dateAttribution DateTime    @default(now())
+  idAffectation Int @id @default(autoincrement())
+
+  dateAttribution DateTime  @default(now())
   dateRetour      DateTime?
   motifRetour     String?
   etatAffectation String?
-  utilisateur     Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur], onDelete: Cascade)
-  materiel        Materiel    @relation(fields: [numeroSerie], references: [numeroSerie], onDelete: Cascade)
 
-  @@id([idUtilisateur, numeroSerie])
+  // @@unique([idUtilisateur, numeroSerie])
+  Materiel                 Materiel?    @relation(fields: [materielNumeroSerie], references: [numeroSerie])
+  materielNumeroSerie      String?
+  Utilisateur              Utilisateur? @relation(fields: [utilisateurIdUtilisateur], references: [idUtilisateur])
+  utilisateurIdUtilisateur Int?
 }
 
 model Emprunt {
-  idUtilisateur      Int
-  numeroSerie        String
-  dateEmprunt        DateTime    @default(now())
+  idEmprunt Int @id @default(autoincrement())
+
+  dateEmprunt        DateTime  @default(now())
   dateRestitution    DateTime?
   refProjet          String
   etatMatRestitution String?
   etatEmprunt        String?
-  utilisateur        Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur], onDelete: Cascade)
-  materiel           Materiel    @relation(fields: [numeroSerie], references: [numeroSerie], onDelete: Cascade)
 
-  @@id([idUtilisateur, numeroSerie])
+  // @@unique([idUtilisateur, numeroSerie])
+  Materiel                 Materiel?    @relation(fields: [materielNumeroSerie], references: [numeroSerie])
+  materielNumeroSerie      String?
+  Utilisateur              Utilisateur? @relation(fields: [utilisateurIdUtilisateur], references: [idUtilisateur])
+  utilisateurIdUtilisateur Int?
 }
 
 model Departement {
@@ -178,6 +234,7 @@ model Materiel {
   Affectation                   Affectation[]
   Emprunt                       Emprunt[]
   Societe                       Societe?               @relation(fields: [idSociete], references: [idSociete], onDelete: Cascade)
+  Installation                  Installation[]
 }
 
 model Specialite {
