@@ -54,6 +54,9 @@ export class MaterielService {
     });
   }
 
+
+  
+
   update(numeroSerie: string, updateMaterielDto: UpdateMaterielDto) {
     const { dateAcquisition, ...rest } = updateMaterielDto;
 

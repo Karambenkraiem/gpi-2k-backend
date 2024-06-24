@@ -1,20 +1,10 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Query,
-} from '@nestjs/common';
+import {  Controller,  Get,  Post,  Body,  Patch,  Param,  Delete,  Query,} from '@nestjs/common';
 import { AffectationService } from './affectation.service';
 import { CreateAffectationDto } from './dto/create-affectation.dto';
 import { UpdateAffectationDto } from './dto/update-affectation.dto';
-
 @Controller('affectation')
 export class AffectationController {
-  constructor(private readonly affectationService: AffectationService) {}
+  constructor(private readonly affectationService: AffectationService) { }
 
   @Post()
   create(@Body() createAffectationDto: CreateAffectationDto) {

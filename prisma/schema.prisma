@@ -15,6 +15,39 @@ datasource db {
 
 //------------------- Model ------------------------
 
+model Alimentation {
+  idSociete        Int
+  refArt           String
+  dateAlimentation DateTime @default(now())
+  quantiteAlimente Int
+  Societe          Societe  @relation(fields: [idSociete], references: [idSociete])
+  Stocks           Stocks   @relation(fields: [refArt], references: [refArt])
+
+  @@id([idSociete, refArt])
+}
+
+model Stocks {
+  refArt       String         @id
+  marque       String
+  modele       String
+  prix         Float
+  quantiteStock     Int
+  Alimentation Alimentation[]
+}
+
+model Societe {
+  idSociete       Int            @id @default(autoincrement())
+  raisonSociale   String
+  adresse         String
+  responsable     String
+  email           String
+  numtel          String
+  secteurActivite String
+  typeSociete     TypeSociete    @default(fournisseur)
+  Materiel        Materiel[]
+  Alimentation    Alimentation[]
+}
+
 model Affectation {
   idUtilisateur   Int
   numeroSerie     String
@@ -88,18 +121,6 @@ model Materiel {
   Affectation                   Affectation[]
   Emprunt                       Emprunt[]
   Societe                       Societe?               @relation(fields: [idSociete], references: [idSociete], onDelete: Cascade)
-}
-
-model Societe {
-  idSociete       Int         @id @default(autoincrement())
-  raisonSociale   String
-  adresse         String
-  responsable     String
-  email           String
-  numtel          String
-  secteurActivite String
-  typeSociete     TypeSociete @default(fournisseur)
-  Materiel        Materiel[]
 }
 
 model Specialite {

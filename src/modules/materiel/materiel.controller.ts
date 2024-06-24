@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import {  Controller,  Get,  Post,  Body,  Patch,  Param,  Delete,} from '@nestjs/common';
 import { MaterielService } from './materiel.service';
 import { CreateMaterielDto } from './dto/create-materiel.dto';
 import { UpdateMaterielDto } from './dto/update-materiel.dto';
