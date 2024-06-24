@@ -27,12 +27,69 @@ model Alimentation {
 }
 
 model Stocks {
-  refArt       String         @id
-  marque       String
-  modele       String
-  prix         Float
-  quantiteStock     Int
-  Alimentation Alimentation[]
+  refArt                     String         @id
+  marque                     String
+  modele                     String
+  prix                       Float
+  quantiteStock              Int
+  Alimentation               Alimentation[]
+  capaciteToner              Int?
+  compatibiliteToner         String?
+  dateExpirationToner        DateTime?      @default(now())
+  couleurToner               Couleur?
+  capaciteFlashDvdCdRamHDD   Int?
+  typeDisqueStoquage         TypeDisque?
+  typeConnexionClavierSouris TypeConnexion?
+  dispositionToucheClavier   Disposition?
+  nombreBouttonSouris        Int?
+  memoireCarteGraphiqueRam   Int?
+  IntefaceCarteGraphique     String?
+  frequenceCarteGraphiqueRam Int?
+  typeRam                    String?
+  interFaceHDD               InterfaceHDD?
+  vitesseHDD                 Int?
+  tailleHDD                  TailleDisque?
+  TypeHDD                    TypeHDD?
+}
+
+enum InterfaceHDD {
+  SATA
+  USB
+  PCIe
+  IDE
+}
+
+enum TypeHDD {
+  HDD
+  SSD
+  SSHD
+}
+
+enum TailleDisque {
+  TWO_POINT_FIVE   @map("2.5")
+  THREE_POINT_FIVE @map("3.5")
+  M2
+}
+
+enum Disposition {
+  AZERTY
+  QWERTY
+}
+
+enum TypeConnexion {
+  USB
+  WIFI
+  BLUETOOTH
+}
+
+enum TypeDisque {
+  CD
+  DVD
+}
+
+enum Couleur {
+  noir
+  couleur
 }
 
 model Societe {
