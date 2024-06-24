@@ -20,7 +20,7 @@ export class AffectationService {
         Utilisateur: {
           select: { fullName: true } // Sélectionnez uniquement le nom complet de l'utilisateur
         },
-        materiel:true        
+        Materiel:true        
       }
     });
   }

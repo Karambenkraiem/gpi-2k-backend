@@ -143,7 +143,6 @@ model Installation {
   dateInstallation DateTime  @default(now())
   Materiel         Materiel? @relation(fields: [numeroSerie], references: [numeroSerie])
   Licence          Licence?  @relation(fields: [idLicence], references: [idLicence])
-  // @@unique([idLicence, numeroSerie])
 
 }
 
@@ -161,13 +160,10 @@ model Alimentation {
 
 model Affectation {
   idAffectation Int @id @default(autoincrement())
-
   dateAttribution DateTime  @default(now())
   dateRetour      DateTime?
   motifRetour     String?
   etatAffectation String?
-
-  // @@unique([idUtilisateur, numeroSerie])
   Materiel                 Materiel?    @relation(fields: [materielNumeroSerie], references: [numeroSerie])
   materielNumeroSerie      String?
   Utilisateur              Utilisateur? @relation(fields: [utilisateurIdUtilisateur], references: [idUtilisateur])
@@ -185,7 +181,6 @@ model Emprunt {
   materielNumeroSerie      String?
   Utilisateur              Utilisateur? @relation(fields: [utilisateurIdUtilisateur], references: [idUtilisateur])
   utilisateurIdUtilisateur Int?
-  // @@unique([idUtilisateur, numeroSerie])
 }
 
 model Departement {

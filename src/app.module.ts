@@ -12,6 +12,8 @@ import { StocksModule } from './modules/stocks/stocks.module';
 import { LogicielsModule } from './modules/logiciels/logiciels.module';
 import { AlimentationModule } from './modules/alimentation/alimentation.module';
 import { InstallationModule } from './modules/installation/installation.module';
+import { InstallationModule } from './modules/installation/installation.module';
+import { InstallationModule } from './modules/installation/installation.module';
 import { InstallModule } from './modules/install/install.module';
 import { InstallationModule } from './modules/installation/installation.module';
 import { InstallationModule } from './modules/installation/installation.module';
