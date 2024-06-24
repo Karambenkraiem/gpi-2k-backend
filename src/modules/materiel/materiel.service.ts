@@ -13,7 +13,7 @@ export class MaterielService {
     return this.prisma.materiel.create({
       data: {
         ...rest,
-        dateAcquisition: dateAcquisition ? new Date().toISOString() : undefined
+        dateAcquisition: dateAcquisition ? new Date(createMaterielDto.dateAcquisition)?.toISOString() : undefined
       },
     });
   }

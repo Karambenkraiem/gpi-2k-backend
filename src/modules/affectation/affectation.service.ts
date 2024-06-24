@@ -9,7 +9,7 @@ export class AffectationService {
   create(createAffectationDto: CreateAffectationDto) {
     return this.prisma.affectation.create({
       data: {...createAffectationDto,
-        dateAttribution:new Date(createAffectationDto.dateAttribution).toISOString()
+        dateAttribution:new Date(createAffectationDto.dateAttribution)?.toISOString()
       }
     });
   }
@@ -17,7 +17,7 @@ export class AffectationService {
   findAll() {
     return this.prisma.affectation.findMany({
       include: {
-        utilisateur: {
+        Utilisateur: {
           select: { fullName: true } // Sélectionnez uniquement le nom complet de l'utilisateur
         },
         materiel:true        

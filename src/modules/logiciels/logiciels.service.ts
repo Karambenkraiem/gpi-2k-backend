@@ -1,26 +1,52 @@
 import { Injectable } from '@nestjs/common';
 import { CreateLogicielDto } from './dto/create-logiciel.dto';
 import { UpdateLogicielDto } from './dto/update-logiciel.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class LogicielsService {
+  constructor (private prisma:PrismaService){ }
+
   create(createLogicielDto: CreateLogicielDto) {
-    return 'This action adds a new logiciel';
+    const { dateAcquisition, ...rest } = createLogicielDto;
+
+    return this.prisma.logiciel.create({
+      data: {
+        ...rest,
+        dateAcquisition: dateAcquisition ? new Date(createLogicielDto.dateAcquisition)?.toISOString() : undefined
+      },
+    })
   }
 
   findAll() {
-    return `This action returns all logiciels`;
+    return this.prisma.logiciel.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} logiciel`;
+  findOne(idLogiciel: number) {
+    return this.prisma.logiciel.findUnique({
+      where: { idLogiciel }
+    });
   }
 
-  update(id: number, updateLogicielDto: UpdateLogicielDto) {
-    return `This action updates a #${id} logiciel`;
-  }
+  update(idLogiciel: number, updateLogicielDto: UpdateLogicielDto) {
+    const { dateAcquisition, ...rest } = updateLogicielDto;
+  
+    return this.prisma.logiciel.update({
+        where: {idLogiciel},
+        data:{
+          ...rest,
+          dateAcquisition:dateAcquisition? new Date(updateLogicielDto.dateAcquisition)?.toISOString(): undefined
+        }
+      });
+    }
+  
+  
 
-  remove(id: number) {
-    return `This action removes a #${id} logiciel`;
+  remove(idLogiciel: number) {
+    return this.prisma.logiciel.delete({
+      where:{idLogiciel}
+    });
   }
 }
+
+
