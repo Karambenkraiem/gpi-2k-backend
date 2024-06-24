@@ -64,7 +64,7 @@ export class AffectationService {
 
   update(idUtilisateur: number, numeroSerie: string, updateAffectationDto: UpdateAffectationDto) {
     const { dateAttribution, dateRetour, motifRetour, etatAffectation } = updateAffectationDto;
-  
+    const isoDateRetour = dateRetour ? new Date(dateRetour).toISOString() : null;
     return this.prisma.affectation.update({
       where: {
         idUtilisateur_numeroSerie: {
@@ -74,7 +74,7 @@ export class AffectationService {
       },
       data: {
         dateAttribution: new Date(dateAttribution),
-        dateRetour: new Date(dateRetour),
+        dateRetour: isoDateRetour,
         motifRetour,
         etatAffectation
       }
