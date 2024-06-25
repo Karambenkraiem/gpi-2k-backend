@@ -17,6 +17,7 @@ datasource db {
 
 model Stocks {
   refArt                     String         @id
+  categorie                  CategorieAccessoire      @default(Autres)
   marque                     String
   modele                     String
   prix                       Float
@@ -143,7 +144,6 @@ model Installation {
   dateInstallation DateTime  @default(now())
   Materiel         Materiel? @relation(fields: [numeroSerie], references: [numeroSerie])
   Licence          Licence?  @relation(fields: [idLicence], references: [idLicence])
-
 }
 
 model Alimentation {
@@ -159,11 +159,11 @@ model Alimentation {
 }
 
 model Affectation {
-  idAffectation Int @id @default(autoincrement())
-  dateAttribution DateTime  @default(now())
-  dateRetour      DateTime?
-  motifRetour     String?
-  etatAffectation String?
+  idAffectation            Int          @id @default(autoincrement())
+  dateAttribution          DateTime     @default(now())
+  dateRetour               DateTime?
+  motifRetour              String?
+  etatAffectation          String?
   Materiel                 Materiel?    @relation(fields: [materielNumeroSerie], references: [numeroSerie])
   materielNumeroSerie      String?
   Utilisateur              Utilisateur? @relation(fields: [utilisateurIdUtilisateur], references: [idUtilisateur])
@@ -171,12 +171,12 @@ model Affectation {
 }
 
 model Emprunt {
-  idEmprunt Int @id @default(autoincrement())
-  dateEmprunt        DateTime  @default(now())
-  dateRestitution    DateTime?
-  refProjet          String
-  etatMatRestitution String?
-  etatEmprunt        String?
+  idEmprunt                Int          @id @default(autoincrement())
+  dateEmprunt              DateTime     @default(now())
+  dateRestitution          DateTime?
+  refProjet                String
+  etatMatRestitution       String?
+  etatEmprunt              String?
   Materiel                 Materiel?    @relation(fields: [materielNumeroSerie], references: [numeroSerie])
   materielNumeroSerie      String?
   Utilisateur              Utilisateur? @relation(fields: [utilisateurIdUtilisateur], references: [idUtilisateur])
