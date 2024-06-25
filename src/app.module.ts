@@ -10,18 +10,12 @@ import { AffectationModule } from './modules/affectation/affectation.module';
 import { EmpruntModule } from './modules/emprunt/emprunt.module';
 import { StocksModule } from './modules/stocks/stocks.module';
 import { LogicielsModule } from './modules/logiciels/logiciels.module';
-import { AlimentationModule } from './modules/alimentation/alimentation.module';
-import { InstallationModule } from './modules/installation/installation.module';
-import { InstallationModule } from './modules/installation/installation.module';
-import { InstallationModule } from './modules/installation/installation.module';
-import { InstallModule } from './modules/install/install.module';
-import { InstallationModule } from './modules/installation/installation.module';
 import { InstallationModule } from './modules/installation/installation.module';
 import { LicenceModule } from './modules/licence/licence.module';
 import { AlimentationModule } from './modules/alimentation/alimentation.module';
 
 @Module({
-  imports: [SocieteModule, UtilisateurModule, MaterielModule, DepartementModule, SpecialiteModule, AffectationModule, EmpruntModule, StocksModule, LogicielsModule, AlimentationModule, LicenceModule, InstallationModule, InstallModule],
+  imports: [SocieteModule, UtilisateurModule, MaterielModule, DepartementModule, SpecialiteModule, AffectationModule, EmpruntModule, StocksModule, LogicielsModule, AlimentationModule, LicenceModule, InstallationModule],
   controllers: [AppController],
   providers: [AppService],
 })
