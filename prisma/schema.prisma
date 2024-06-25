@@ -17,7 +17,7 @@ datasource db {
 
 model Stocks {
   refArt                     String         @id
-  categorie                  CategorieAccessoire      @default(Autres)
+  categorie                  CategorieAccessoire      
   marque                     String
   modele                     String
   prix                       Float
@@ -92,8 +92,8 @@ enum TypeDisque {
 }
 
 enum Couleur {
-  noir
-  couleur
+  NOIR
+  COULEUR
 }
 
 model Societe {
