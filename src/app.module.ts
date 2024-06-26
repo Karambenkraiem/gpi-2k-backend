@@ -10,7 +10,6 @@ import { AffectationModule } from './modules/affectation/affectation.module';
 import { EmpruntModule } from './modules/emprunt/emprunt.module';
 import { StocksModule } from './modules/stocks/stocks.module';
 import { LogicielsModule } from './modules/logiciels/logiciels.module';
-
 import { AlimentationModule } from './modules/alimentation/alimentation.module';
 import { InstallationModule } from './modules/installation/installation.module';
 import { LicenceModule } from './modules/licence/licence.module';

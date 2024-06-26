@@ -14,8 +14,7 @@ export class AffectationService {
         dateAttribution: new Date(
           createAffectationDto.dateAttribution,
         ).toISOString(),
-      },
-      include: { Utilisateur: true, Materiel: true },
+      }
     });
   }
 
