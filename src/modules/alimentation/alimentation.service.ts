@@ -9,7 +9,7 @@ export class AlimentationService {
   create(createAlimentationDto: CreateAlimentationDto) {
     return this.prisma.alimentation.create({
       data: {...createAlimentationDto,
-        dateAlimentation:new Date(createAlimentationDto.dateAlimentation).toISOString()
+        dateAlimentation:new Date().toISOString()
       }
     });
   }

@@ -1,14 +1,14 @@
 -- CreateTable
 CREATE TABLE `Stocks` (
     `refArt` VARCHAR(191) NOT NULL,
+    `categorie` ENUM('Toner', 'DisqueStoquage', 'Clavier', 'Souris', 'FlashDisque', 'CarteGraphique', 'Ram', 'DisqueDur', 'CartoucheEncre', 'Autres') NOT NULL,
     `marque` VARCHAR(191) NOT NULL,
     `modele` VARCHAR(191) NOT NULL,
     `prix` DOUBLE NOT NULL,
     `quantiteStock` INTEGER NOT NULL,
     `capaciteToner` INTEGER NULL,
     `compatibiliteToner` VARCHAR(191) NULL,
-    `dateExpirationToner` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `couleurToner` ENUM('noir', 'couleur') NULL,
+    `couleurToner` ENUM('NOIR', 'COULEUR') NULL,
     `capaciteFlashDvdCdRamHDD` INTEGER NULL,
     `typeDisqueStoquage` ENUM('CD', 'DVD') NULL,
     `typeConnexionClavierSouris` ENUM('USB', 'WIFI', 'BLUETOOTH') NULL,
@@ -78,7 +78,7 @@ CREATE TABLE `Installation` (
 -- CreateTable
 CREATE TABLE `Alimentation` (
     `idAlimentation` INTEGER NOT NULL AUTO_INCREMENT,
-    `idSociete` INTEGER NOT NULL,
+    `idSociete` INTEGER NULL,
     `refArt` VARCHAR(191) NOT NULL,
     `dateAlimentation` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `quantiteAlimente` INTEGER NOT NULL,
@@ -92,7 +92,6 @@ CREATE TABLE `Affectation` (
     `dateAttribution` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `dateRetour` DATETIME(3) NULL,
     `motifRetour` VARCHAR(191) NULL,
-    `etatAffectation` VARCHAR(191) NULL,
     `numeroSerie` VARCHAR(191) NULL,
     `idUtilisateur` INTEGER NULL,
 
@@ -202,7 +201,7 @@ ALTER TABLE `Installation` ADD CONSTRAINT `Installation_numeroSerie_fkey` FOREIG
 ALTER TABLE `Installation` ADD CONSTRAINT `Installation_idLicence_fkey` FOREIGN KEY (`idLicence`) REFERENCES `Licence`(`idLicence`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Alimentation` ADD CONSTRAINT `Alimentation_idSociete_fkey` FOREIGN KEY (`idSociete`) REFERENCES `Societe`(`idSociete`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Alimentation` ADD CONSTRAINT `Alimentation_idSociete_fkey` FOREIGN KEY (`idSociete`) REFERENCES `Societe`(`idSociete`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Alimentation` ADD CONSTRAINT `Alimentation_refArt_fkey` FOREIGN KEY (`refArt`) REFERENCES `Stocks`(`refArt`) ON DELETE RESTRICT ON UPDATE CASCADE;
