@@ -20,31 +20,9 @@ export class MaterielService {
     return this.prisma.materiel.findMany({
       include: {Affectation: true,Emprunt:true}
       });
-  }
-
-
-      include: {
-        Affectation: {
-          select: {
-            etatAffectation: true,
-          },
-        },
-        Emprunt: {
-          select: {
-            etatEmprunt: true,
-          },
-        },
-      },
-    });
   }  
-  // findAll() {
-  //   return this.prisma.materiel.findMany({
-  //     include: {
-  //       Affectation: true,
-  //       Emprunt: true
-  //     }
-  //   })
-  // }
+
+
   findOne(numeroSerie: string) {
     return this.prisma.materiel.findUnique({
       where: { numeroSerie },
@@ -69,19 +47,4 @@ export class MaterielService {
     })
   }
 
-  // async remove(numeroSerie: string) {
-  //   await this.prisma.affectation.deleteMany({
-  //     where: { numeroSerie },
-  //   });
-
-  //   // Delete related records in the Emprunt table
-  //   await this.prisma.emprunt.deleteMany({
-  //     where: { numeroSerie },
-  //   });
-
-  //   // Proceed with the delete operation for the Materiel record
-  //   return this.prisma.materiel.delete({
-  //     where: { numeroSerie },
-  //   });
-  // }
 }
