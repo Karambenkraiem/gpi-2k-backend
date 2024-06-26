@@ -6,8 +6,6 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class MaterielService {
   constructor(private prisma: PrismaService) { }
-
-
   create(createMaterielDto: CreateMaterielDto) {
     const { dateAcquisition, ...rest } = createMaterielDto;
     return this.prisma.materiel.create({
@@ -17,7 +15,6 @@ export class MaterielService {
       },
     });
   }
-
 
   findAll() {
     return this.prisma.materiel.findMany({
@@ -34,8 +31,7 @@ export class MaterielService {
         },
       },
     });
-  }
-  
+  }  
   // findAll() {
   //   return this.prisma.materiel.findMany({
   //     include: {
@@ -44,18 +40,11 @@ export class MaterielService {
   //     }
   //   })
   // }
-
-
-
-
   findOne(numeroSerie: string) {
     return this.prisma.materiel.findUnique({
       where: { numeroSerie },
     });
-  }
-
-
-  
+  } 
 
   update(numeroSerie: string, updateMaterielDto: UpdateMaterielDto) {
     const { dateAcquisition, ...rest } = updateMaterielDto;

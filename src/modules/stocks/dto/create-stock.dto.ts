@@ -16,7 +16,6 @@ export class CreateStockDto implements Prisma.StocksCreateInput{
     categorie: $Enums.CategorieAccessoire;
     compatibiliteToner?: string;
     couleurToner?: $Enums.Couleur;
-    dateExpirationToner?: string | Date;
     dispositionToucheClavier?: $Enums.Disposition;
     frequenceCarteGraphiqueRam?: number;
     interFaceHDD?: $Enums.InterfaceHDD;

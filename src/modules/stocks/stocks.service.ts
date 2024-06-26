@@ -8,12 +8,8 @@ export class StocksService {
   constructor(private prisma: PrismaService) { }
 
   create(createStockDto: CreateStockDto) {
-    const { dateExpirationToner, ...rest } = createStockDto;
     return this.prisma.stocks.create({
-      data: {
-        ...rest,
-        dateExpirationToner:dateExpirationToner? new Date(createStockDto.dateExpirationToner)?.toISOString():undefined
-      },
+      data: createStockDto
     });
   }
 

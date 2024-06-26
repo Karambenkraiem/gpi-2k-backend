@@ -25,7 +25,6 @@ model Stocks {
   Alimentation               Alimentation[]
   capaciteToner              Int?
   compatibiliteToner         String?
-  dateExpirationToner        DateTime?      @default(now())
   couleurToner               Couleur?
   capaciteFlashDvdCdRamHDD   Int?
   typeDisqueStoquage         TypeDisque?
@@ -155,7 +154,6 @@ model Alimentation {
   Societe          Societe  @relation(fields: [idSociete], references: [idSociete])
   Stocks           Stocks   @relation(fields: [refArt], references: [refArt])
 
-  // @@unique([idSociete, refArt])
 }
 
 model Affectation {
