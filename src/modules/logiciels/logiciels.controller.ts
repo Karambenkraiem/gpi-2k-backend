@@ -17,18 +17,18 @@ export class LogicielsController {
     return this.logicielsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.logicielsService.findOne(+id);
+  @Get(':idLogiciel')
+  findOne(@Param('idLogiciel') idLogiciel: string) {
+    return this.logicielsService.findOne(+idLogiciel);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLogicielDto: UpdateLogicielDto) {
-    return this.logicielsService.update(+id, updateLogicielDto);
+  @Patch(':idLogiciel')
+  update(@Param('idLogiciel') idLogiciel: string, @Body() updateLogicielDto: UpdateLogicielDto) {
+    return this.logicielsService.update(+idLogiciel, updateLogicielDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.logicielsService.remove(+id);
+  @Delete(':idLogiciel')
+  remove(@Param('idLogiciel') idLogiciel: string) {
+    return this.logicielsService.remove(+idLogiciel);
   }
 }

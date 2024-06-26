@@ -22,7 +22,7 @@ export class StocksController {
     return this.stocksService.findOne(refArt);
   }
 
-  @Patch(':reafArt')
+  @Patch(':refArt')
   update(
     @Param('reafArt') reafArt: string,
     @Body() updateStockDto: UpdateStockDto,

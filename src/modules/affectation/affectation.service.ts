@@ -23,10 +23,10 @@ export class AffectationService {
     return this.prisma.affectation.findMany({
       include: {
         Utilisateur: {
-          select: { fullName: true }, // Sélectionnez uniquement le nom complet de l'utilisateur
+          select: { fullName: true } // Sélectionnez uniquement le nom complet de l'utilisateur
         },
-        Materiel: true,
-      },
+        Materiel:true        
+      }
     });
   }
 

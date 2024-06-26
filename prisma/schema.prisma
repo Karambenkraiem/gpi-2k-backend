@@ -17,6 +17,7 @@ datasource db {
 
 model Stocks {
   refArt                     String         @id
+  categorie                  CategorieAccessoire      
   marque                     String
   modele                     String
   prix                       Float
@@ -24,7 +25,6 @@ model Stocks {
   Alimentation               Alimentation[]
   capaciteToner              Int?
   compatibiliteToner         String?
-  dateExpirationToner        DateTime?      @default(now())
   couleurToner               Couleur?
   capaciteFlashDvdCdRamHDD   Int?
   typeDisqueStoquage         TypeDisque?
@@ -91,8 +91,8 @@ enum TypeDisque {
 }
 
 enum Couleur {
-  noir
-  couleur
+  NOIR
+  COULEUR
 }
 
 model Societe {
@@ -154,10 +154,10 @@ model Alimentation {
   Societe          Societe  @relation(fields: [idSociete], references: [idSociete])
   Stocks           Stocks   @relation(fields: [refArt], references: [refArt])
 
-  // @@unique([idSociete, refArt])
 }
 
 model Affectation {
+<<<<<<< HEAD
   idAffectation   Int          @id @default(autoincrement())
   dateAttribution DateTime     @default(now())
   dateRetour      DateTime?
@@ -178,6 +178,30 @@ model Emprunt {
   numeroSerie        String?
   Utilisateur        Utilisateur? @relation(fields: [idUtilisateur], references: [idUtilisateur])
   idUtilisateur      Int?
+=======
+  idAffectation            Int          @id @default(autoincrement())
+  dateAttribution          DateTime     @default(now())
+  dateRetour               DateTime?
+  motifRetour              String?
+  etatAffectation          String?
+  Materiel                 Materiel?    @relation(fields: [materielNumeroSerie], references: [numeroSerie])
+  materielNumeroSerie      String?
+  Utilisateur              Utilisateur? @relation(fields: [utilisateurIdUtilisateur], references: [idUtilisateur])
+  utilisateurIdUtilisateur Int?
+}
+
+model Emprunt {
+  idEmprunt                Int          @id @default(autoincrement())
+  dateEmprunt              DateTime     @default(now())
+  dateRestitution          DateTime?
+  refProjet                String
+  etatMatRestitution       String?
+  etatEmprunt              String?
+  Materiel                 Materiel?    @relation(fields: [materielNumeroSerie], references: [numeroSerie])
+  materielNumeroSerie      String?
+  Utilisateur              Utilisateur? @relation(fields: [utilisateurIdUtilisateur], references: [idUtilisateur])
+  utilisateurIdUtilisateur Int?
+>>>>>>> 3ab1ce8c2296cfb6b39f219be2a6e50f84519c9d
 }
 
 model Departement {
