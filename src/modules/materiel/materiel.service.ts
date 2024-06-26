@@ -23,6 +23,28 @@ export class MaterielService {
   }
 
 
+      include: {
+        Affectation: {
+          select: {
+            etatAffectation: true,
+          },
+        },
+        Emprunt: {
+          select: {
+            etatEmprunt: true,
+          },
+        },
+      },
+    });
+  }  
+  // findAll() {
+  //   return this.prisma.materiel.findMany({
+  //     include: {
+  //       Affectation: true,
+  //       Emprunt: true
+  //     }
+  //   })
+  // }
   findOne(numeroSerie: string) {
     return this.prisma.materiel.findUnique({
       where: { numeroSerie },
