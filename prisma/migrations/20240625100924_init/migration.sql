@@ -93,8 +93,8 @@ CREATE TABLE `Affectation` (
     `dateRetour` DATETIME(3) NULL,
     `motifRetour` VARCHAR(191) NULL,
     `etatAffectation` VARCHAR(191) NULL,
-    `materielNumeroSerie` VARCHAR(191) NULL,
-    `utilisateurIdUtilisateur` INTEGER NULL,
+    `numeroSerie` VARCHAR(191) NULL,
+    `idUtilisateur` INTEGER NULL,
 
     PRIMARY KEY (`idAffectation`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -106,9 +106,8 @@ CREATE TABLE `Emprunt` (
     `dateRestitution` DATETIME(3) NULL,
     `refProjet` VARCHAR(191) NOT NULL,
     `etatMatRestitution` VARCHAR(191) NULL,
-    `etatEmprunt` VARCHAR(191) NULL,
-    `materielNumeroSerie` VARCHAR(191) NULL,
-    `utilisateurIdUtilisateur` INTEGER NULL,
+    `numeroSerie` VARCHAR(191) NULL,
+    `idUtilisateur` INTEGER NULL,
 
     PRIMARY KEY (`idEmprunt`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -132,6 +131,7 @@ CREATE TABLE `Materiel` (
     `etatMateriel` ENUM('nouveau', 'fonctionnel', 'enPanne', 'rebut') NOT NULL DEFAULT 'nouveau',
     `dateAcquisition` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `idSociete` INTEGER NOT NULL,
+    `disponibilite` VARCHAR(191) NOT NULL,
     `nombrePortSwitch` INTEGER NULL,
     `debitSwitch` INTEGER NULL,
     `technologieSwitch` VARCHAR(191) NULL,
@@ -208,16 +208,16 @@ ALTER TABLE `Alimentation` ADD CONSTRAINT `Alimentation_idSociete_fkey` FOREIGN 
 ALTER TABLE `Alimentation` ADD CONSTRAINT `Alimentation_refArt_fkey` FOREIGN KEY (`refArt`) REFERENCES `Stocks`(`refArt`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Affectation` ADD CONSTRAINT `Affectation_materielNumeroSerie_fkey` FOREIGN KEY (`materielNumeroSerie`) REFERENCES `Materiel`(`numeroSerie`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `Affectation` ADD CONSTRAINT `Affectation_numeroSerie_fkey` FOREIGN KEY (`numeroSerie`) REFERENCES `Materiel`(`numeroSerie`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Affectation` ADD CONSTRAINT `Affectation_utilisateurIdUtilisateur_fkey` FOREIGN KEY (`utilisateurIdUtilisateur`) REFERENCES `Utilisateur`(`idUtilisateur`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `Affectation` ADD CONSTRAINT `Affectation_idUtilisateur_fkey` FOREIGN KEY (`idUtilisateur`) REFERENCES `Utilisateur`(`idUtilisateur`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Emprunt` ADD CONSTRAINT `Emprunt_materielNumeroSerie_fkey` FOREIGN KEY (`materielNumeroSerie`) REFERENCES `Materiel`(`numeroSerie`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `Emprunt` ADD CONSTRAINT `Emprunt_numeroSerie_fkey` FOREIGN KEY (`numeroSerie`) REFERENCES `Materiel`(`numeroSerie`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Emprunt` ADD CONSTRAINT `Emprunt_utilisateurIdUtilisateur_fkey` FOREIGN KEY (`utilisateurIdUtilisateur`) REFERENCES `Utilisateur`(`idUtilisateur`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `Emprunt` ADD CONSTRAINT `Emprunt_idUtilisateur_fkey` FOREIGN KEY (`idUtilisateur`) REFERENCES `Utilisateur`(`idUtilisateur`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Materiel` ADD CONSTRAINT `Materiel_idSociete_fkey` FOREIGN KEY (`idSociete`) REFERENCES `Societe`(`idSociete`) ON DELETE CASCADE ON UPDATE CASCADE;

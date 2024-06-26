@@ -68,6 +68,7 @@ async function seed() {
         garantie: "1",
         etatMateriel: "fonctionnel",
         dateAcquisition: new Date('2018-12-28'),
+        disponibilite:"Affecté",
         nombrePortSwitch: null,
         debitSwitch: null,
         technologieSwitch: null,
@@ -106,6 +107,7 @@ async function seed() {
         garantie: "1",
         etatMateriel: "fonctionnel",
         dateAcquisition: new Date('2012-03-24'),
+        disponibilite:"Affecté",
         nombrePortSwitch: null,
         debitSwitch: null,
         technologieSwitch: null,
@@ -144,6 +146,7 @@ async function seed() {
         garantie: "1",
         etatMateriel: "fonctionnel",
         dateAcquisition: new Date('2012-03-24'),
+        disponibilite:"Disponible",
         nombrePortSwitch: null,
         debitSwitch: null,
         technologieSwitch: null,
@@ -182,6 +185,7 @@ async function seed() {
         garantie: "1",
         etatMateriel: "fonctionnel",
         dateAcquisition: new Date('2017-02-22'),
+        disponibilite:"Emprunté",
         nombrePortSwitch: null,
         debitSwitch: null,
         technologieSwitch: null,
@@ -220,9 +224,8 @@ async function seed() {
         idUtilisateur: 616,
         numeroSerie: "CZC7367N7F",
         dateAttribution: new Date('2018-12-28'),
-        dateRetour: new Date(),
+        dateRetour: null,
         motifRetour: null,
-        etatAffectation:"Affecté"
       },
       {
         idUtilisateur: 616,
@@ -230,17 +233,7 @@ async function seed() {
         dateAttribution: new Date('2018-12-28'),
         dateRetour: null,
         motifRetour: null,
-        etatAffectation:"Affecté"
-      },
-      {
-        idUtilisateur: 616,
-        numeroSerie: "124Q07PU",
-        dateAttribution: new Date('2020-05-26'),
-        dateRetour: null,
-        motifRetour: null,
-        etatAffectation:"Affecté"
-      }
-      
+      }      
     ]
   });
 
@@ -252,7 +245,6 @@ async function seed() {
       dateRestitution: null,
       refProjet: "TERG910",
       etatMatRestitution: "",
-      etatEmprunt:"Emprunté"
     }
   });
 }

@@ -22,7 +22,9 @@ export class EmpruntService {
 
     // Convert dates to ISO string format
     const isoDateEmprunt = new Date(dateEmprunt).toISOString();
-    const isoDateRestitution = dateRestitution ? new Date(dateRestitution).toISOString() : null;
+    const isoDateRestitution = dateRestitution
+      ? new Date(dateRestitution).toISOString()
+      : null;
 
     return this.prisma.emprunt.create({
       data: {
@@ -33,25 +35,30 @@ export class EmpruntService {
     });
   }
 
-
   findAll() {
     return this.prisma.emprunt.findMany({
-      include:{
-        utilisateur:{
-          select:{fullName:true}
+      include: {
+        Utilisateur: {
+          select: { fullName: true },
         },
-        materiel:true
-      }
+        Materiel: true,
+      },
     });
   }
 
-
-
-  findOne(idUtilisateur: number, numeroSerie: string) {
+  findUserMatEmprunt(idUtilisateur: number, numeroSerie: string) {
     return this.prisma.emprunt.findMany({
       where: {
         idUtilisateur,
         numeroSerie,
+      },
+    });
+  }
+
+  findOne(idEmprunt: number) {
+    return this.prisma.emprunt.findMany({
+      where: {
+        idEmprunt,
       },
     });
   }
@@ -62,44 +69,42 @@ export class EmpruntService {
         numeroSerie,
       },
       include: {
-        utilisateur: {
-          select: { fullName: true } // Sélectionnez uniquement le nom complet de l'utilisateur
+        Utilisateur: {
+          select: { fullName: true }, // Sélectionnez uniquement le nom complet de l'utilisateur
         },
-        materiel:true        
-      }
+        Materiel: true,
+      },
     });
   }
-  
-  update(idUtilisateur: number, numeroSerie: string, updateEmpruntDto: UpdateEmpruntDto) {
-    const {dateEmprunt, dateRestitution, refProjet, etatMatRestitution, etatEmprunt} = updateEmpruntDto;
-    const isoDateRestitution = dateRestitution ? new Date(dateRestitution).toISOString() : null;
-    return this.prisma.emprunt.update(
-      {
-        where: {
-          idUtilisateur_numeroSerie: {
-            idUtilisateur,
-            numeroSerie
-          }
-        },
-        data: {
-          dateEmprunt: new Date(dateEmprunt),
-          dateRestitution: isoDateRestitution,
-          refProjet,
-          etatMatRestitution,
-          etatEmprunt
-        }
-      }
-    )
+
+  update(idEmprunt: number, updateEmpruntDto: UpdateEmpruntDto) {
+    const {
+      dateEmprunt,
+      dateRestitution,
+      refProjet,
+      etatMatRestitution,
+      etatEmprunt,
+    } = updateEmpruntDto;
+    const isoDateRestitution = dateRestitution
+      ? new Date(dateRestitution).toISOString()
+      : null;
+    return this.prisma.emprunt.update({
+      where: {
+        idEmprunt,
+      },
+      data: {
+        dateEmprunt: new Date(dateEmprunt),
+        dateRestitution: isoDateRestitution,
+        refProjet,
+        etatMatRestitution,
+        etatEmprunt,
+      },
+    });
   }
 
-  remove(idUtilisateur: number, numeroSerie: string) {
+  remove(idEmprunt: number) {
     return this.prisma.emprunt.delete({
-      where: {
-        idUtilisateur_numeroSerie: {
-          idUtilisateur,
-          numeroSerie
-        }
-      }
-    })
+      where: { idEmprunt },
+    });
   }
 }

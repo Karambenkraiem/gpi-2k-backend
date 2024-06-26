@@ -21,40 +21,36 @@ export class AffectationController {
     return this.affectationService.findMaterialAffectations(numeroSerie);
   }
 
-  @Get(':idUtilisateur/:numeroSerie')
+  @Get(':idAffectation')
   findOne(
-    @Query('idUtilisateur') idUtilisateur: number,
-    @Query('numeroSerie') numeroSerie: string,
+    @Query('idAffectation') idAffectation: number,
   ) {
-    return this.affectationService.findOne(idUtilisateur, numeroSerie);
+    return this.affectationService.findOne(idAffectation);
   }
 
-  // @Get(':idUtilisateur/:numeroSerie')
-  // async findOne(
-  //   @Param('idUtilisateur') idUtilisateur: string,
-  //   @Param('numeroSerie') numeroSerie: string,
-  // ) {
-  //   return this.affectationService.findOne(+idUtilisateur, numeroSerie);
-  // }
-
-  @Patch(':idUtilisateur/:numeroSerie')
-  update(
+  @Get(':idUtilisateur/:numeroSerie')
+  async findMany(
     @Param('idUtilisateur') idUtilisateur: string,
     @Param('numeroSerie') numeroSerie: string,
+  ) {
+    return this.affectationService.findUserMatAffect(+idUtilisateur, numeroSerie);
+  }
+
+  @Patch(':idAffectation')
+  update(
+    @Param('idAffectation') idAffectation: string,
     @Body() updateAffectationDto: UpdateAffectationDto,
   ) {
     return this.affectationService.update(
-      +idUtilisateur,
-      numeroSerie,
+      +idAffectation,
       updateAffectationDto,
     );
   }
 
-  @Delete(':idUtilisateur/:numeroSerie')
+  @Delete(':idAffectation')
   remove(
-    @Param('idUtilisateur') idUtilisateur: string,
-    @Param('numeroSerie') numeroSerie: string,
+    @Param('idAffectation') idAffectation: string,
   ) {
-    return this.affectationService.remove(+idUtilisateur, numeroSerie);
+    return this.affectationService.remove(+idAffectation);
   }
 }

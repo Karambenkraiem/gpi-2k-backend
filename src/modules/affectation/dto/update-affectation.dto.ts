@@ -6,7 +6,6 @@ export class UpdateAffectationDto extends PartialType(CreateAffectationDto) {
   dateAttribution: string | Date;
   dateRetour?: string | Date;
   motifRetour?: string;
-  etatAffectation?: string;
   utilisateur: Prisma.UtilisateurCreateNestedOneWithoutAffectationInput;
   materiel: Prisma.MaterielCreateNestedOneWithoutAffectationInput;
 }

@@ -158,34 +158,26 @@ model Alimentation {
 }
 
 model Affectation {
-  idAffectation Int @id @default(autoincrement())
-
-  dateAttribution DateTime  @default(now())
+  idAffectation   Int          @id @default(autoincrement())
+  dateAttribution DateTime     @default(now())
   dateRetour      DateTime?
   motifRetour     String?
-  etatAffectation String?
-
-  // @@unique([idUtilisateur, numeroSerie])
-  Materiel                 Materiel?    @relation(fields: [materielNumeroSerie], references: [numeroSerie])
-  materielNumeroSerie      String?
-  Utilisateur              Utilisateur? @relation(fields: [utilisateurIdUtilisateur], references: [idUtilisateur])
-  utilisateurIdUtilisateur Int?
+  Materiel        Materiel?    @relation(fields: [numeroSerie], references: [numeroSerie])
+  numeroSerie     String?
+  Utilisateur     Utilisateur? @relation(fields: [idUtilisateur], references: [idUtilisateur])
+  idUtilisateur   Int?
 }
 
 model Emprunt {
-  idEmprunt Int @id @default(autoincrement())
-
-  dateEmprunt        DateTime  @default(now())
+  idEmprunt          Int          @id @default(autoincrement())
+  dateEmprunt        DateTime     @default(now())
   dateRestitution    DateTime?
   refProjet          String
   etatMatRestitution String?
-  etatEmprunt        String?
-
-  // @@unique([idUtilisateur, numeroSerie])
-  Materiel                 Materiel?    @relation(fields: [materielNumeroSerie], references: [numeroSerie])
-  materielNumeroSerie      String?
-  Utilisateur              Utilisateur? @relation(fields: [utilisateurIdUtilisateur], references: [idUtilisateur])
-  utilisateurIdUtilisateur Int?
+  Materiel           Materiel?    @relation(fields: [numeroSerie], references: [numeroSerie])
+  numeroSerie        String?
+  Utilisateur        Utilisateur? @relation(fields: [idUtilisateur], references: [idUtilisateur])
+  idUtilisateur      Int?
 }
 
 model Departement {
@@ -204,6 +196,7 @@ model Materiel {
   etatMateriel                  EtatMateriel           @default(nouveau)
   dateAcquisition               DateTime               @default(now())
   idSociete                     Int
+  disponibilite                 String
   nombrePortSwitch              Int?
   debitSwitch                   Int?
   technologieSwitch             String?

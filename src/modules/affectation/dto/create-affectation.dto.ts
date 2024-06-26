@@ -4,7 +4,7 @@ export class CreateAffectationDto implements Prisma.AffectationCreateInput {
   dateAttribution: string | Date;
   dateRetour?: string | Date;
   motifRetour?: string;
-  etatAffectation?: string;
-  utilisateur: Prisma.UtilisateurCreateNestedOneWithoutAffectationInput;
-  materiel: Prisma.MaterielCreateNestedOneWithoutAffectationInput;
+  Utilisateur?: Prisma.UtilisateurCreateNestedOneWithoutAffectationInput;
+  Materiel?: Prisma.MaterielCreateNestedOneWithoutAffectationInput;
+  
 }

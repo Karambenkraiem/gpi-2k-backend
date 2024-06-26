@@ -5,48 +5,48 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class AffectationService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
+
   create(createAffectationDto: CreateAffectationDto) {
     return this.prisma.affectation.create({
-      data: {...createAffectationDto,
-        dateAttribution:new Date(createAffectationDto.dateAttribution).toISOString()
-      }
+      data: {
+        ...createAffectationDto,
+        dateAttribution: new Date(
+          createAffectationDto.dateAttribution,
+        ).toISOString(),
+      },
+      include: { Utilisateur: true, Materiel: true },
     });
   }
 
   findAll() {
     return this.prisma.affectation.findMany({
       include: {
-        utilisateur: {
-          select: { fullName: true } // Sélectionnez uniquement le nom complet de l'utilisateur
+        Utilisateur: {
+          select: { fullName: true }, // Sélectionnez uniquement le nom complet de l'utilisateur
         },
-        materiel:true        
-      }
+        Materiel: true,
+      },
     });
   }
 
-  findOne(idUtilisateur: number, numeroSerie: string) {
+  findUserMatAffect(idUtilisateur: number, numeroSerie: string) {
     return this.prisma.affectation.findMany({
       where: {
         idUtilisateur,
         numeroSerie,
-        OR: [
-          { dateRetour: null },
-          { dateRetour: '' },
-        ],
       },
     });
   }
-  
 
-  // findOne(idUtilisateur: number, numeroSerie: string) {
-  //   return this.prisma.affectation.findMany({
-  //     where: {
-  //       idUtilisateur,
-  //       numeroSerie,
-  //     },
-  //   });
-  // }
+  findOne(idAffectation: number) {
+    return this.prisma.affectation.findMany({
+      where: {
+        idAffectation,
+        AND: [{ dateRetour: null }, { dateRetour: '' }],
+      },
+    });
+  }
 
   findMaterialAffectations(numeroSerie: string) {
     return this.prisma.affectation.findMany({
@@ -54,61 +54,32 @@ export class AffectationService {
         numeroSerie,
       },
       include: {
-        utilisateur: {
-          select: { fullName: true } // Sélectionnez uniquement le nom complet de l'utilisateur
+        Utilisateur: {
+          select: { fullName: true },
         },
-        materiel:true        
-      }
+        Materiel: true,
+      },
     });
   }
 
-  update(idUtilisateur: number, numeroSerie: string, updateAffectationDto: UpdateAffectationDto) {
-    const { dateAttribution, dateRetour, motifRetour, etatAffectation } = updateAffectationDto;
-    const isoDateRetour = dateRetour ? new Date(dateRetour).toISOString() : null;
+  update(idAffectation: number, updateAffectationDto: UpdateAffectationDto) {
+    const { dateAttribution, dateRetour, motifRetour } = updateAffectationDto;
+    const isoDateRetour = dateRetour
+      ? new Date(dateRetour).toISOString()
+      : null;
     return this.prisma.affectation.update({
-      where: {
-        idUtilisateur_numeroSerie: {
-          idUtilisateur,
-          numeroSerie
-        }
-      },
+      where: { idAffectation },
       data: {
         dateAttribution: new Date(dateAttribution),
         dateRetour: isoDateRetour,
         motifRetour,
-        etatAffectation
-      }
+      },
     });
   }
-  
 
-  // update(idUtilisateur: number, numeroSerie: string, updateAffectationDto: UpdateAffectationDto) {
-  //   return this.prisma.affectation.update(
-  //     {
-  //       where: {
-  //         idUtilisateur_numeroSerie: {
-  //           idUtilisateur,
-  //           numeroSerie
-  //         }
-  //       },
-  //       data: {
-  //         dateAttribution: updateAffectationDto.dateAttribution,
-  //         dateRetour: updateAffectationDto.dateRetour,
-  //         motifRetour: updateAffectationDto.motifRetour,
-  //         etatAffectation: updateAffectationDto.etatAffectation,
-  //       }
-  //     }
-  //   )
-  // }
-
-  remove(idUtilisateur: number, numeroSerie: string) {
+  remove(idAffectation: number) {
     return this.prisma.affectation.delete({
-      where: {
-        idUtilisateur_numeroSerie: {
-          idUtilisateur,
-          numeroSerie
-        }
-      }
-    })
+      where: { idAffectation },
+    });
   }
 }

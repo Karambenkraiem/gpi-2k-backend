@@ -3,6 +3,7 @@ import { CreateMaterielDto } from './create-materiel.dto';
 import { $Enums, Prisma } from '@prisma/client';
 
 export class UpdateMaterielDto extends PartialType(CreateMaterielDto) {
+  disponibilite: string;
   numeroSerie: string;
   categorie?: $Enums.Categorie;
   marque: string;
@@ -38,7 +39,8 @@ export class UpdateMaterielDto extends PartialType(CreateMaterielDto) {
   entreeVGA_VideoProjecteur?: boolean;
   entreeUSB_VideoProjecteur?: boolean;
   entreeLAN_VideoProjecteur?: boolean;
-  societe: Prisma.SocieteCreateNestedOneWithoutMaterielInput;
   Affectation?: Prisma.AffectationCreateNestedManyWithoutMaterielInput;
   Emprunt?: Prisma.EmpruntCreateNestedManyWithoutMaterielInput;
+  Societe?: Prisma.SocieteCreateNestedOneWithoutMaterielInput;
+  Installation?: Prisma.InstallationCreateNestedManyWithoutMaterielInput;
 }

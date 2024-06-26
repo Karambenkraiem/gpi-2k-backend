@@ -30,8 +30,8 @@ export class MaterielController {
     return this.materielService.update(numeroSerie, updateMaterielDto);
   }
 
-  @Delete(':numeroSerie')
-  remove(@Param('numeroSerie') numeroSerie: string) {
-    return this.materielService.remove(numeroSerie);
-  }
+  // @Delete(':numeroSerie')
+  // remove(@Param('numeroSerie') numeroSerie: string) {
+  //   return this.materielService.remove(numeroSerie);
+  // }
 }

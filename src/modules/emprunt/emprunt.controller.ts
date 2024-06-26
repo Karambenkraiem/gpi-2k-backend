@@ -22,34 +22,37 @@ export class EmpruntController {
     return this.empruntService.findMaterialEmprunts(numeroSerie);
   }
 
-  @Get(':idUtilisateur/:numeroSerie')
+  @Get(':idEmprunt')
   async findOne(
+    @Param('idEmprunt') idEmprunt: string,
+  ) {
+    return this.empruntService.findOne(+idEmprunt);
+  }
+
+  @Get(':idUtilisateur/:numeroSerie')
+  async findMany(
     @Param('idUtilisateur') idUtilisateur: string,
     @Param('numeroSerie') numeroSerie: string,
   ) {
-    return this.empruntService.findOne(+idUtilisateur, numeroSerie);
+    return this.empruntService.findUserMatEmprunt(+idUtilisateur, numeroSerie);
   }
 
-
-  @Patch(':idUtilisateur/:numeroSerie')
+  @Patch(':idEmprunt')
   update(
-    @Param('idUtilisateur') idUtilisateur: string,
-    @Param('numeroSerie') numeroSerie: string,
+    @Param('idEmprunt') idEmprunt: string,
     @Body() updateEmpruntDto: UpdateEmpruntDto,
   ) {
     return this.empruntService.update(
-      +idUtilisateur,
-      numeroSerie,
+      +idEmprunt,
       updateEmpruntDto,
     );
   }
 
 
-  @Delete(':idUtilisateur/:numeroSerie')
+  @Delete(':idEmprunt')
   remove(
-    @Param('idUtilisateur') idUtilisateur: string,
-    @Param('numeroSerie') numeroSerie: string,
+    @Param('idEmprunt') idEmprunt: string,
   ) {
-    return this.empruntService.remove(+idUtilisateur, numeroSerie);
+    return this.empruntService.remove(+idEmprunt);
   }
 }
