@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Consommation` ADD COLUMN `dateConsommation` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3);
