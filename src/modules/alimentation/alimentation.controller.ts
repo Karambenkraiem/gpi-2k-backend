@@ -30,25 +30,22 @@ export class AlimentationController {
     return this.alimentationService.findOne(idSociete, refArt);
   }
 
-  @Patch(':idSociete/:refArt')
+  @Patch(':idAffectation')
   update(
-    @Param('idSociete') idSociete: string,
-    @Param('refArt') refArt: string,
+    @Param('idAffectation') idAffectation: number,
     @Body() updateAlimentationDto: UpdateAlimentationDto,
   ) {
     return this.alimentationService.update(
-      +idSociete,
-      refArt,
+      +idAffectation,
       updateAlimentationDto,
     );
   }
 
 
- @Delete(':idSociete/:refArt')
+ @Delete(':idAffectation')
   remove(
-    @Param('idSociete') idSociete: string,
-    @Param('refArt') refArt: string,
+    @Param('idAffectation') idAffectation: number,
   ) {
-    return this.alimentationService.remove(+idSociete, refArt);
+    return this.alimentationService.remove(+idAffectation);
   }
 }

@@ -8,11 +8,10 @@ export class AlimentationService {
   constructor(private prisma: PrismaService) {}
 
   create(createAlimentationDto: CreateAlimentationDto) {
-    const { dateAlimentation, ...rest } = createAlimentationDto;
     return this.prisma.alimentation.create({
       data: {
-        ...rest,
-        dateAlimentation: new Date().toISOString()
+        ...createAlimentationDto,
+        dateAlimentation: new Date().toISOString(),
       }
     });
   }

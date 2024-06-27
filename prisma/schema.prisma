@@ -147,12 +147,12 @@ model Installation {
 
 model Alimentation {
   idAlimentation   Int      @id @default(autoincrement())
-  idSociete        Int
-  refArt           String
+  idSociete        Int?
+  refArt           String?
   dateAlimentation DateTime @default(now())
   quantiteAlimente Int
-  Societe          Societe  @relation(fields: [idSociete], references: [idSociete])
-  Stocks           Stocks   @relation(fields: [refArt], references: [refArt])
+  Societe          Societe?  @relation(fields: [idSociete], references: [idSociete])
+  Stocks           Stocks?   @relation(fields: [refArt], references: [refArt])
 
 }
 
