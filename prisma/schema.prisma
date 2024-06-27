@@ -16,8 +16,8 @@ datasource db {
 //------------------- Model ------------------------
 
 model Stocks {
-  refArt                     String         @id
-  categorie                  CategorieAccessoire      
+  refArt                     String              @id
+  categorie                  CategorieAccessoire
   marque                     String
   modele                     String
   prix                       Float
@@ -40,6 +40,7 @@ model Stocks {
   tailleHDD                  TailleDisque?
   TypeHDD                    TypeHDD?
   autre                      String?
+  Consommation               Consommation[]
 }
 
 enum CategorieAccessoire {
@@ -151,9 +152,20 @@ model Alimentation {
   refArt           String?
   dateAlimentation DateTime @default(now())
   quantiteAlimente Int
-  Societe          Societe?  @relation(fields: [idSociete], references: [idSociete])
-  Stocks           Stocks?   @relation(fields: [refArt], references: [refArt])
+  Societe          Societe? @relation(fields: [idSociete], references: [idSociete])
+  Stocks           Stocks?  @relation(fields: [refArt], references: [refArt])
+}
 
+model Consommation {
+  idConsommation           Int          @id @default(autoincrement())
+  idUtilisateur            Int?
+  numeroSerie              String?
+  refArt                   String?
+  quantiteConsomme         Int
+  dateConsommation DateTime @default(now())
+  Utilisateur              Utilisateur? @relation(fields: [idUtilisateur], references: [idUtilisateur])
+  Stocks                   Stocks?      @relation(fields: [refArt], references: [refArt])
+  Materiel                 Materiel?    @relation(fields: [numeroSerie], references: [numeroSerie])
 }
 
 model Affectation {
@@ -227,6 +239,7 @@ model Materiel {
   Emprunt                       Emprunt[]
   Societe                       Societe?               @relation(fields: [idSociete], references: [idSociete], onDelete: Cascade)
   Installation                  Installation[]
+  Consommation                  Consommation[]
 }
 
 model Specialite {
@@ -252,6 +265,7 @@ model Utilisateur {
   Emprunt         Emprunt[]
   Specialite      Specialite?     @relation(fields: [idSpecialite], references: [idSpecialite], onDelete: Cascade)
   idSpecialite    String?
+  Consommation    Consommation[]
 }
 
 //------ ENUM--------
