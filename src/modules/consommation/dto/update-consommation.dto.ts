@@ -9,4 +9,4 @@ export class UpdateConsommationDto extends PartialType(CreateConsommationDto) {
     Stocks?: Prisma.StocksCreateNestedOneWithoutConsommationInput;
     Materiel?: Prisma.MaterielCreateNestedOneWithoutConsommationInput;
 }
-}
+
