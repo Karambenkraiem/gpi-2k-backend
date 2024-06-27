@@ -5,14 +5,20 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class AlimentationService {
-  constructor (private prisma: PrismaService){ }
+  constructor(private prisma: PrismaService) {}
+
   create(createAlimentationDto: CreateAlimentationDto) {
     return this.prisma.alimentation.create({
-      data: {...createAlimentationDto,
-        dateAlimentation:new Date(createAlimentationDto.dateAlimentation).toISOString()
-      }
+      data: {
+        ...createAlimentationDto,
+        dateAlimentation: new Date().toISOString(),
+      },
+      include: {
+        Stocks: true,
+      },
     });
   }
+
 
   findAll() {
     return this.prisma.alimentation.findMany({
