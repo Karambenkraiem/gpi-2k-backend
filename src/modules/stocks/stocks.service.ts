@@ -36,9 +36,13 @@ export class StocksService {
 
 
   update(refArt: string, updateStockDto: UpdateStockDto) {
+    const {quantiteStock, ...rest}=updateStockDto;
     return this.prisma.stocks.update({
       where: { refArt },
-      data: updateStockDto,
+      data: {
+        ...rest,
+        quantiteStock: quantiteStock,
+      },
       include: {
         Alimentation: true,
       }

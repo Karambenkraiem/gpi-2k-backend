@@ -24,7 +24,7 @@ export class StocksController {
 
   @Patch(':refArt')
   update(
-    @Param('reafArt') reafArt: string,
+    @Param('refArt') reafArt: string,
     @Body() updateStockDto: UpdateStockDto,
   ) {
     return this.stocksService.update(reafArt, updateStockDto);

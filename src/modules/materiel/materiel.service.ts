@@ -6,6 +6,7 @@ import { CreateMaterielDto } from './dto/create-materiel.dto';
 @Injectable()
 export class MaterielService {
   constructor(private prisma: PrismaService) { }
+  
   create(createMaterielDto: CreateMaterielDto) {
     const { dateAcquisition, ...rest } = createMaterielDto;
     return this.prisma.materiel.create({

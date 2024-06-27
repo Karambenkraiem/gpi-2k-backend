@@ -8,14 +8,12 @@ export class AlimentationService {
   constructor(private prisma: PrismaService) {}
 
   create(createAlimentationDto: CreateAlimentationDto) {
+    const { dateAlimentation, ...rest } = createAlimentationDto;
     return this.prisma.alimentation.create({
       data: {
-        ...createAlimentationDto,
-        dateAlimentation: new Date().toISOString(),
-      },
-      include: {
-        Stocks: true,
-      },
+        ...rest,
+        dateAlimentation: new Date().toISOString()
+      }
     });
   }
 
@@ -56,21 +54,11 @@ export class AlimentationService {
   }
 
 
-
-
-
-
-
-  update(idSociete: number, refArt: string, updateAlimentationDto: UpdateAlimentationDto) {
+  update(idAlimentation: number, updateAlimentationDto: UpdateAlimentationDto) {
     const { dateAlimentation, quantiteAlimente } = updateAlimentationDto;
   
     return this.prisma.alimentation.update({
-      where: {
-        idSociete_refArt: {
-          idSociete,
-          refArt
-        }
-      },
+      where: { idAlimentation },
       data: {
         dateAlimentation: dateAlimentation ? new Date(dateAlimentation):null,
         quantiteAlimente,
@@ -80,14 +68,9 @@ export class AlimentationService {
   }
   
 
-  remove(idSociete: number, refArt: string) {
+  remove(idAlimentation: number) {
     return this.prisma.alimentation.delete({
-      where: {
-        idSociete_refArt: {
-          idSociete,
-          refArt
-        }
-      }
+      where: { idAlimentation },
     })
   }
 }
