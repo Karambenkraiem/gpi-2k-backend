@@ -6,6 +6,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class DepartementService {
   constructor (private prisma:PrismaService){ }
+  
   create(createDepartementDto: CreateDepartementDto) {
     return this.prisma.departement.create({
       data:createDepartementDto

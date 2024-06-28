@@ -29,7 +29,7 @@ export class InstallationService {
     });
   }
 
-  findInstallation(numeroSerie: string, idLicence) {
+  findInstallation(numeroSerie: string) {
     return this.prisma.installation.findMany({
       where: {
         numeroSerie,

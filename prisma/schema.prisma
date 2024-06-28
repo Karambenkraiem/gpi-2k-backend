@@ -112,17 +112,18 @@ model Societe {
 
 model Licence {
   idLicence      Int            @id @default(autoincrement())
-  dateActivation DateTime       @default(now())
-  dateExpiration DateTime       @default(now())
-  prixLicence    Float
+  numeroLicence  String
+  dateActivation DateTime?      @default(now())
+  dateExpiration DateTime?      @default(now())
+  prixLicence    Float?
   Installation   Installation[]
-  Logiciel       Logiciel?      @relation(fields: [idLogiciel], references: [idLogiciel])
-  idLogiciel     Int?
+  Logiciel       Logiciel       @relation(fields: [idLogiciel], references: [idLogiciel])
+  idLogiciel     Int
 }
 
 model Logiciel {
   idLogiciel      Int          @id @default(autoincrement())
-  libele          String
+  libelle         String
   version         String
   editeur         String
   dateAcquisition DateTime     @default(now())
@@ -138,12 +139,13 @@ enum TypeLogiciel {
 }
 
 model Installation {
-  idInstallation   Int       @id @default(autoincrement())
-  numeroSerie      String?
-  idLicence        Int?
-  dateInstallation DateTime  @default(now())
-  Materiel         Materiel? @relation(fields: [numeroSerie], references: [numeroSerie])
-  Licence          Licence?  @relation(fields: [idLicence], references: [idLicence])
+  idInstallation      Int       @id @default(autoincrement())
+  numeroSerie         String?
+  idLicence           Int?
+  dateInstallation    DateTime  @default(now())
+  dateDesinstallation DateTime?
+  Materiel            Materiel? @relation(fields: [numeroSerie], references: [numeroSerie])
+  Licence             Licence?  @relation(fields: [idLicence], references: [idLicence])
 }
 
 model Alimentation {
@@ -152,20 +154,9 @@ model Alimentation {
   refArt           String?
   dateAlimentation DateTime @default(now())
   quantiteAlimente Int
-  Societe          Societe? @relation(fields: [idSociete], references: [idSociete])
-  Stocks           Stocks?  @relation(fields: [refArt], references: [refArt])
-}
+  Societe          Societe?  @relation(fields: [idSociete], references: [idSociete])
+  Stocks           Stocks?   @relation(fields: [refArt], references: [refArt])
 
-model Consommation {
-  idConsommation           Int          @id @default(autoincrement())
-  idUtilisateur            Int?
-  numeroSerie              String?
-  refArt                   String?
-  quantiteConsomme         Int
-  dateConsommation DateTime @default(now())
-  Utilisateur              Utilisateur? @relation(fields: [idUtilisateur], references: [idUtilisateur])
-  Stocks                   Stocks?      @relation(fields: [refArt], references: [refArt])
-  Materiel                 Materiel?    @relation(fields: [numeroSerie], references: [numeroSerie])
 }
 
 model Affectation {

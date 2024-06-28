@@ -17,7 +17,7 @@ export class AffectationController {
   }
 
   @Get('/:numeroSerie')
-  findAffectations(@Param('numeroSerie') numeroSerie: string,){
+  findAffectations(@Param('numeroSerie') numeroSerie: string){
     return this.affectationService.findMaterialAffectations(numeroSerie);
   }
 
