@@ -17,6 +17,11 @@ export class InstallationController {
     return this.installationService.findAll();
   }
 
+  @Get()
+  findInstallations(@Param('numeroSerie') numeroSerie: string) {
+    return this.installationService.findInstallation(numeroSerie);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.installationService.findOne(+id);

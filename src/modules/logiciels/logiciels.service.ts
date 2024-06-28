@@ -14,7 +14,7 @@ export class LogicielsService {
       data: {
         ...rest,
         dateAcquisition: dateAcquisition ? new Date(createLogicielDto.dateAcquisition)?.toISOString() : undefined
-      },
+      }
     })
   }
 
@@ -40,8 +40,6 @@ export class LogicielsService {
       });
     }
   
-  
-
   remove(idLogiciel: number) {
     return this.prisma.logiciel.delete({
       where:{idLogiciel}

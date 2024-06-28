@@ -17,9 +17,14 @@ export class LicenceController {
     return this.licenceService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.licenceService.findOne(+id);
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.licenceService.findOne(+id);
+  // }
+
+  @Get('/:idLogiciel')
+    findLicences(@Param('idLogiciel') idLogiciel: string) {
+    return this.licenceService.findLogiciel(+idLogiciel);
   }
 
   @Patch(':id')

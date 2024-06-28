@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateLicenceDto } from './dto/create-licence.dto';
+
 import { UpdateLicenceDto } from './dto/update-licence.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateLicenceDto } from './dto/create-licence.dto';
 
 @Injectable()
 export class LicenceService {
@@ -22,10 +23,16 @@ export class LicenceService {
     });
   }
 
-  findOne(idLicence: number) {
-    return this.prisma.licence.findUnique({
-      where: { idLicence },
-      include: { Logiciel: true },
+  // findOne(idLicence: number) {
+  //   return this.prisma.licence.findUnique({
+  //     where: { idLicence },
+  //     include: { Logiciel: true },
+  //   });
+  // }
+
+  findLogiciel(idLogiciel: number) {
+    return this.prisma.licence.findMany({
+      where: { idLogiciel }
     });
   }
 

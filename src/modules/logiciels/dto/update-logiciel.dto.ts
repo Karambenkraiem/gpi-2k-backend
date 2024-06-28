@@ -3,7 +3,7 @@ import { CreateLogicielDto } from './create-logiciel.dto';
 import { $Enums, Prisma } from '@prisma/client';
 
 export class UpdateLogicielDto extends PartialType(CreateLogicielDto) {
-    libele: string;
+    libelle: string;
     version: string;
     editeur: string;
     dateAcquisition?: string | Date;
