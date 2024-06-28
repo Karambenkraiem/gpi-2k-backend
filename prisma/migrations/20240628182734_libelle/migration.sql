@@ -44,10 +44,11 @@ CREATE TABLE `Societe` (
 -- CreateTable
 CREATE TABLE `Licence` (
     `idLicence` INTEGER NOT NULL AUTO_INCREMENT,
-    `dateActivation` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `dateExpiration` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `prixLicence` DOUBLE NOT NULL,
-    `idLogiciel` INTEGER NULL,
+    `numeroLicence` VARCHAR(191) NOT NULL,
+    `dateActivation` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `dateExpiration` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `prixLicence` DOUBLE NULL,
+    `idLogiciel` INTEGER NOT NULL,
 
     PRIMARY KEY (`idLicence`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -55,7 +56,7 @@ CREATE TABLE `Licence` (
 -- CreateTable
 CREATE TABLE `Logiciel` (
     `idLogiciel` INTEGER NOT NULL AUTO_INCREMENT,
-    `libele` VARCHAR(191) NOT NULL,
+    `libelle` VARCHAR(191) NOT NULL,
     `version` VARCHAR(191) NOT NULL,
     `editeur` VARCHAR(191) NOT NULL,
     `dateAcquisition` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -71,6 +72,7 @@ CREATE TABLE `Installation` (
     `numeroSerie` VARCHAR(191) NULL,
     `idLicence` INTEGER NULL,
     `dateInstallation` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `dateDesinstallation` DATETIME(3) NULL,
 
     PRIMARY KEY (`idInstallation`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -84,18 +86,6 @@ CREATE TABLE `Alimentation` (
     `quantiteAlimente` INTEGER NOT NULL,
 
     PRIMARY KEY (`idAlimentation`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `Consommation` (
-    `idConsommation` INTEGER NOT NULL AUTO_INCREMENT,
-    `idUtilisateur` INTEGER NULL,
-    `numeroSerie` VARCHAR(191) NULL,
-    `refArt` VARCHAR(191) NULL,
-    `quantiteConsomme` INTEGER NOT NULL,
-    `dateConsommation` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-
-    PRIMARY KEY (`idConsommation`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -200,8 +190,20 @@ CREATE TABLE `Utilisateur` (
     PRIMARY KEY (`idUtilisateur`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- CreateTable
+CREATE TABLE `Consommation` (
+    `idConsommation` INTEGER NOT NULL AUTO_INCREMENT,
+    `idUtilisateur` INTEGER NULL,
+    `numeroSerie` VARCHAR(191) NULL,
+    `refArt` VARCHAR(191) NULL,
+    `dateConsommation` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `quantiteConsomme` INTEGER NULL,
+
+    PRIMARY KEY (`idConsommation`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 -- AddForeignKey
-ALTER TABLE `Licence` ADD CONSTRAINT `Licence_idLogiciel_fkey` FOREIGN KEY (`idLogiciel`) REFERENCES `Logiciel`(`idLogiciel`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `Licence` ADD CONSTRAINT `Licence_idLogiciel_fkey` FOREIGN KEY (`idLogiciel`) REFERENCES `Logiciel`(`idLogiciel`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Logiciel` ADD CONSTRAINT `Logiciel_idSociete_fkey` FOREIGN KEY (`idSociete`) REFERENCES `Societe`(`idSociete`) ON DELETE SET NULL ON UPDATE CASCADE;
@@ -217,15 +219,6 @@ ALTER TABLE `Alimentation` ADD CONSTRAINT `Alimentation_idSociete_fkey` FOREIGN 
 
 -- AddForeignKey
 ALTER TABLE `Alimentation` ADD CONSTRAINT `Alimentation_refArt_fkey` FOREIGN KEY (`refArt`) REFERENCES `Stocks`(`refArt`) ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Consommation` ADD CONSTRAINT `Consommation_idUtilisateur_fkey` FOREIGN KEY (`idUtilisateur`) REFERENCES `Utilisateur`(`idUtilisateur`) ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Consommation` ADD CONSTRAINT `Consommation_refArt_fkey` FOREIGN KEY (`refArt`) REFERENCES `Stocks`(`refArt`) ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Consommation` ADD CONSTRAINT `Consommation_numeroSerie_fkey` FOREIGN KEY (`numeroSerie`) REFERENCES `Materiel`(`numeroSerie`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Affectation` ADD CONSTRAINT `Affectation_numeroSerie_fkey` FOREIGN KEY (`numeroSerie`) REFERENCES `Materiel`(`numeroSerie`) ON DELETE SET NULL ON UPDATE CASCADE;
@@ -247,3 +240,12 @@ ALTER TABLE `Specialite` ADD CONSTRAINT `Specialite_idDepartement_fkey` FOREIGN 
 
 -- AddForeignKey
 ALTER TABLE `Utilisateur` ADD CONSTRAINT `Utilisateur_idSpecialite_fkey` FOREIGN KEY (`idSpecialite`) REFERENCES `Specialite`(`idSpecialite`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Consommation` ADD CONSTRAINT `Consommation_refArt_fkey` FOREIGN KEY (`refArt`) REFERENCES `Stocks`(`refArt`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Consommation` ADD CONSTRAINT `Consommation_numeroSerie_fkey` FOREIGN KEY (`numeroSerie`) REFERENCES `Materiel`(`numeroSerie`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Consommation` ADD CONSTRAINT `Consommation_idUtilisateur_fkey` FOREIGN KEY (`idUtilisateur`) REFERENCES `Utilisateur`(`idUtilisateur`) ON DELETE SET NULL ON UPDATE CASCADE;
