@@ -154,9 +154,8 @@ model Alimentation {
   refArt           String?
   dateAlimentation DateTime @default(now())
   quantiteAlimente Int
-  Societe          Societe?  @relation(fields: [idSociete], references: [idSociete])
-  Stocks           Stocks?   @relation(fields: [refArt], references: [refArt])
-
+  Societe          Societe? @relation(fields: [idSociete], references: [idSociete])
+  Stocks           Stocks?  @relation(fields: [refArt], references: [refArt])
 }
 
 model Affectation {
@@ -257,6 +256,18 @@ model Utilisateur {
   Specialite      Specialite?     @relation(fields: [idSpecialite], references: [idSpecialite], onDelete: Cascade)
   idSpecialite    String?
   Consommation    Consommation[]
+}
+
+model Consommation {
+  idConsommation           Int          @id @default(autoincrement())
+  idUtilisateur            Int?
+  numeroSerie              String?
+  refArt                   String?
+  dateConsommation         DateTime     @default(now())
+  quantiteConsomme         Int?
+  Stocks                   Stocks?      @relation(fields: [refArt], references: [refArt])
+  Materiel                 Materiel?    @relation(fields: [numeroSerie], references: [numeroSerie])
+  Utilisateur              Utilisateur? @relation(fields: [idUtilisateur], references: [idUtilisateur])
 }
 
 //------ ENUM--------
