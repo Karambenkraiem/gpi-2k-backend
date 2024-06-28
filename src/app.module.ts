@@ -13,10 +13,11 @@ import { LogicielsModule } from './modules/logiciels/logiciels.module';
 import { AlimentationModule } from './modules/alimentation/alimentation.module';
 import { InstallationModule } from './modules/installation/installation.module';
 import { LicenceModule } from './modules/licence/licence.module';
+import { ConsommationModule } from './modules/consommation/consommation.module';
 
 
 @Module({
-  imports: [SocieteModule, UtilisateurModule, MaterielModule, DepartementModule, SpecialiteModule, AffectationModule, EmpruntModule, StocksModule, LogicielsModule, AlimentationModule, LicenceModule, InstallationModule],
+  imports: [SocieteModule, UtilisateurModule, MaterielModule, DepartementModule, SpecialiteModule, AffectationModule, EmpruntModule, StocksModule, LogicielsModule, AlimentationModule, LicenceModule, InstallationModule, ConsommationModule],
   controllers: [AppController],
   providers: [AppService],
 })
