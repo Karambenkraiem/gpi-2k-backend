@@ -12,7 +12,7 @@ async function seed() {
         email: "contact@netuse.com.tn",
         numtel: "71948225",
         secteurActivite: "Prestataire de service",
-        typeSociete: "prestataireService",
+        typeSociete: "FOURNISSEUR",
       },
       {
         raisonSociale: "Intelo",
@@ -21,7 +21,7 @@ async function seed() {
         email: "contact@intelo.com.tn",
         numtel: "71850600",
         secteurActivite: "Vente Matériels informatique",
-        typeSociete: "fournisseur",
+        typeSociete: "PRESTATAIRE",
       }
     ]
   });

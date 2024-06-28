@@ -104,7 +104,7 @@ model Societe {
   email           String
   numtel          String
   secteurActivite String
-  typeSociete     TypeSociete    @default(fournisseur)
+  typeSociete     TypeSociete    @default(FOURNISSEUR)
   Materiel        Materiel[]
   Alimentation    Alimentation[]
   Logiciel        Logiciel[]
@@ -282,8 +282,9 @@ enum Categorie {
 }
 
 enum TypeSociete {
-  fournisseur
-  prestataireService
+  FOURNISSEUR
+  PRESTATAIRE
+  FOURNISSEUR_PRESTATAIRE
 }
 
 enum ConnexionWLU {
