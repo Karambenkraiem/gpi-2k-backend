@@ -11,4 +11,5 @@ export class UpdateSocieteDto extends PartialType(CreateSocieteDto) {
     secteurActivite: string;
     typeSociete: $Enums.TypeSociete ;
     Materiel?: Prisma.MaterielCreateNestedManyWithoutSocieteInput;
+    
 }

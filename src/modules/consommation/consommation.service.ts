@@ -29,16 +29,16 @@ export class ConsommationService {
     });
   }  
 
-  findOne(id: number) {
+  findOne(idConsommation: number) {
     return this.prisma.consommation.findMany({
-      where:{id}
+      where:{idConsommation}
     });
   }
 
   update(idConsommation: number, updateConsommationDto: UpdateConsommationDto) {
     const { dateConsommation, quantiteConsomme } = updateConsommationDto;
   
-    return this.prisma.alimentation.update({
+    return this.prisma.consommation.update({
       where: { idConsommation },
       data: {
         dateConsommation: dateConsommation ? new Date(dateConsommation):null,

@@ -129,8 +129,8 @@ model Logiciel {
   editeur         String
   dateAcquisition DateTime     @default(now())
   typeLogiciel    TypeLogiciel
-  Societe         Societe?     @relation(fields: [idSociete], references: [idSociete])
   idSociete       Int?
+  Societe         Societe?     @relation(fields: [idSociete], references: [idSociete])
   Licence         Licence[]
 }
 

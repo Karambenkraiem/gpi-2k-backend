@@ -19,7 +19,7 @@ export class SocieteController {
     // return this.societeService.findAll(filter.adresse,filter.numtel);
     return this.societeService.findAll();
   }
-
+  
 
   @Get(':id')
   findOne(@Param('id') id: string) {
@@ -35,4 +35,21 @@ export class SocieteController {
   remove(@Param('id') id: string) {
     return this.societeService.remove(+id);
   }
+
+////////////////////////////////////////////
+@Get(':idSociete/materiels')
+  async getMateriels(@Param('idSociete') idSociete: string) {
+    return this.societeService.findMaterielsForSociete(+idSociete);
+  }
+
+  @Get(':idSociete/alimentations')
+  async getAlimentations(@Param('idSociete') idSociete: string) {
+    return this.societeService.findAlimentationsForSociete(+idSociete);
+  }
+
+
+
+
+
+
 }

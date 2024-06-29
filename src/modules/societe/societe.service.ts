@@ -5,59 +5,67 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class SocieteService {
-  constructor(private readonly prisma:PrismaService){ }
+  constructor(private readonly prisma: PrismaService) { }
   create(createSocieteDto: CreateSocieteDto) {
     return this.prisma.societe.create({
-      data:createSocieteDto
+      data: createSocieteDto
     });
   }
 
-  // findAll(adresse:string,numtel:string) {
-  //   let where= { OR: [] } 
-  //   if (adresse) {
-  //     where.OR.push({
-  //       adresse : adresse
-  //     })
-  //   }
-  //   if(numtel){
-  //     where.OR.push({
-  //       numtel:numtel
-  //     })
-  //   }    
-  //   return this.prisma.societe.findMany({
-  //     where:{
-  //       OR: [{adresse},{numtel}]
-  //     }
-  //   });    
-  // }
-
-
-
   findAll() {
-    return this.prisma.societe.findMany()
+    return this.prisma.societe.findMany({
+      include: {
+        Materiel: true,
+        Logiciel: true,
+        Alimentation: true
+      }
+    })
   }
 
   findOne(idSociete: number) {
     return this.prisma.societe.findUnique({
-      where:{idSociete}
+      where: { idSociete },
+      include: {
+        Materiel: true,
+        Logiciel: true,
+        Alimentation: true
+      }
     });
   }
 
   update(idSociete: number, updateSocieteDto: UpdateSocieteDto) {
-    throw new BadRequestException("400")
+    return this.prisma.societe.update({
+      data: updateSocieteDto,
+      where: { idSociete }
+    })
   }
+
+
   remove(idSociete: number) {
     return this.prisma.societe.delete({
-      where:{idSociete}
+      where: { idSociete }
     });
-
-  
-  
-
-  
-
-
   }
+
+
+
+////////////////////////////////////////////////
+
+findMaterielsForSociete(idSociete: number) {
+  return this.prisma.materiel.findMany({
+    where: {
+      idSociete: idSociete,
+    },
+  });
+}
+
+findAlimentationsForSociete(idSociete: number) {
+  return this.prisma.alimentation.findMany({
+    where: {
+      idSociete: idSociete,
+    },
+  });
+}
 
 
 
