@@ -116,9 +116,10 @@ model Licence {
   dateActivation DateTime?      @default(now())
   dateExpiration DateTime?      @default(now())
   prixLicence    Float?
+  statutLicence  String?
   Installation   Installation[]
-  Logiciel       Logiciel       @relation(fields: [idLogiciel], references: [idLogiciel])
-  idLogiciel     Int
+  Logiciel       Logiciel?      @relation(fields: [idLogiciel], references: [idLogiciel])
+  idLogiciel     Int?
 }
 
 model Logiciel {
@@ -144,6 +145,7 @@ model Installation {
   idLicence           Int?
   dateInstallation    DateTime  @default(now())
   dateDesinstallation DateTime?
+  statuLicence        String?
   Materiel            Materiel? @relation(fields: [numeroSerie], references: [numeroSerie])
   Licence             Licence?  @relation(fields: [idLicence], references: [idLicence])
 }
@@ -259,15 +261,15 @@ model Utilisateur {
 }
 
 model Consommation {
-  idConsommation           Int          @id @default(autoincrement())
-  idUtilisateur            Int?
-  numeroSerie              String?
-  refArt                   String?
-  dateConsommation         DateTime     @default(now())
-  quantiteConsomme         Int?
-  Stocks                   Stocks?      @relation(fields: [refArt], references: [refArt])
-  Materiel                 Materiel?    @relation(fields: [numeroSerie], references: [numeroSerie])
-  Utilisateur              Utilisateur? @relation(fields: [idUtilisateur], references: [idUtilisateur])
+  idConsommation   Int          @id @default(autoincrement())
+  idUtilisateur    Int?
+  numeroSerie      String?
+  refArt           String?
+  dateConsommation DateTime     @default(now())
+  quantiteConsomme Int?
+  Stocks           Stocks?      @relation(fields: [refArt], references: [refArt])
+  Materiel         Materiel?    @relation(fields: [numeroSerie], references: [numeroSerie])
+  Utilisateur      Utilisateur? @relation(fields: [idUtilisateur], references: [idUtilisateur])
 }
 
 //------ ENUM--------
