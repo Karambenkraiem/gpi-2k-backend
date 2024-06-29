@@ -48,7 +48,8 @@ CREATE TABLE `Licence` (
     `dateActivation` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
     `dateExpiration` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
     `prixLicence` DOUBLE NULL,
-    `idLogiciel` INTEGER NOT NULL,
+    `statutLicence` VARCHAR(191) NULL,
+    `idLogiciel` INTEGER NULL,
 
     PRIMARY KEY (`idLicence`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -73,6 +74,7 @@ CREATE TABLE `Installation` (
     `idLicence` INTEGER NULL,
     `dateInstallation` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `dateDesinstallation` DATETIME(3) NULL,
+    `statuLicence` VARCHAR(191) NULL,
 
     PRIMARY KEY (`idInstallation`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -203,7 +205,7 @@ CREATE TABLE `Consommation` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `Licence` ADD CONSTRAINT `Licence_idLogiciel_fkey` FOREIGN KEY (`idLogiciel`) REFERENCES `Logiciel`(`idLogiciel`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Licence` ADD CONSTRAINT `Licence_idLogiciel_fkey` FOREIGN KEY (`idLogiciel`) REFERENCES `Logiciel`(`idLogiciel`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Logiciel` ADD CONSTRAINT `Logiciel_idSociete_fkey` FOREIGN KEY (`idSociete`) REFERENCES `Societe`(`idSociete`) ON DELETE SET NULL ON UPDATE CASCADE;
