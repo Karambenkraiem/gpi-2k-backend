@@ -9,5 +9,5 @@ export class UpdateLicenceDto extends PartialType(CreateLicenceDto) {
   prixLicence: number;
   statutLicence?: string;
   Installation?: Prisma.InstallationCreateNestedManyWithoutLicenceInput;
-  Logiciel: Prisma.LogicielCreateNestedOneWithoutLicenceInput;
+  Logiciel?: Prisma.LogicielCreateNestedOneWithoutLicenceInput;
 }

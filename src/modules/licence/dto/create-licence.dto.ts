@@ -7,7 +7,6 @@ export class CreateLicenceDto implements Prisma.LicenceCreateInput {
     prixLicence?: number;
     statutLicence?: string;
     Installation?: Prisma.InstallationCreateNestedManyWithoutLicenceInput;
-    Logiciel: Prisma.LogicielCreateNestedOneWithoutLicenceInput;
-   
+Logiciel?: Prisma.LogicielCreateNestedOneWithoutLicenceInput;   
   
 }
