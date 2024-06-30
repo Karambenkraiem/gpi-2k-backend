@@ -45,9 +45,16 @@ export class InstallationService {
   }
 
   update(idInstallation: number, updateInstallationDto: UpdateInstallationDto) {
+    const {
+      dateDesinstallation,
+    } = updateInstallationDto;
+    const isoDateDesinstall = dateDesinstallation? new Date(dateDesinstallation).toISOString() : null;
     return this.prisma.installation.update({
       where: { idInstallation },
-      data: updateInstallationDto,
+      data: {
+        ...updateInstallationDto,
+        dateDesinstallation: isoDateDesinstall,
+      },
     });
   }
 

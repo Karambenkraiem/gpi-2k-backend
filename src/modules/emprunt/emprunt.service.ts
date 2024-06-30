@@ -83,7 +83,6 @@ export class EmpruntService {
       dateRestitution,
       refProjet,
       etatMatRestitution,
-      etatEmprunt,
     } = updateEmpruntDto;
     const isoDateRestitution = dateRestitution
       ? new Date(dateRestitution).toISOString()
@@ -97,7 +96,6 @@ export class EmpruntService {
         dateRestitution: isoDateRestitution,
         refProjet,
         etatMatRestitution,
-        etatEmprunt,
       },
     });
   }

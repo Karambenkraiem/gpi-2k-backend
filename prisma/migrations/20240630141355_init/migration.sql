@@ -74,7 +74,6 @@ CREATE TABLE `Installation` (
     `idLicence` INTEGER NULL,
     `dateInstallation` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `dateDesinstallation` DATETIME(3) NULL,
-    `statuLicence` VARCHAR(191) NULL,
 
     PRIMARY KEY (`idInstallation`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
