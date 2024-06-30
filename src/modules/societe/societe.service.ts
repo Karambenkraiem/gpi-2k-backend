@@ -66,6 +66,13 @@ findAlimentationsForSociete(idSociete: number) {
     },
   });
 }
+findLogicielForSociete(idSociete: number) {
+  return this.prisma.logiciel.findMany({
+    where: {
+      idSociete: idSociete,
+    },
+  });
+}
 
 
 

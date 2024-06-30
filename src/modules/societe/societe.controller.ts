@@ -47,7 +47,10 @@ export class SocieteController {
     return this.societeService.findAlimentationsForSociete(+idSociete);
   }
 
-
+  @Get(':idSociete/logiciel')
+  async getLogiciel(@Param('idSociete') idSociete: string) {
+    return this.societeService.findLogicielForSociete(+idSociete);
+  }
 
 
 
