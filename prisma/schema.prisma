@@ -116,7 +116,7 @@ model Licence {
   dateActivation DateTime?      @default(now())
   dateExpiration DateTime?      @default(now())
   prixLicence    Float?
-  statutLicence  String?
+  statutLicence  String? //assigné ou disponible 
   Installation   Installation[]
   Logiciel       Logiciel?      @relation(fields: [idLogiciel], references: [idLogiciel])
   idLogiciel     Int?
