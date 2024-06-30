@@ -27,9 +27,9 @@ export class LicenceController {
     return this.licenceService.findLogiciel(+idLogiciel);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLicenceDto: UpdateLicenceDto) {
-    return this.licenceService.update(+id, updateLicenceDto);
+  @Patch(':idLicence')
+  update(@Param('idLicence') idLicence: string, @Body() updateLicenceDto: UpdateLicenceDto) {
+    return this.licenceService.update(+idLicence, updateLicenceDto);
   }
 
   @Delete(':id')

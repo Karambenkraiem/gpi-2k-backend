@@ -17,6 +17,13 @@ export class MaterielController {
     return this.materielService.findAll();
   }
 
+  @Get('pc')
+  findOrdinateur() {
+      return this.materielService.findUCPC();
+  }
+  
+  
+
   @Get(':numeroSerie')
   findOne(@Param('numeroSerie') numeroSerie: string) {
     return this.materielService.findOne(numeroSerie);

@@ -38,7 +38,7 @@ export class LicenceService {
 
   update(idLicence: number, updateLicenceDto: UpdateLicenceDto) {
     return this.prisma.licence.update({
-      where: { idLicence },
+      where: { idLicence: idLicence, },
       data:updateLicenceDto
     });
   }
