@@ -8,24 +8,27 @@ export class InstallationService {
   constructor(private prisma: PrismaService) {}
   create(createInstallationDto: CreateInstallationDto) {
     return this.prisma.installation.create({
-      data:{...createInstallationDto,
-        dateInstallation:new Date(createInstallationDto.dateInstallation)?.toISOString()
-      }
+      data: {
+        ...createInstallationDto,
+        dateInstallation: new Date(
+          createInstallationDto.dateInstallation,
+        )?.toISOString(),
+      },
     });
   }
 
   findAll() {
     return this.prisma.installation.findMany({
       include: {
-        Licence:true ,
-        Materiel:true        
-      }
+        Licence: true,
+        Materiel: true,
+      },
     });
-  }  
+  }
 
   findOne(idInstallation: number) {
     return this.prisma.installation.findMany({
-      where: {idInstallation}
+      where: { idInstallation },
     });
   }
 
@@ -35,23 +38,22 @@ export class InstallationService {
         numeroSerie,
       },
       include: {
-        Licence:true ,
-        Materiel:true        
-      }
+        Licence: true,
+        Materiel: true,
+      },
     });
   }
 
-
   update(idInstallation: number, updateInstallationDto: UpdateInstallationDto) {
     return this.prisma.installation.update({
-      where:{idInstallation},
-      data:updateInstallationDto,
+      where: { idInstallation },
+      data: updateInstallationDto,
     });
   }
 
   remove(idInstallation: number) {
     return this.prisma.installation.delete({
-      where:{idInstallation}
+      where: { idInstallation },
     });
   }
 }

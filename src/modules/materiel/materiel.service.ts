@@ -23,6 +23,17 @@ export class MaterielService {
       });
   }  
 
+  findUCPC() {
+    return this.prisma.materiel.findMany({
+      where: {
+        categorie: { in: ['PcPortable', 'UniteCentrale', 'Serveur'] },
+      },
+      include: {
+        Affectation: true,
+        Emprunt: true,
+      },
+    });
+  }
 
   findOne(numeroSerie: string) {
     return this.prisma.materiel.findUnique({
@@ -39,7 +50,7 @@ export class MaterielService {
       where: { numeroSerie },
       data: {
         ...rest,
-        dateAcquisition: dateAcquisition ? new Date(dateAcquisition).toISOString() : undefined,
+        dateAcquisition: dateAcquisition ? new Date(dateAcquisition).toISOString() : null,
       },
       include: {
         Affectation: true,

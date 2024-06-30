@@ -145,7 +145,6 @@ model Installation {
   idLicence           Int?
   dateInstallation    DateTime  @default(now())
   dateDesinstallation DateTime?
-  statuLicence        String?
   Materiel            Materiel? @relation(fields: [numeroSerie], references: [numeroSerie])
   Licence             Licence?  @relation(fields: [idLicence], references: [idLicence])
 }
