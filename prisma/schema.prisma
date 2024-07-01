@@ -17,29 +17,29 @@ datasource db {
 
 model Stocks {
   refArt                     String              @id
-  categorie                  CategorieAccessoire
   marque                     String
   modele                     String
   prix                       Float
   quantiteStock              Int
-  Alimentation               Alimentation[]
   capaciteToner              Int?
   compatibiliteToner         String?
-  couleurToner               Couleur?
   capaciteFlashDvdCdRamHDD   Int?
-  typeDisqueStoquage         TypeDisque?
-  typeConnexionClavierSouris TypeConnexion?
-  dispositionToucheClavier   Disposition?
   nombreBouttonSouris        Int?
   memoireCarteGraphiqueRam   Int?
   IntefaceCarteGraphique     String?
   frequenceCarteGraphiqueRam Int?
   typeRam                    String?
-  interFaceHDD               InterfaceHDD?
   vitesseHDD                 Int?
+  autre                      String?
+  categorie                  CategorieAccessoire
+  couleurToner               Couleur?
+  typeDisqueStoquage         TypeDisque?
+  typeConnexionClavierSouris TypeConnexion?
+  dispositionToucheClavier   Disposition?
+  interFaceHDD               InterfaceHDD?
   tailleHDD                  TailleDisque?
   TypeHDD                    TypeHDD?
-  autre                      String?
+  Alimentation               Alimentation[]
   Consommation               Consommation[]
 }
 
@@ -94,6 +94,9 @@ enum TypeDisque {
 enum Couleur {
   NOIR
   COULEUR
+  MAGENTA
+  JAUNE
+  BLEU
 }
 
 model Societe {
@@ -161,25 +164,25 @@ model Alimentation {
 
 model Affectation {
   idAffectation   Int          @id @default(autoincrement())
+  idUtilisateur   Int?
+  numeroSerie     String?
   dateAttribution DateTime     @default(now())
   dateRetour      DateTime?
   motifRetour     String?
   Materiel        Materiel?    @relation(fields: [numeroSerie], references: [numeroSerie])
-  numeroSerie     String?
   Utilisateur     Utilisateur? @relation(fields: [idUtilisateur], references: [idUtilisateur])
-  idUtilisateur   Int?
 }
 
 model Emprunt {
   idEmprunt          Int          @id @default(autoincrement())
+  idUtilisateur      Int?
+  numeroSerie        String?
   dateEmprunt        DateTime     @default(now())
   dateRestitution    DateTime?
   refProjet          String
   etatMatRestitution String?
   Materiel           Materiel?    @relation(fields: [numeroSerie], references: [numeroSerie])
-  numeroSerie        String?
   Utilisateur        Utilisateur? @relation(fields: [idUtilisateur], references: [idUtilisateur])
-  idUtilisateur      Int?
 }
 
 model Departement {
