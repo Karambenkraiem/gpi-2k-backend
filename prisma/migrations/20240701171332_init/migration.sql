@@ -1,16 +1,16 @@
 -- CreateTable
 CREATE TABLE `Stocks` (
     `refArt` VARCHAR(191) NOT NULL,
-    `categorie` ENUM('Toner', 'DisqueStoquage', 'Clavier', 'Souris', 'FlashDisque', 'CarteGraphique', 'Ram', 'DisqueDur', 'CartoucheEncre', 'Autres') NOT NULL,
+    `categorie` ENUM('Toner', 'DisqueStockage', 'DisqueDurExterne', 'DisqueDurInterne', 'Clavier', 'Souris', 'FlashDisque', 'CarteGraphique', 'Ram', 'CartoucheEncre', 'Autres') NOT NULL,
     `marque` VARCHAR(191) NOT NULL,
     `modele` VARCHAR(191) NOT NULL,
     `prix` DOUBLE NOT NULL,
     `quantiteStock` INTEGER NOT NULL,
     `capaciteToner` INTEGER NULL,
     `compatibiliteToner` VARCHAR(191) NULL,
-    `couleurToner` ENUM('NOIR', 'COULEUR') NULL,
+    `couleurToner` ENUM('NOIR', 'COULEUR', 'BLEU', 'ROUGE', 'JAUNE') NULL,
     `capaciteFlashDvdCdRamHDD` INTEGER NULL,
-    `typeDisqueStoquage` ENUM('CD', 'DVD') NULL,
+    `typeDisqueStockage` ENUM('CD', 'DVD') NULL,
     `typeConnexionClavierSouris` ENUM('USB', 'WIFI', 'BLUETOOTH') NULL,
     `dispositionToucheClavier` ENUM('AZERTY', 'QWERTY') NULL,
     `nombreBouttonSouris` INTEGER NULL,
@@ -20,7 +20,7 @@ CREATE TABLE `Stocks` (
     `typeRam` VARCHAR(191) NULL,
     `interFaceHDD` ENUM('SATA', 'USB', 'PCIe', 'IDE') NULL,
     `vitesseHDD` INTEGER NULL,
-    `tailleHDD` ENUM('2.5', '3.5', 'M2') NULL,
+    `tailleHDD` VARCHAR(191) NULL,
     `TypeHDD` ENUM('HDD', 'SSD', 'SSHD') NULL,
     `autre` VARCHAR(191) NULL,
 
@@ -74,6 +74,7 @@ CREATE TABLE `Installation` (
     `idLicence` INTEGER NULL,
     `dateInstallation` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `dateDesinstallation` DATETIME(3) NULL,
+    `etatOperation` VARCHAR(191) NULL,
 
     PRIMARY KEY (`idInstallation`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -234,13 +235,13 @@ ALTER TABLE `Emprunt` ADD CONSTRAINT `Emprunt_numeroSerie_fkey` FOREIGN KEY (`nu
 ALTER TABLE `Emprunt` ADD CONSTRAINT `Emprunt_idUtilisateur_fkey` FOREIGN KEY (`idUtilisateur`) REFERENCES `Utilisateur`(`idUtilisateur`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Materiel` ADD CONSTRAINT `Materiel_idSociete_fkey` FOREIGN KEY (`idSociete`) REFERENCES `Societe`(`idSociete`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Materiel` ADD CONSTRAINT `Materiel_idSociete_fkey` FOREIGN KEY (`idSociete`) REFERENCES `Societe`(`idSociete`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Specialite` ADD CONSTRAINT `Specialite_idDepartement_fkey` FOREIGN KEY (`idDepartement`) REFERENCES `Departement`(`idDepartement`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Specialite` ADD CONSTRAINT `Specialite_idDepartement_fkey` FOREIGN KEY (`idDepartement`) REFERENCES `Departement`(`idDepartement`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Utilisateur` ADD CONSTRAINT `Utilisateur_idSpecialite_fkey` FOREIGN KEY (`idSpecialite`) REFERENCES `Specialite`(`idSpecialite`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Utilisateur` ADD CONSTRAINT `Utilisateur_idSpecialite_fkey` FOREIGN KEY (`idSpecialite`) REFERENCES `Specialite`(`idSpecialite`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Consommation` ADD CONSTRAINT `Consommation_refArt_fkey` FOREIGN KEY (`refArt`) REFERENCES `Stocks`(`refArt`) ON DELETE SET NULL ON UPDATE CASCADE;

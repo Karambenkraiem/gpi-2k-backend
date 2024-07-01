@@ -24,6 +24,9 @@ model Stocks {
   capaciteToner              Int?
   compatibiliteToner         String?
   capaciteFlashDvdCdRamHDD   Int?
+  typeDisqueStockage         TypeDisque?
+  typeConnexionClavierSouris TypeConnexion?
+  dispositionToucheClavier   Disposition?
   nombreBouttonSouris        Int?
   memoireCarteGraphiqueRam   Int?
   IntefaceCarteGraphique     String?
@@ -34,10 +37,8 @@ model Stocks {
   categorie                  CategorieAccessoire
   couleurToner               Couleur?
   typeDisqueStoquage         TypeDisque?
-  typeConnexionClavierSouris TypeConnexion?
-  dispositionToucheClavier   Disposition?
   interFaceHDD               InterfaceHDD?
-  tailleHDD                  TailleDisque?
+  tailleHDD                  String?
   TypeHDD                    TypeHDD?
   Alimentation               Alimentation[]
   Consommation               Consommation[]
@@ -45,13 +46,14 @@ model Stocks {
 
 enum CategorieAccessoire {
   Toner
-  DisqueStoquage
+  DisqueStockage
+  DisqueDurExterne
+  DisqueDurInterne
   Clavier
   Souris
   FlashDisque
   CarteGraphique
   Ram
-  DisqueDur
   CartoucheEncre
   Autres
 }
@@ -67,12 +69,6 @@ enum TypeHDD {
   HDD
   SSD
   SSHD
-}
-
-enum TailleDisque {
-  TWO_POINT_FIVE   @map("2.5")
-  THREE_POINT_FIVE @map("3.5")
-  M2
 }
 
 enum Disposition {
@@ -148,6 +144,7 @@ model Installation {
   idLicence           Int?
   dateInstallation    DateTime  @default(now())
   dateDesinstallation DateTime?
+  etatOperation       String?
   Materiel            Materiel? @relation(fields: [numeroSerie], references: [numeroSerie])
   Licence             Licence?  @relation(fields: [idLicence], references: [idLicence])
 }
@@ -231,7 +228,7 @@ model Materiel {
   entreeLAN_VideoProjecteur     Boolean?
   Affectation                   Affectation[]
   Emprunt                       Emprunt[]
-  Societe                       Societe?               @relation(fields: [idSociete], references: [idSociete], onDelete: Cascade)
+  Societe                       Societe?               @relation(fields: [idSociete], references: [idSociete])
   Installation                  Installation[]
   Consommation                  Consommation[]
 }
@@ -240,7 +237,7 @@ model Specialite {
   idSpecialite  String        @id
   nom           String
   Utilisateur   Utilisateur[]
-  Departement   Departement?  @relation(fields: [idDepartement], references: [idDepartement], onDelete: Cascade)
+  Departement   Departement?  @relation(fields: [idDepartement], references: [idDepartement])
   idDepartement String?
 }
 
@@ -257,7 +254,7 @@ model Utilisateur {
   telMobile       String?
   Affectation     Affectation[]
   Emprunt         Emprunt[]
-  Specialite      Specialite?     @relation(fields: [idSpecialite], references: [idSpecialite], onDelete: Cascade)
+  Specialite      Specialite?     @relation(fields: [idSpecialite], references: [idSpecialite])
   idSpecialite    String?
   Consommation    Consommation[]
 }
@@ -337,14 +334,3 @@ enum RoleUtilisateur {
   EMPLOYE
   RMQ
 }
-
-// enum RefProjet {
-//   TERA
-//   TERG
-//   TERX
-//   TERY
-//   TEPA
-//   TEPG
-//   TEPX
-//   TEPY
-// }

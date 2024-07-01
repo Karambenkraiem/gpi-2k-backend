@@ -5,4 +5,5 @@ export class CreateInstallationDto implements Prisma.InstallationCreateInput {
   Materiel?: Prisma.MaterielCreateNestedOneWithoutInstallationInput;
   dateInstallation?: string | Date;
   dateDesinstallation?: string | Date;
+  etatOperation?: string;
 }
