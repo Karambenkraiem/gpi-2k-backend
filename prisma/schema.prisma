@@ -24,7 +24,6 @@ model Stocks {
   capaciteToner              Int?
   compatibiliteToner         String?
   capaciteFlashDvdCdRamHDD   Int?
-  typeDisqueStockage         TypeDisque?
   typeConnexionClavierSouris TypeConnexion?
   dispositionToucheClavier   Disposition?
   nombreBouttonSouris        Int?
