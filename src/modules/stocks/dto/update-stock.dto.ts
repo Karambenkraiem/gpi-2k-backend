@@ -4,29 +4,30 @@ import { $Enums, Prisma } from '@prisma/client';
 
 export class UpdateStockDto extends PartialType(CreateStockDto) {
     refArt: string;
+    categorie: $Enums.CategorieAccessoire;
     marque: string;
     modele: string;
     prix: number;
     quantiteStock: number;
-    Alimentation?: Prisma.AlimentationCreateNestedManyWithoutStocksInput;
-    IntefaceCarteGraphique?: string;
-    TypeHDD?: $Enums.TypeHDD;
-    autre?: string;
-    capaciteFlashDvdCdRamHDD?: number;
     capaciteToner?: number;
-    categorie?: $Enums.CategorieAccessoire;
     compatibiliteToner?: string;
     couleurToner?: $Enums.Couleur;
-    dispositionToucheClavier?: $Enums.Disposition;
-    frequenceCarteGraphiqueRam?: number;
-    interFaceHDD?: $Enums.InterfaceHDD;
-    memoireCarteGraphiqueRam?: number;
-    nombreBouttonSouris?: number;
-    tailleHDD?: $Enums.TailleDisque;
+    capaciteFlashDvdCdRamHDD?: number;
+    typeDisqueStockage?: $Enums.TypeDisque;
     typeConnexionClavierSouris?: $Enums.TypeConnexion;
-    typeDisqueStoquage?: $Enums.TypeDisque;
+    dispositionToucheClavier?: $Enums.Disposition;
+    nombreBouttonSouris?: number;
+    memoireCarteGraphiqueRam?: number;
+    IntefaceCarteGraphique?: string;
+    frequenceCarteGraphiqueRam?: number;
     typeRam?: string;
+    interFaceHDD?: $Enums.InterfaceHDD;
     vitesseHDD?: number;
+    tailleHDD?: string;
+    TypeHDD?: $Enums.TypeHDD;
+    autre?: string;
+    Alimentation?: Prisma.AlimentationCreateNestedManyWithoutStocksInput;
+    Consommation?: Prisma.ConsommationCreateNestedManyWithoutStocksInput;
     
 }
 
