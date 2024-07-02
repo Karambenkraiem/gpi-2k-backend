@@ -36,4 +36,14 @@ export class InstallationController {
   remove(@Param('id') id: string) {
     return this.installationService.remove(+id);
   }
+
+  @Get('/EnCours')
+  findEnCours(){
+    return this.installationService.findInstallEnCours();
+  }
+
+  @Get('/Archives')
+  findArchives(){
+    return this.installationService.findInstallArchives();
+  }
 }
