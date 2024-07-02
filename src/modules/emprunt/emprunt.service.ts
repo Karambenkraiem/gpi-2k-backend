@@ -78,19 +78,12 @@ export class EmpruntService {
   }
 
   update(idEmprunt: number, updateEmpruntDto: UpdateEmpruntDto) {
-    const {
-      dateEmprunt,
-      dateRestitution,
-      refProjet,
-      etatMatRestitution,
-    } = updateEmpruntDto;
+    const { dateEmprunt, dateRestitution, refProjet, etatMatRestitution } = updateEmpruntDto;
     const isoDateRestitution = dateRestitution
       ? new Date(dateRestitution).toISOString()
       : null;
     return this.prisma.emprunt.update({
-      where: {
-        idEmprunt,
-      },
+      where: { idEmprunt },
       data: {
         dateEmprunt: new Date(dateEmprunt),
         dateRestitution: isoDateRestitution,
