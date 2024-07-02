@@ -6,4 +6,6 @@ export class UpdateDepartementDto extends PartialType(CreateDepartementDto) {
     idDepartement: string;
     nom: string;
     Specialite?: Prisma.SpecialiteCreateNestedManyWithoutDepartementInput;
+    statutDepartement?: string;
+    
 }

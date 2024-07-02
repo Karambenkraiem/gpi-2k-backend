@@ -15,6 +15,31 @@ datasource db {
 
 //------------------- Model ------------------------
 
+model Contrat {
+  idContrat          Int         @id @default(autoincrement())
+  dateDebutContrat   DateTime    @default(now())
+  dateFinContrat     DateTime    @default(now())
+  montantContrat     Float
+  descriptionContrat String
+  contratRenouvable  Boolean
+  typeContrat        TypeContrat
+  etatContrat        EtatContrat
+  idSociete          Societe     @relation(fields: [societeIdSociete], references: [idSociete])
+  societeIdSociete   Int
+}
+
+enum EtatContrat {
+  actif
+  inactif
+  suspendu
+}
+
+enum TypeContrat {
+  Achat
+  Service
+  Achat_Service
+}
+
 model Stocks {
   refArt                     String              @id
   marque                     String
@@ -106,6 +131,7 @@ model Societe {
   Materiel        Materiel[]
   Alimentation    Alimentation[]
   Logiciel        Logiciel[]
+  Contrat         Contrat[]
 }
 
 model Licence {
@@ -182,9 +208,10 @@ model Emprunt {
 }
 
 model Departement {
-  idDepartement String       @id
-  nom           String
-  Specialite    Specialite[]
+  idDepartement     String       @id
+  nom               String
+  statutDepartement String       @default("Actif")
+  Specialite        Specialite[]
 }
 
 model Materiel {
@@ -197,7 +224,7 @@ model Materiel {
   etatMateriel                  EtatMateriel           @default(nouveau)
   dateAcquisition               DateTime               @default(now())
   idSociete                     Int
-  disponibilite                 String
+  disponibilite                 String                 @default("Disponible")
   nombrePortSwitch              Int?
   debitSwitch                   Int?
   technologieSwitch             String?
@@ -233,11 +260,12 @@ model Materiel {
 }
 
 model Specialite {
-  idSpecialite  String        @id
-  nom           String
-  Utilisateur   Utilisateur[]
-  Departement   Departement?  @relation(fields: [idDepartement], references: [idDepartement])
-  idDepartement String?
+  idSpecialite     String        @id
+  nom              String
+  statutSpecialite String        @default("Actif")
+  Utilisateur      Utilisateur[]
+  Departement      Departement?  @relation(fields: [idDepartement], references: [idDepartement])
+  idDepartement    String?
 }
 
 model Utilisateur {
