@@ -43,4 +43,5 @@ export class UpdateMaterielDto extends PartialType(CreateMaterielDto) {
   Emprunt?: Prisma.EmpruntCreateNestedManyWithoutMaterielInput;
   Societe?: Prisma.SocieteCreateNestedOneWithoutMaterielInput;
   Installation?: Prisma.InstallationCreateNestedManyWithoutMaterielInput;
+  
 }

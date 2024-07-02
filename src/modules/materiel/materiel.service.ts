@@ -48,10 +48,7 @@ export class MaterielService {
 
     return this.prisma.materiel.update({
       where: { numeroSerie },
-      data: {
-        ...rest,
-        dateAcquisition: dateAcquisition ? new Date(dateAcquisition).toISOString() : null,
-      },
+      data: updateMaterielDto,
       include: {
         Affectation: true,
         Emprunt: true

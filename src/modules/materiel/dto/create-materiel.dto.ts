@@ -42,4 +42,5 @@ export class CreateMaterielDto implements Prisma.MaterielCreateInput {
   Emprunt?: Prisma.EmpruntCreateNestedManyWithoutMaterielInput;
   Societe?: Prisma.SocieteCreateNestedOneWithoutMaterielInput;
   Installation?: Prisma.InstallationCreateNestedManyWithoutMaterielInput;
+  
 }
