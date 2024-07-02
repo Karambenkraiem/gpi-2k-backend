@@ -32,6 +32,7 @@ export class SpecialiteService {
         idSpecialite: updateSpecialiteDto.idSpecialite,
         nom: updateSpecialiteDto.nom,
         idDepartement: updateSpecialiteDto.idDepartement,
+        statutSpecialite: updateSpecialiteDto.statutSpecialite,
       },
     });
   }

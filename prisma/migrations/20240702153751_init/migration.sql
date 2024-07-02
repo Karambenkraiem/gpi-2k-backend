@@ -1,4 +1,19 @@
 -- CreateTable
+CREATE TABLE `Contrat` (
+    `idContrat` INTEGER NOT NULL AUTO_INCREMENT,
+    `dateDebutContrat` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `dateFinContrat` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `montantContrat` DOUBLE NOT NULL,
+    `descriptionContrat` VARCHAR(191) NOT NULL,
+    `contratRenouvable` BOOLEAN NOT NULL,
+    `typeContrat` ENUM('Achat', 'Service', 'Achat_Service') NOT NULL,
+    `etatContrat` ENUM('actif', 'inactif', 'suspendu') NOT NULL,
+    `societeIdSociete` INTEGER NOT NULL,
+
+    PRIMARY KEY (`idContrat`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `Stocks` (
     `refArt` VARCHAR(191) NOT NULL,
     `marque` VARCHAR(191) NOT NULL,
@@ -119,6 +134,7 @@ CREATE TABLE `Emprunt` (
 CREATE TABLE `Departement` (
     `idDepartement` VARCHAR(191) NOT NULL,
     `nom` VARCHAR(191) NOT NULL,
+    `statutDepartement` VARCHAR(191) NOT NULL DEFAULT 'Actif',
 
     PRIMARY KEY (`idDepartement`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -134,7 +150,7 @@ CREATE TABLE `Materiel` (
     `etatMateriel` ENUM('nouveau', 'fonctionnel', 'enPanne', 'rebut') NOT NULL DEFAULT 'nouveau',
     `dateAcquisition` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `idSociete` INTEGER NOT NULL,
-    `disponibilite` VARCHAR(191) NOT NULL,
+    `disponibilite` VARCHAR(191) NOT NULL DEFAULT 'Disponible',
     `nombrePortSwitch` INTEGER NULL,
     `debitSwitch` INTEGER NULL,
     `technologieSwitch` VARCHAR(191) NULL,
@@ -203,6 +219,9 @@ CREATE TABLE `Consommation` (
 
     PRIMARY KEY (`idConsommation`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `Contrat` ADD CONSTRAINT `Contrat_societeIdSociete_fkey` FOREIGN KEY (`societeIdSociete`) REFERENCES `Societe`(`idSociete`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Licence` ADD CONSTRAINT `Licence_idLogiciel_fkey` FOREIGN KEY (`idLogiciel`) REFERENCES `Logiciel`(`idLogiciel`) ON DELETE SET NULL ON UPDATE CASCADE;

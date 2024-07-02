@@ -208,9 +208,10 @@ model Emprunt {
 }
 
 model Departement {
-  idDepartement String       @id
-  nom           String
-  Specialite    Specialite[]
+  idDepartement     String       @id
+  nom               String
+  statutDepartement String       @default("Actif")
+  Specialite        Specialite[]
 }
 
 model Materiel {
@@ -223,7 +224,7 @@ model Materiel {
   etatMateriel                  EtatMateriel           @default(nouveau)
   dateAcquisition               DateTime               @default(now())
   idSociete                     Int
-  disponibilite                 String
+  disponibilite                 String                 @default("Disponible")
   nombrePortSwitch              Int?
   debitSwitch                   Int?
   technologieSwitch             String?
@@ -259,11 +260,12 @@ model Materiel {
 }
 
 model Specialite {
-  idSpecialite  String        @id
-  nom           String
-  Utilisateur   Utilisateur[]
-  Departement   Departement?  @relation(fields: [idDepartement], references: [idDepartement])
-  idDepartement String?
+  idSpecialite     String        @id
+  nom              String
+  statutSpecialite String        @default("Actif")
+  Utilisateur      Utilisateur[]
+  Departement      Departement?  @relation(fields: [idDepartement], references: [idDepartement])
+  idDepartement    String?
 }
 
 model Utilisateur {
