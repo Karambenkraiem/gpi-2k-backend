@@ -14,10 +14,11 @@ import { AlimentationModule } from './modules/alimentation/alimentation.module';
 import { InstallationModule } from './modules/installation/installation.module';
 import { LicenceModule } from './modules/licence/licence.module';
 import { ConsommationModule } from './modules/consommation/consommation.module';
+import { ContratModule } from './modules/contrat/contrat.module';
 
 
 @Module({
-  imports: [SocieteModule, UtilisateurModule, MaterielModule, DepartementModule, SpecialiteModule, AffectationModule, EmpruntModule, StocksModule, LogicielsModule, AlimentationModule, LicenceModule, InstallationModule, ConsommationModule],
+  imports: [SocieteModule, UtilisateurModule, MaterielModule, DepartementModule, SpecialiteModule, AffectationModule, EmpruntModule, StocksModule, LogicielsModule, AlimentationModule, LicenceModule, InstallationModule, ConsommationModule, ContratModule],
   controllers: [AppController],
   providers: [AppService],
 })
