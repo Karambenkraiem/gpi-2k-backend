@@ -1,16 +1,13 @@
 -- CreateTable
 CREATE TABLE `Stocks` (
     `refArt` VARCHAR(191) NOT NULL,
-    `categorie` ENUM('Toner', 'DisqueStockage', 'DisqueDurExterne', 'DisqueDurInterne', 'Clavier', 'Souris', 'FlashDisque', 'CarteGraphique', 'Ram', 'CartoucheEncre', 'Autres') NOT NULL,
     `marque` VARCHAR(191) NOT NULL,
     `modele` VARCHAR(191) NOT NULL,
     `prix` DOUBLE NOT NULL,
     `quantiteStock` INTEGER NOT NULL,
     `capaciteToner` INTEGER NULL,
     `compatibiliteToner` VARCHAR(191) NULL,
-    `couleurToner` ENUM('NOIR', 'COULEUR', 'BLEU', 'ROUGE', 'JAUNE') NULL,
     `capaciteFlashDvdCdRamHDD` INTEGER NULL,
-    `typeDisqueStockage` ENUM('CD', 'DVD') NULL,
     `typeConnexionClavierSouris` ENUM('USB', 'WIFI', 'BLUETOOTH') NULL,
     `dispositionToucheClavier` ENUM('AZERTY', 'QWERTY') NULL,
     `nombreBouttonSouris` INTEGER NULL,
@@ -18,11 +15,14 @@ CREATE TABLE `Stocks` (
     `IntefaceCarteGraphique` VARCHAR(191) NULL,
     `frequenceCarteGraphiqueRam` INTEGER NULL,
     `typeRam` VARCHAR(191) NULL,
-    `interFaceHDD` ENUM('SATA', 'USB', 'PCIe', 'IDE') NULL,
     `vitesseHDD` INTEGER NULL,
+    `autre` VARCHAR(191) NULL,
+    `categorie` ENUM('Toner', 'DisqueStockage', 'DisqueDurExterne', 'DisqueDurInterne', 'Clavier', 'Souris', 'FlashDisque', 'CarteGraphique', 'Ram', 'CartoucheEncre', 'Autres') NOT NULL,
+    `couleurToner` ENUM('NOIR', 'COULEUR', 'MAGENTA', 'JAUNE', 'BLEU') NULL,
+    `typeDisqueStockage` ENUM('CD', 'DVD') NULL,
+    `interFaceHDD` ENUM('SATA', 'USB', 'PCIe', 'IDE') NULL,
     `tailleHDD` VARCHAR(191) NULL,
     `TypeHDD` ENUM('HDD', 'SSD', 'SSHD') NULL,
-    `autre` VARCHAR(191) NULL,
 
     PRIMARY KEY (`refArt`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -93,11 +93,11 @@ CREATE TABLE `Alimentation` (
 -- CreateTable
 CREATE TABLE `Affectation` (
     `idAffectation` INTEGER NOT NULL AUTO_INCREMENT,
+    `idUtilisateur` INTEGER NULL,
+    `numeroSerie` VARCHAR(191) NULL,
     `dateAttribution` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `dateRetour` DATETIME(3) NULL,
     `motifRetour` VARCHAR(191) NULL,
-    `numeroSerie` VARCHAR(191) NULL,
-    `idUtilisateur` INTEGER NULL,
 
     PRIMARY KEY (`idAffectation`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -105,12 +105,12 @@ CREATE TABLE `Affectation` (
 -- CreateTable
 CREATE TABLE `Emprunt` (
     `idEmprunt` INTEGER NOT NULL AUTO_INCREMENT,
+    `idUtilisateur` INTEGER NULL,
+    `numeroSerie` VARCHAR(191) NULL,
     `dateEmprunt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `dateRestitution` DATETIME(3) NULL,
     `refProjet` VARCHAR(191) NOT NULL,
     `etatMatRestitution` VARCHAR(191) NULL,
-    `numeroSerie` VARCHAR(191) NULL,
-    `idUtilisateur` INTEGER NULL,
 
     PRIMARY KEY (`idEmprunt`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
