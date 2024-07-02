@@ -625,7 +625,7 @@ async function seed() {
         dateActivation: new Date('2024-01-02'),
         dateExpiration: new Date('2024-12-31'),
         prixLicence: 7500,
-        statutLicence: 'Disponible',
+        statutLicence: 'Assignée',
         idLogiciel: 1,
       },
       {
@@ -633,7 +633,7 @@ async function seed() {
         dateActivation: new Date('2024-01-02'),
         dateExpiration: new Date('2024-12-31'),
         prixLicence: 7500,
-        statutLicence: 'Assignée',
+        statutLicence: 'Disponible',
         idLogiciel: 1,
       },
       {
