@@ -34,17 +34,21 @@ export class InstallationService {
 
   findInstallArchives() {
     return this.prisma.installation.findMany({
-      where: { 
-        etatOperation:"Désinstallée"
-       },
+      where: { etatOperation: "Désinstallée", },
+      include: {
+        Licence: true,
+        Materiel: true,
+      },
     });
   }
 
   findInstallEnCours() {
     return this.prisma.installation.findMany({
-      where: { 
-        etatOperation:"En cours d'utilisation"
-       },
+      where: { etatOperation: "En cours d'utilisation" },
+      include: {
+        Licence: true,
+        Materiel: true,
+      },
     });
   }
 

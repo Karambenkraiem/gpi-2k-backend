@@ -37,12 +37,12 @@ export class InstallationController {
     return this.installationService.remove(+id);
   }
 
-  @Get('/EnCours')
+  @Get('encours/install')
   findEnCours(){
     return this.installationService.findInstallEnCours();
   }
 
-  @Get('/Archives')
+  @Get('archives/install')
   findArchives(){
     return this.installationService.findInstallArchives();
   }
