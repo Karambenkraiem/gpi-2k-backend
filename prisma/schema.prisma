@@ -296,13 +296,14 @@ model Incident {
   intervenantId       Int?
   materielNumeroSerie String?
   logicielIdLogiciel  Int?
+  reclamation         String
   priorite            String
-  dateCreation        DateTime
-  dateCloture         DateTime
+  dateCreation        DateTime?
+  dateCloture         DateTime?
   natureIncident      String
   solutionRealisee    String
   etatReclamation     String
-  emplacement         String
+  emplacement         String       @default("Siège")
   demandeur           Utilisateur? @relation("DemandeurRelation", fields: [demandeurId], references: [idUtilisateur])
   intervenant         Utilisateur? @relation("IncidentRelation", fields: [intervenantId], references: [idUtilisateur])
   Materiel            Materiel?    @relation(fields: [materielNumeroSerie], references: [numeroSerie])

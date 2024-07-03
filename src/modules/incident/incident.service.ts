@@ -28,10 +28,11 @@ export class IncidentService {
     });
   }
 
-  findIncidentsClotures(){
+  findIncidentsClotures(demandeurId: number){
     return this.prisma.incident.findMany({
       where: {
-        etatReclamation:"Cloturé"
+        etatReclamation:"Cloturé",
+        demandeurId: demandeurId,
       },
       include:{
         Materiel: true,
@@ -40,10 +41,35 @@ export class IncidentService {
     });
   }
 
-  findIncidentsEnCours(){
+  findIncidentsEnCours(demandeurId: number){
     return this.prisma.incident.findMany({
       where: {
-        etatReclamation:{in : ["Attente traitement", "En cours de traitement", "En attende de validation", "Résolu", "Réececution" ]}
+        etatReclamation:{in : ["En attente de traitement", "En cours de traitement", "En attende de validation", "Résolu", "Réececution" ]},
+        demandeurId: demandeurId,
+      },
+      include:{
+        Materiel: true,
+        Logiciel:true
+      }
+    });
+  }
+
+  findAllIncidentsClotures(){
+    return this.prisma.incident.findMany({
+      where: {
+        etatReclamation:"Cloturé",
+      },
+      include:{
+        Materiel: true,
+        Logiciel:true
+      }
+    });
+  }
+
+  findAllIncidentsEnCours(){
+    return this.prisma.incident.findMany({
+      where: {
+        etatReclamation:{in : ["Attente traitement", "En cours de traitement", "En attende de validation", "Résolu", "Réececution" ]},
       },
       include:{
         Materiel: true,

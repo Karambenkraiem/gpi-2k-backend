@@ -37,9 +37,21 @@ export class LicenceService {
   }
 
   update(idLicence: number, updateLicenceDto: UpdateLicenceDto) {
+    const {dateActivation, dateExpiration} = updateLicenceDto;
     return this.prisma.licence.update({
       where: { idLicence: idLicence, },
-      data:updateLicenceDto
+      data: {...updateLicenceDto,
+        dateActivation: dateActivation ? new Date(updateLicenceDto.dateActivation).toISOString() : null,
+        dateExpiration: dateExpiration ? new Date(updateLicenceDto.dateExpiration).toISOString() : null,
+      }
+    });
+  }
+
+  updateStatut(idLicence: number, updateLicenceDto: UpdateLicenceDto) {
+    const { statutLicence } = updateLicenceDto;
+    return this.prisma.licence.update({
+      where: { idLicence: idLicence },
+      data: { statutLicence: statutLicence }
     });
   }
 

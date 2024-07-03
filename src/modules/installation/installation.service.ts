@@ -5,16 +5,22 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class InstallationService {
-  
   constructor(private prisma: PrismaService) {}
 
   create(createInstallationDto: CreateInstallationDto) {
+    const { dateInstallation, dateDesinstallation } = createInstallationDto;
+    const isoDateDesinstall = dateDesinstallation
+      ? new Date(dateDesinstallation).toISOString()
+      : null;
+    const isoDateInstall = dateInstallation
+      ? new Date(dateInstallation).toISOString()
+      : null;
     return this.prisma.installation.create({
       data: {
         ...createInstallationDto,
-        dateInstallation: new Date(
-          createInstallationDto.dateInstallation,
-        )?.toISOString(),
+
+        dateInstallation: isoDateInstall,
+        dateDesinstallation: isoDateDesinstall,
       },
     });
   }
@@ -36,7 +42,7 @@ export class InstallationService {
 
   findInstallArchives() {
     return this.prisma.installation.findMany({
-      where: { etatOperation: "Désinstallée", },
+      where: { etatOperation: 'Désinstallée' },
       include: {
         Licence: true,
         Materiel: true,
@@ -67,10 +73,10 @@ export class InstallationService {
   }
 
   update(idInstallation: number, updateInstallationDto: UpdateInstallationDto) {
-    const {
-      dateDesinstallation,
-    } = updateInstallationDto;
-    const isoDateDesinstall = dateDesinstallation? new Date(dateDesinstallation).toISOString() : null;
+    const { dateDesinstallation } = updateInstallationDto;
+    const isoDateDesinstall = dateDesinstallation
+      ? new Date(dateDesinstallation).toISOString()
+      : null;
     return this.prisma.installation.update({
       where: { idInstallation },
       data: {

@@ -216,13 +216,14 @@ CREATE TABLE `Incident` (
     `intervenantId` INTEGER NULL,
     `materielNumeroSerie` VARCHAR(191) NULL,
     `logicielIdLogiciel` INTEGER NULL,
+    `reclamation` VARCHAR(191) NOT NULL,
     `priorite` VARCHAR(191) NOT NULL,
     `dateCreation` DATETIME(3) NOT NULL,
     `dateCloture` DATETIME(3) NOT NULL,
     `natureIncident` VARCHAR(191) NOT NULL,
     `solutionRealisee` VARCHAR(191) NOT NULL,
     `etatReclamation` VARCHAR(191) NOT NULL,
-    `emplacement` VARCHAR(191) NOT NULL,
+    `emplacement` VARCHAR(191) NOT NULL DEFAULT 'Siège',
 
     PRIMARY KEY (`idIncident`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

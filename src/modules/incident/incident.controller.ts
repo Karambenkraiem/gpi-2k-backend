@@ -22,14 +22,24 @@ export class IncidentController {
     return this.incidentService.findOne(+id);
   }
 
-  @Get('encours/incidents')
-  findEncous(){
-    return this.incidentService.findIncidentsEnCours();
+  @Get('/encours/incidents/:id')
+  findEncous(@Param('id') id: string){
+    return this.incidentService.findIncidentsEnCours(+id);
   }
 
-  @Get('clotures/incidents') 
-  findArchives(){
-    return this.incidentService.findIncidentsClotures();
+  @Get('/clotures/incidents/:id') 
+  findArchives(@Param('id') id: string){
+    return this.incidentService.findIncidentsClotures(+id);
+  }
+
+  @Get('/encours/incidents/all')
+  findAllEncous(){
+    return this.incidentService.findAllIncidentsEnCours();
+  }
+
+  @Get('/clotures/incidents/all') 
+  findAllArchives(){
+    return this.incidentService.findAllIncidentsClotures();
   }
 
   @Patch(':id')

@@ -32,6 +32,11 @@ export class LicenceController {
     return this.licenceService.update(+idLicence, updateLicenceDto);
   }
 
+  @Patch('statut/:idLicence')
+  updateStatutLic(@Param('idLicence') idLicence: string, @Body() updateLicenceDto: UpdateLicenceDto) {
+    return this.licenceService.updateStatut(+idLicence, updateLicenceDto);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.licenceService.remove(+id);

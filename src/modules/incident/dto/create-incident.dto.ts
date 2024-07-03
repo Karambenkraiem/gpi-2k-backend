@@ -3,8 +3,8 @@ import { Prisma } from "@prisma/client";
 
 export class CreateIncidentDto implements Prisma.IncidentCreateInput{
     priorite: string;
-    dateCreation: string | Date;
-    dateCloture: string | Date;
+    dateCreation?: string | Date;
+    dateCloture?: string | Date;
     natureIncident: string;
     solutionRealisee: string;
     etatReclamation: string;
