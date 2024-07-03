@@ -1,5 +1,6 @@
 import { Prisma } from "@prisma/client";
 
+
 export class CreateIncidentDto implements Prisma.IncidentCreateInput{
     priorite: string;
     dateCreation: string | Date;

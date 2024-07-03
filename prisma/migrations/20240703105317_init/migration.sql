@@ -186,6 +186,7 @@ CREATE TABLE `Materiel` (
 CREATE TABLE `Specialite` (
     `idSpecialite` VARCHAR(191) NOT NULL,
     `nom` VARCHAR(191) NOT NULL,
+    `statutSpecialite` VARCHAR(191) NOT NULL DEFAULT 'Actif',
     `idDepartement` VARCHAR(191) NULL,
 
     PRIMARY KEY (`idSpecialite`)
@@ -206,6 +207,24 @@ CREATE TABLE `Utilisateur` (
     `idSpecialite` VARCHAR(191) NULL,
 
     PRIMARY KEY (`idUtilisateur`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Incident` (
+    `idIncident` INTEGER NOT NULL AUTO_INCREMENT,
+    `demandeurId` INTEGER NULL,
+    `intervenantId` INTEGER NULL,
+    `materielNumeroSerie` VARCHAR(191) NULL,
+    `logicielIdLogiciel` INTEGER NULL,
+    `priorite` VARCHAR(191) NOT NULL,
+    `dateCreation` DATETIME(3) NOT NULL,
+    `dateCloture` DATETIME(3) NOT NULL,
+    `natureIncident` VARCHAR(191) NOT NULL,
+    `solutionRealisee` VARCHAR(191) NOT NULL,
+    `etatReclamation` VARCHAR(191) NOT NULL,
+    `emplacement` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`idIncident`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -261,6 +280,18 @@ ALTER TABLE `Specialite` ADD CONSTRAINT `Specialite_idDepartement_fkey` FOREIGN 
 
 -- AddForeignKey
 ALTER TABLE `Utilisateur` ADD CONSTRAINT `Utilisateur_idSpecialite_fkey` FOREIGN KEY (`idSpecialite`) REFERENCES `Specialite`(`idSpecialite`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Incident` ADD CONSTRAINT `Incident_demandeurId_fkey` FOREIGN KEY (`demandeurId`) REFERENCES `Utilisateur`(`idUtilisateur`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Incident` ADD CONSTRAINT `Incident_intervenantId_fkey` FOREIGN KEY (`intervenantId`) REFERENCES `Utilisateur`(`idUtilisateur`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Incident` ADD CONSTRAINT `Incident_materielNumeroSerie_fkey` FOREIGN KEY (`materielNumeroSerie`) REFERENCES `Materiel`(`numeroSerie`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Incident` ADD CONSTRAINT `Incident_logicielIdLogiciel_fkey` FOREIGN KEY (`logicielIdLogiciel`) REFERENCES `Logiciel`(`idLogiciel`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Consommation` ADD CONSTRAINT `Consommation_refArt_fkey` FOREIGN KEY (`refArt`) REFERENCES `Stocks`(`refArt`) ON DELETE SET NULL ON UPDATE CASCADE;
