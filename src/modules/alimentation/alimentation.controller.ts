@@ -16,6 +16,8 @@ export class AlimentationController {
   findAll() {
     return this.alimentationService.findAll();
   }
+ 
+
 
   @Get('/:refArt')
   findAlimentation(@Param('refArt') refArt: string,){

@@ -9,6 +9,10 @@ export class CreateSocieteDto implements Prisma.SocieteCreateInput {
     secteurActivite: string;
     typeSociete: $Enums.TypeSociete;
     Materiel?: Prisma.MaterielCreateNestedManyWithoutSocieteInput;
+    Alimentation?: Prisma.AlimentationCreateNestedManyWithoutSocieteInput;
+    Contrat?: Prisma.ContratCreateNestedManyWithoutIdSocieteInput;
+    Logiciel?: Prisma.LogicielCreateNestedManyWithoutSocieteInput;
+    
    
    
 }

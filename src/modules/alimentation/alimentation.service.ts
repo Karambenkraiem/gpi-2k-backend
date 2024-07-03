@@ -28,6 +28,9 @@ export class AlimentationService {
     });
   }
 
+
+  
+
   findOne(idSociete: number, refArt: string) {
     return this.prisma.alimentation.findMany({
       where: {
