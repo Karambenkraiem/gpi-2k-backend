@@ -17,27 +17,27 @@ datasource db {
 
 model Contrat {
   idContrat          Int         @id @default(autoincrement())
-  dateDebutContrat   DateTime    @default(now())
-  dateFinContrat     DateTime    @default(now())
-  montantContrat     Float
-  descriptionContrat String
-  contratRenouvable  Boolean
-  typeContrat        TypeContrat
-  etatContrat        EtatContrat
-  idSociete          Societe     @relation(fields: [societeIdSociete], references: [idSociete])
-  societeIdSociete   Int
+  dateDebutContrat   DateTime   @default(now())
+  dateFinContrat     DateTime?    @default(now())
+  montantContrat     Float?
+  descriptionContrat String?
+  contratRenouvable  Boolean?
+  typeContrat        String?
+  etatContrat        String?
+  Signature          Signature[]
 }
 
-enum EtatContrat {
-  actif
-  inactif
-  suspendu
-}
 
-enum TypeContrat {
-  Achat
-  Service
-  Achat_Service
+
+
+
+model Signature {
+  idSignature      Int      @id @default(autoincrement())
+  idSociete Int?
+  idContrat Int?
+  dateSignature    DateTime @default(now())
+  Societe          Societe? @relation(fields: [idSociete], references: [idSociete])
+  Contrat          Contrat? @relation(fields: [idContrat], references: [idContrat])
 }
 
 model Stocks {
@@ -66,6 +66,16 @@ model Stocks {
   TypeHDD                    TypeHDD?
   Alimentation               Alimentation[]
   Consommation               Consommation[]
+}
+
+model Alimentation {
+  idAlimentation   Int      @id @default(autoincrement())
+  idSociete        Int?
+  refArt           String?
+  dateAlimentation DateTime @default(now())
+  quantiteAlimente Int
+  Societe          Societe? @relation(fields: [idSociete], references: [idSociete])
+  Stocks           Stocks?  @relation(fields: [refArt], references: [refArt])
 }
 
 enum CategorieAccessoire {
@@ -131,7 +141,7 @@ model Societe {
   Materiel        Materiel[]
   Alimentation    Alimentation[]
   Logiciel        Logiciel[]
-  Contrat         Contrat[]
+  Signature       Signature[]
 }
 
 model Licence {
@@ -173,16 +183,6 @@ model Installation {
   etatOperation       String?
   Materiel            Materiel? @relation(fields: [numeroSerie], references: [numeroSerie])
   Licence             Licence?  @relation(fields: [idLicence], references: [idLicence])
-}
-
-model Alimentation {
-  idAlimentation   Int      @id @default(autoincrement())
-  idSociete        Int?
-  refArt           String?
-  dateAlimentation DateTime @default(now())
-  quantiteAlimente Int
-  Societe          Societe? @relation(fields: [idSociete], references: [idSociete])
-  Stocks           Stocks?  @relation(fields: [refArt], references: [refArt])
 }
 
 model Affectation {

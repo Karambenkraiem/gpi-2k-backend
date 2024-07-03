@@ -3,12 +3,13 @@ import { CreateContratDto } from './create-contrat.dto';
 import { $Enums, Prisma } from '@prisma/client';
 
 export class UpdateContratDto extends PartialType(CreateContratDto) {
-    idSociete: Prisma.SocieteCreateNestedOneWithoutContratInput;
     dateDebutContrat?: string | Date;
     dateFinContrat?: string | Date;
     montantContrat: number;
     descriptionContrat: string;
-    contratRenouvable: boolean;
-    typeContrat: $Enums.TypeContrat;
-    etatContrat: $Enums.EtatContrat;
+    contratRenouvable?: boolean;
+    typeContrat?: $Enums.TypeContrat;
+    etatContrat?: $Enums.EtatContrat;
+    Signature?: Prisma.SignatureCreateNestedManyWithoutContratInput;
+  
 }

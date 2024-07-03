@@ -16,10 +16,11 @@ import { LicenceModule } from './modules/licence/licence.module';
 import { ConsommationModule } from './modules/consommation/consommation.module';
 import { ContratModule } from './modules/contrat/contrat.module';
 import { IncidentModule } from './modules/incident/incident.module';
+import { SignatureModule } from './modules/signature/signature.module';
 
 
 @Module({
-  imports: [SocieteModule, UtilisateurModule, MaterielModule, DepartementModule, SpecialiteModule, AffectationModule, EmpruntModule, StocksModule, LogicielsModule, AlimentationModule, LicenceModule, InstallationModule, ConsommationModule, ContratModule, IncidentModule],
+  imports: [SocieteModule, UtilisateurModule, MaterielModule, DepartementModule, SpecialiteModule, AffectationModule, EmpruntModule, StocksModule, LogicielsModule, AlimentationModule, LicenceModule, InstallationModule, ConsommationModule, ContratModule, IncidentModule, SignatureModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -2,15 +2,24 @@
 CREATE TABLE `Contrat` (
     `idContrat` INTEGER NOT NULL AUTO_INCREMENT,
     `dateDebutContrat` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `dateFinContrat` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `montantContrat` DOUBLE NOT NULL,
-    `descriptionContrat` VARCHAR(191) NOT NULL,
-    `contratRenouvable` BOOLEAN NOT NULL,
-    `typeContrat` ENUM('Achat', 'Service', 'Achat_Service') NOT NULL,
-    `etatContrat` ENUM('actif', 'inactif', 'suspendu') NOT NULL,
-    `societeIdSociete` INTEGER NOT NULL,
+    `dateFinContrat` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `montantContrat` DOUBLE NULL,
+    `descriptionContrat` VARCHAR(191) NULL,
+    `contratRenouvable` BOOLEAN NULL,
+    `typeContrat` VARCHAR(191) NULL,
+    `etatContrat` VARCHAR(191) NULL,
 
     PRIMARY KEY (`idContrat`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Signature` (
+    `idSignature` INTEGER NOT NULL AUTO_INCREMENT,
+    `idSociete` INTEGER NULL,
+    `idContrat` INTEGER NULL,
+    `dateSignature` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`idSignature`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -40,6 +49,17 @@ CREATE TABLE `Stocks` (
     `TypeHDD` ENUM('HDD', 'SSD', 'SSHD') NULL,
 
     PRIMARY KEY (`refArt`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Alimentation` (
+    `idAlimentation` INTEGER NOT NULL AUTO_INCREMENT,
+    `idSociete` INTEGER NULL,
+    `refArt` VARCHAR(191) NULL,
+    `dateAlimentation` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `quantiteAlimente` INTEGER NOT NULL,
+
+    PRIMARY KEY (`idAlimentation`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -92,17 +112,6 @@ CREATE TABLE `Installation` (
     `etatOperation` VARCHAR(191) NULL,
 
     PRIMARY KEY (`idInstallation`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `Alimentation` (
-    `idAlimentation` INTEGER NOT NULL AUTO_INCREMENT,
-    `idSociete` INTEGER NULL,
-    `refArt` VARCHAR(191) NULL,
-    `dateAlimentation` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `quantiteAlimente` INTEGER NOT NULL,
-
-    PRIMARY KEY (`idAlimentation`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -240,7 +249,16 @@ CREATE TABLE `Consommation` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `Contrat` ADD CONSTRAINT `Contrat_societeIdSociete_fkey` FOREIGN KEY (`societeIdSociete`) REFERENCES `Societe`(`idSociete`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Signature` ADD CONSTRAINT `Signature_idSociete_fkey` FOREIGN KEY (`idSociete`) REFERENCES `Societe`(`idSociete`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Signature` ADD CONSTRAINT `Signature_idContrat_fkey` FOREIGN KEY (`idContrat`) REFERENCES `Contrat`(`idContrat`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Alimentation` ADD CONSTRAINT `Alimentation_idSociete_fkey` FOREIGN KEY (`idSociete`) REFERENCES `Societe`(`idSociete`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Alimentation` ADD CONSTRAINT `Alimentation_refArt_fkey` FOREIGN KEY (`refArt`) REFERENCES `Stocks`(`refArt`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Licence` ADD CONSTRAINT `Licence_idLogiciel_fkey` FOREIGN KEY (`idLogiciel`) REFERENCES `Logiciel`(`idLogiciel`) ON DELETE SET NULL ON UPDATE CASCADE;
@@ -253,12 +271,6 @@ ALTER TABLE `Installation` ADD CONSTRAINT `Installation_numeroSerie_fkey` FOREIG
 
 -- AddForeignKey
 ALTER TABLE `Installation` ADD CONSTRAINT `Installation_idLicence_fkey` FOREIGN KEY (`idLicence`) REFERENCES `Licence`(`idLicence`) ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Alimentation` ADD CONSTRAINT `Alimentation_idSociete_fkey` FOREIGN KEY (`idSociete`) REFERENCES `Societe`(`idSociete`) ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Alimentation` ADD CONSTRAINT `Alimentation_refArt_fkey` FOREIGN KEY (`refArt`) REFERENCES `Stocks`(`refArt`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Affectation` ADD CONSTRAINT `Affectation_numeroSerie_fkey` FOREIGN KEY (`numeroSerie`) REFERENCES `Materiel`(`numeroSerie`) ON DELETE SET NULL ON UPDATE CASCADE;
