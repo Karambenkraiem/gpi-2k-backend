@@ -156,6 +156,7 @@ model Logiciel {
   idSociete       Int?
   Societe         Societe?     @relation(fields: [idSociete], references: [idSociete])
   Licence         Licence[]
+  Incident        Incident[]
 }
 
 enum TypeLogiciel {
@@ -257,6 +258,7 @@ model Materiel {
   Societe                       Societe?               @relation(fields: [idSociete], references: [idSociete])
   Installation                  Installation[]
   Consommation                  Consommation[]
+  Incident                      Incident[]
 }
 
 model Specialite {
@@ -269,21 +271,42 @@ model Specialite {
 }
 
 model Utilisateur {
-  idUtilisateur   Int             @id
-  password        String
-  fullName        String
-  email           String
-  createdAt       DateTime?       @default(now())
-  lastLogin       DateTime?
-  roleUtilisateur RoleUtilisateur @default(EMPLOYE)
-  etatUtilisateur EtatUtilisateur @default(actif)
-  telFix          String?
-  telMobile       String?
-  Affectation     Affectation[]
-  Emprunt         Emprunt[]
-  Specialite      Specialite?     @relation(fields: [idSpecialite], references: [idSpecialite])
-  idSpecialite    String?
-  Consommation    Consommation[]
+  idUtilisateur        Int             @id
+  password             String
+  fullName             String
+  email                String
+  createdAt            DateTime?       @default(now())
+  lastLogin            DateTime?
+  roleUtilisateur      RoleUtilisateur @default(EMPLOYE)
+  etatUtilisateur      EtatUtilisateur @default(actif)
+  telFix               String?
+  telMobile            String?
+  Affectation          Affectation[]
+  Emprunt              Emprunt[]
+  Specialite           Specialite?     @relation(fields: [idSpecialite], references: [idSpecialite])
+  idSpecialite         String?
+  Consommation         Consommation[]
+  incidentsDemandeur   Incident[]      @relation("DemandeurRelation")
+  incidentsIntervenant Incident[]      @relation("IncidentRelation")
+}
+
+model Incident {
+  idIncident          Int          @id @default(autoincrement())
+  demandeurId         Int?
+  intervenantId       Int?
+  materielNumeroSerie String?
+  logicielIdLogiciel  Int?
+  priorite            String
+  dateCreation        DateTime
+  dateCloture         DateTime
+  natureIncident      String
+  solutionRealisee    String
+  etatReclamation     String
+  emplacement         String
+  demandeur           Utilisateur? @relation("DemandeurRelation", fields: [demandeurId], references: [idUtilisateur])
+  intervenant         Utilisateur? @relation("IncidentRelation", fields: [intervenantId], references: [idUtilisateur])
+  Materiel            Materiel?    @relation(fields: [materielNumeroSerie], references: [numeroSerie])
+  Logiciel            Logiciel?    @relation(fields: [logicielIdLogiciel], references: [idLogiciel])
 }
 
 model Consommation {
