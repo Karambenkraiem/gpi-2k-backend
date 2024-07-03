@@ -5,7 +5,9 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class InstallationService {
+  
   constructor(private prisma: PrismaService) {}
+
   create(createInstallationDto: CreateInstallationDto) {
     return this.prisma.installation.create({
       data: {
