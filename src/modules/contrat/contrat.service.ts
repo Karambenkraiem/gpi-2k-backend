@@ -10,7 +10,7 @@ export class ContratService {
   create(createContratDto: CreateContratDto) {
     return this.prisma.contrat.create({
       data: createContratDto
-    })
+    })    
   }
 
   findAll() {

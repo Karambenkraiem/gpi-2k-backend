@@ -1,8 +1,9 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateContratDto } from './create-contrat.dto';
-import { $Enums } from '@prisma/client';
+import { $Enums, Prisma } from '@prisma/client';
 
 export class UpdateContratDto extends PartialType(CreateContratDto) {
+    idSociete: Prisma.SocieteCreateNestedOneWithoutContratInput;
     dateDebutContrat?: string | Date;
     dateFinContrat?: string | Date;
     montantContrat: number;
