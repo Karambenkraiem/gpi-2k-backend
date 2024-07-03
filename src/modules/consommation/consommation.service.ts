@@ -24,6 +24,9 @@ export class ConsommationService {
         },
         Stocks:{
           select:{ refArt:true, categorie:true, marque:true, modele:true, quantiteStock:true}
+        },
+        Utilisateur:{
+          select:{ fullName:true}
         }        
       }
     });

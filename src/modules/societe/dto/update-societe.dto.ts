@@ -9,9 +9,12 @@ export class UpdateSocieteDto extends PartialType(CreateSocieteDto) {
     email: string;
     numtel: string;
     secteurActivite: string;
-    typeSociete: $Enums.TypeSociete ;
+    typeSociete: $Enums.TypeSociete;
     Materiel?: Prisma.MaterielCreateNestedManyWithoutSocieteInput;
+    Alimentation?: Prisma.AlimentationCreateNestedManyWithoutSocieteInput;
+    Contrat?: Prisma.ContratCreateNestedManyWithoutIdSocieteInput;
+    Logiciel?: Prisma.LogicielCreateNestedManyWithoutSocieteInput;
     
-
+   
 
 }
