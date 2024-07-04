@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-
+import  * as bcrypt from 'bcrypt'
 const prisma = new PrismaClient();
 
 async function seed() {
@@ -166,12 +166,13 @@ async function seed() {
       },
     ],
   });
-
+  const salt= await bcrypt.genSalt()
+  const hashedPassword=await bcrypt.hash('123', salt)
   await prisma.utilisateur.createMany({
     data: [
       {
         idUtilisateur: 616,
-        password: '123',
+        password:hashedPassword,
         fullName: 'Kheireddine MHAMDI',
         email: 'kh.mhamdi@teci.com.tn',
         createdAt: new Date(),
@@ -184,7 +185,7 @@ async function seed() {
       },
       {
         idUtilisateur: 617,
-        password: '123',
+        password:hashedPassword,
         fullName: 'Lotfi DELLAI',
         email: 'dli@teci.com.tn',
         createdAt: new Date(),
@@ -197,7 +198,7 @@ async function seed() {
       },
       {
         idUtilisateur: 470,
-        password: '123',
+        password:hashedPassword,
         fullName: 'Mohamed Yacine HBAILI',
         email: 'my.hbaili@teci.com.tn',
         createdAt: new Date(),
@@ -210,7 +211,7 @@ async function seed() {
       },
       {
         idUtilisateur: 448,
-        password: '123',
+        password:hashedPassword,
         fullName: 'Sami ABDELLAH',
         email: 'smi@teci.com.tn',
         createdAt: new Date(),
@@ -223,7 +224,7 @@ async function seed() {
       },
       {
         idUtilisateur: 450,
-        password: '123',
+        password:hashedPassword,
         fullName: 'Nedra KARAOULI',
         email: 'kar@teci.com.tn',
         createdAt: new Date(),

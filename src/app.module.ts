@@ -17,10 +17,11 @@ import { ConsommationModule } from './modules/consommation/consommation.module';
 import { ContratModule } from './modules/contrat/contrat.module';
 import { IncidentModule } from './modules/incident/incident.module';
 import { SignatureModule } from './modules/signature/signature.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 
 @Module({
-  imports: [SocieteModule, UtilisateurModule, MaterielModule, DepartementModule, SpecialiteModule, AffectationModule, EmpruntModule, StocksModule, LogicielsModule, AlimentationModule, LicenceModule, InstallationModule, ConsommationModule, ContratModule, IncidentModule, SignatureModule],
+  imports: [SocieteModule, UtilisateurModule, MaterielModule, DepartementModule, SpecialiteModule, AffectationModule, EmpruntModule, StocksModule, LogicielsModule, AlimentationModule, LicenceModule, InstallationModule, ConsommationModule, ContratModule, IncidentModule, SignatureModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
