@@ -17,8 +17,8 @@ datasource db {
 
 model Contrat {
   idContrat          Int         @id @default(autoincrement())
-  dateDebutContrat   DateTime   @default(now())
-  dateFinContrat     DateTime?    @default(now())
+  dateDebutContrat   DateTime    @default(now())
+  dateFinContrat     DateTime?
   montantContrat     Float?
   descriptionContrat String?
   contratRenouvable  Boolean?
@@ -27,17 +27,13 @@ model Contrat {
   Signature          Signature[]
 }
 
-
-
-
-
 model Signature {
-  idSignature      Int      @id @default(autoincrement())
-  idSociete Int?
-  idContrat Int?
-  dateSignature    DateTime @default(now())
-  Societe          Societe? @relation(fields: [idSociete], references: [idSociete])
-  Contrat          Contrat? @relation(fields: [idContrat], references: [idContrat])
+  idSignature   Int      @id @default(autoincrement())
+  idSociete     Int?
+  idContrat     Int?
+  dateSignature DateTime @default(now())
+  Societe       Societe? @relation(fields: [idSociete], references: [idSociete])
+  Contrat       Contrat? @relation(fields: [idContrat], references: [idContrat])
 }
 
 model Stocks {

@@ -38,6 +38,11 @@ export class AlimentationService {
         refArt,
         
       },
+      include: {
+        Societe: {
+          select: { raisonSociale: true }
+        }
+      }
     });
   }
 

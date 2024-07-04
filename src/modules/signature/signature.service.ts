@@ -14,13 +14,26 @@ export class SignatureService {
   }
 
   findAll() {
-    return this.prisma.signature.findMany();
+    return this.prisma.signature.findMany({
+      include: {
+        Societe: {
+          select: { raisonSociale: true }
+        },
+        Contrat: true
+      }
+    });
   }
 
   findOne(idSignature: number) {
     return this.prisma.signature.findUnique({
-      where: { idSignature }
+      where: { idSignature },
+      include: {
+        Societe: {
+          select: { raisonSociale: true }
+        }
+      }
     })
+
   }
 
   update(idSignature: number, updateSignatureDto: UpdateSignatureDto) {
