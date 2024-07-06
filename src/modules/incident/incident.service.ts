@@ -8,10 +8,11 @@ export class IncidentService {
 
   constructor(private prisma: PrismaService) {}
 
-  create(createIncidentDto: CreateIncidentDto) {
+  create(createIncidentDto: CreateIncidentDto,idDemendeur:number) {
     return this.prisma.incident.create({
       data:{
         ...createIncidentDto,
+        demandeurId:idDemendeur,
         dateCreation: new Date(
           createIncidentDto.dateCreation,
         )?.toISOString(),
