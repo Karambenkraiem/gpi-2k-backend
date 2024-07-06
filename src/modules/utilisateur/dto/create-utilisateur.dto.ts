@@ -16,4 +16,5 @@ export class CreateUtilisateurDto implements Prisma.UtilisateurCreateInput{
     Emprunt?: Prisma.EmpruntCreateNestedManyWithoutUtilisateurInput;
     Specialite?: Prisma.SpecialiteCreateNestedOneWithoutUtilisateurInput;
     
+    
 }
