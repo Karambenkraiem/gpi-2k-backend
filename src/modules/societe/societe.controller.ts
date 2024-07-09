@@ -22,8 +22,8 @@ export class SocieteController {
   
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.societeService.findOne(+id);
+  findOne(@Param('id') idSociete: string) {
+    return this.societeService.findOne(+idSociete);
   }
 
   @Patch(':id')
