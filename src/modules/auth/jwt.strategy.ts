@@ -19,6 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       where: {
         idUtilisateur: payload.idUtilisateur,
       },
+      include:{Specialite:{include:{Departement:true}}}
     });
     if (!user) {
       throw new HttpException('invalid token', HttpStatus.UNAUTHORIZED);

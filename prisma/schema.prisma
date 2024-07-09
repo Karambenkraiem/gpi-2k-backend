@@ -125,6 +125,7 @@ enum Couleur {
   BLEU
 }
 
+//fini
 model Societe {
   idSociete       Int            @id @default(autoincrement())
   raisonSociale   String
@@ -212,49 +213,55 @@ model Departement {
 }
 
 model Materiel {
-  numeroSerie                   String                 @id
-  categorie                     Categorie              @default(UniteCentrale)
-  marque                        String
-  modele                        String
-  prix                          Float
-  garantie                      String
-  etatMateriel                  EtatMateriel           @default(nouveau)
-  dateAcquisition               DateTime               @default(now())
-  idSociete                     Int
-  disponibilite                 String                 @default("Disponible")
-  nombrePortSwitch              Int?
-  debitSwitch                   Int?
-  technologieSwitch             String?
-  processeurPC                  String?
-  memoireCache                  String?
-  ram                           String?
-  disque                        String?
-  carteGraphique                String?
-  nombreDisque                  String?
-  tailleEcran                   Float?
-  etatBatteriePcPortable        String?
+  numeroSerie     String       @id
+  categorie       Categorie    @default(UniteCentrale)
+  marque          String
+  modele          String
+  prix            Float
+  garantie        String
+  etatMateriel    EtatMateriel @default(nouveau)
+  dateAcquisition DateTime     @default(now())
+  disponibilite   String       @default("Disponible")
+  idSociete       Int
+
+  nombrePortSwitch  Int?
+  debitSwitch       Int?
+  technologieSwitch String?
+
+  processeurPC           String?
+  memoireCache           String?
+  ram                    String?
+  disque                 String?
+  carteGraphique         String?
+  nombreDisque           String?
+  tailleEcran            Float?
+  etatBatteriePcPortable String?
+
   vitesseImpression             String?
   connexionWLU                  ConnexionWLU?
-  technologieOnduleur           TechnologieOnduleur?
   fonctionSupplementaireScanImp String?
   vitesseScanner                String?
   typeScanner                   TypeScanner?
   resolutionScanImpVideoP       String?
   technologieImpression         TechnologieImpression?
   formatScanImp                 String?
-  poidsOnduleur                 String?
-  autonomieOnduleur             String?
-  capaciteChargeOnduleur        String?
-  entreeHDMI_VideoProjecteur    Boolean?
-  entreeVGA_VideoProjecteur     Boolean?
-  entreeUSB_VideoProjecteur     Boolean?
-  entreeLAN_VideoProjecteur     Boolean?
-  Affectation                   Affectation[]
-  Emprunt                       Emprunt[]
-  Societe                       Societe?               @relation(fields: [idSociete], references: [idSociete])
-  Installation                  Installation[]
-  Consommation                  Consommation[]
-  Incident                      Incident[]
+
+  poidsOnduleur          String?
+  autonomieOnduleur      String?
+  capaciteChargeOnduleur String?
+  technologieOnduleur    TechnologieOnduleur?
+
+  entreeHDMI_VideoProjecteur Boolean?
+  entreeVGA_VideoProjecteur  Boolean?
+  entreeUSB_VideoProjecteur  Boolean?
+  entreeLAN_VideoProjecteur  Boolean?
+  
+  Affectation                Affectation[]
+  Emprunt                    Emprunt[]
+  Societe                    Societe?       @relation(fields: [idSociete], references: [idSociete])
+  Installation               Installation[]
+  Consommation               Consommation[]
+  Incident                   Incident[]
 }
 
 model Specialite {
@@ -266,6 +273,7 @@ model Specialite {
   idDepartement    String?
 }
 
+//Fini
 model Utilisateur {
   idUtilisateur        Int             @id
   password             String
@@ -331,6 +339,7 @@ enum Categorie {
   Switch
 }
 
+//fini
 enum TypeSociete {
   FOURNISSEUR
   PRESTATAIRE
