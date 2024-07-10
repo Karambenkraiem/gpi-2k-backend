@@ -38,6 +38,7 @@ model Signature {
 
 model Stocks {
   refArt                     String              @id
+  categorie                  CategorieAccessoire
   marque                     String
   modele                     String
   prix                       Float
@@ -54,7 +55,6 @@ model Stocks {
   typeRam                    String?
   vitesseHDD                 Int?
   autre                      String?
-  categorie                  CategorieAccessoire
   couleurToner               Couleur?
   typeDisqueStockage         TypeDisque?
   interFaceHDD               InterfaceHDD?
