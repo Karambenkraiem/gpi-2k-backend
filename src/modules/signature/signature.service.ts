@@ -8,8 +8,13 @@ export class SignatureService {
   constructor(private readonly prisma: PrismaService) { }
 
   create(createSignatureDto: CreateSignatureDto) {
+    const {dateSignature, ...rest} = createSignatureDto;
+
     return this.prisma.signature.create({
-      data: createSignatureDto
+      data: {
+        ...rest,
+        dateSignature:dateSignature ? new Date(createSignatureDto.dateSignature).toISOString():undefined
+      }
     });
   }
 
