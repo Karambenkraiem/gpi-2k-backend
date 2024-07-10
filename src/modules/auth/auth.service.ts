@@ -54,9 +54,9 @@ export class AuthService {
 
   getMyInfo(user: any) {
     delete user.password;
-    console.log('====================================');
-    console.log(user);
-    console.log('====================================');
+    // console.log('====================================');
+    // console.log(user);
+    // console.log('====================================');
     return user
   }
 
@@ -65,9 +65,9 @@ export class AuthService {
   async update(id: number, updateAuthDto: UpdateAuthDto) {
     const user = await this.prisma.utilisateur.update({ where: { idUtilisateur: id }, data: updateAuthDto, include: { Specialite: { include: { Departement: true } } } });
     const { password, ...rest } = user;
-    console.log('====================================');
-    console.log(rest);
-    console.log('====================================');
+    // console.log('====================================');
+    // console.log(rest);
+    // console.log('====================================');
     return await this.jwtService.signAsync(rest);
   }
 
