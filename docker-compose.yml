@@ -1,17 +1,17 @@
 version: '3.8'
 services:
-  # gpi-pfe-api:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   container_name: gpi-nest-api
-  #   restart: always
-  #   ports:
-  #     - '3000:3000'
-  #   depends_on:
-  #     - gpi-pfe
-  #   env_file:
-  #     - .env
+  gpi-pfe-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gpi-nest-api
+    restart: always
+    ports:
+      - '3000:3000'
+    depends_on:
+      - gpi-pfe
+    env_file:
+      - .env
 
   gpi-pfe:
     image: mysql:8
