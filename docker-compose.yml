@@ -7,7 +7,7 @@ services:
     container_name: gpi-nest-api
     restart: always
     ports:
-      - '3000:3000'
+      - '3001:3000'
     depends_on:
       - gpi-pfe
     env_file:

@@ -25,6 +25,7 @@ CREATE TABLE `Signature` (
 -- CreateTable
 CREATE TABLE `Stocks` (
     `refArt` VARCHAR(191) NOT NULL,
+    `categorie` ENUM('Toner', 'DisqueStockage', 'DisqueDurExterne', 'DisqueDurInterne', 'Clavier', 'Souris', 'FlashDisque', 'CarteGraphique', 'Ram', 'CartoucheEncre', 'Autres') NOT NULL,
     `marque` VARCHAR(191) NOT NULL,
     `modele` VARCHAR(191) NOT NULL,
     `prix` DOUBLE NOT NULL,
@@ -41,7 +42,6 @@ CREATE TABLE `Stocks` (
     `typeRam` VARCHAR(191) NULL,
     `vitesseHDD` INTEGER NULL,
     `autre` VARCHAR(191) NULL,
-    `categorie` ENUM('Toner', 'DisqueStockage', 'DisqueDurExterne', 'DisqueDurInterne', 'Clavier', 'Souris', 'FlashDisque', 'CarteGraphique', 'Ram', 'CartoucheEncre', 'Autres') NOT NULL,
     `couleurToner` ENUM('NOIR', 'COULEUR', 'MAGENTA', 'JAUNE', 'BLEU') NULL,
     `typeDisqueStockage` ENUM('CD', 'DVD') NULL,
     `interFaceHDD` ENUM('SATA', 'USB', 'PCIe', 'IDE') NULL,
